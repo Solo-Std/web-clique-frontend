@@ -1,9 +1,12 @@
 import { Button, Card, CardBody, CardFooter, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { FormGroup } from 'reactstrap';
 import axios from 'axios';
-import * as React from "react/cjs/react.development";
+import React from 'react';
+import {Component} from "react/cjs/react.development";
+import FacebookLoginButton from "./ThirdPartyLogin/FacebookLoginButton";
+import GoogleLoginButton from "./ThirdPartyLogin/GoogleLoginButton";
 
-class Register extends React.Component {
+class Register extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -166,10 +169,10 @@ class Register extends React.Component {
                 <CardFooter className="p-4">
                   <Row>
                     <Col xs="12" sm="6">
-                      <Button className="btn-facebook" onClick={this.test} block><span>facebook</span></Button>
+                      <FacebookLoginButton/>
                     </Col>
                     <Col xs="12" sm="6">
-                      <Button className="btn-google-plus" block><span>Google+</span></Button>
+                      <GoogleLoginButton/>
                     </Col>
                   </Row>
                 </CardFooter>
