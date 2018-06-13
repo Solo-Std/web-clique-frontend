@@ -1,55 +1,160 @@
-import React, { Component } from 'react';
-import { Button, Card, CardBody, CardGroup, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import React from 'react';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Col,
+  Container,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row
+} from 'reactstrap';
+import axios from "axios/index";
+import FacebookLoginButton from "../Register/ThirdPartyLogin/FacebookLoginButton";
+import GoogleLoginButton from "../Register/ThirdPartyLogin/GoogleLoginButton";
 
-class Login extends Component {
+class Login extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      username:'',
+      password:''
+    };
+    this.renderUsername = this.renderUsername.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
+    this.renderPassword = this.renderPassword.bind(this);
+    this.submit = this.submit.bind(this);
+  }
+
+  submit(){
+    console.log(this.state);
+    axios.post('http://localhost:8000/index.php/api/user_master/login',
+      {
+        username: this.state.username,
+        password: this.state.password
+      })
+      .then(res => {
+        if(res.data === "SUCCESS")
+          console.log("SUCCESS");
+        else if(res.data === "FAILED")
+          console.log("FAILED");
+
+      })
+      .catch(error => {
+        console.log(error)
+      });
+  }
+
+  renderUsername(){
+    return (
+      <InputGroup className="mb-3">
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>
+            <i className="icon-user"/>
+          </InputGroupText>
+        </InputGroupAddon>
+        <Input type="text" placeholder="Username"
+               value={this.state.username}
+               onChange={evt => this.setState({username : evt.target.value})}/>
+      </InputGroup>
+    );
+  }
+
+  renderPassword(){
+    return (
+      <InputGroup className="mb-4">
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>
+            <i className="icon-lock"/>
+          </InputGroupText>
+        </InputGroupAddon>
+        <Input type="password" placeholder="Password"
+               value={this.state.password}
+               onChange={evt =>this.setState({password:evt.target.value})}/>
+      </InputGroup>
+    );
+  }
+
+  responseFacebook(response) {
+    return axios.post(`http://localhost:8000/index.php/api/user_master/fb_login`, {
+      username: response.id,
+      password: response.id,
+      email: response.email,
+      token: response.accessToken
+    })
+      .then(res => {
+        if(res.data === "SUCCESS"){
+
+        }
+        else if(res.data === "FAILED"){
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      });
+  }
+
+  responseGoogle(response) {
+    return axios.post(`http://localhost:8000/index.php/api/user_master/gp_login`,
+      {
+        username: response.profileObj.googleId,
+        password: response.profileObj.googleId,
+        email: response.profileObj.email,
+        token: response.accessToken
+      })
+      .then(res => {
+        console.log(res.data);
+        if(res.data === "SUCCESS"){
+
+        }
+        else if(res.data === "FAILED"){
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      });
+  }
+
   render() {
     return (
       <div className="app flex-row align-items-center">
         <Container>
           <Row className="justify-content-center">
-            <Col md="8">
-              <CardGroup>
-                <Card className="p-4">
-                  <CardBody>
-                    <h1>Login</h1>
-                    <p className="text-muted">Sign In to your account</p>
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-user"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="text" placeholder="Username" />
-                    </InputGroup>
-                    <InputGroup className="mb-4">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-lock"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="password" placeholder="Password" />
-                    </InputGroup>
-                    <Row>
-                      <Col xs="6">
-                        <Button color="primary" className="px-4">Login</Button>
-                      </Col>
-                      <Col xs="6" className="text-right">
-                        <Button color="link" className="px-0">Forgot password?</Button>
-                      </Col>
-                    </Row>
-                  </CardBody>
-                </Card>
-                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
-                  <CardBody className="text-center">
-                    <div>
-                      <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                      <Button color="primary" className="mt-3" active>Register Now!</Button>
-                    </div>
-                  </CardBody>
-                </Card>
-              </CardGroup>
+            <Col md="6">
+              <Card className="mx-4">
+                <CardBody className="p-4">
+                  <h1>Login</h1>
+                  <p className="text-muted">Sign In to your account</p>
+
+                  {this.renderUsername()}
+
+                  {this.renderPassword()}
+
+                  <Row>
+                    <Col xs="6">
+                      <Button color="primary" onClick={this.submit} className="px-4">Login</Button>
+                    </Col>
+                    <Col xs="6" className="text-right">
+                      <Button color="link" className="px-0">Forgot password?</Button>
+                    </Col>
+                  </Row>
+
+                </CardBody>
+                <CardFooter className="p-4">
+                  <Row>
+                    <Col xs="12" sm="6">
+                      <FacebookLoginButton/>
+                    </Col>
+                    <Col xs="12" sm="6">
+                      <GoogleLoginButton/>
+                    </Col>
+                  </Row>
+                </CardFooter>
+              </Card>
             </Col>
           </Row>
         </Container>

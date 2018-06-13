@@ -1,25 +1,27 @@
-import React from 'react';
-import FacebookLogin from 'react-facebook-login';
 import axios from "axios/index";
+import React from 'react';
+import FacebookLogin from "react-facebook-login";
 
-class FacebookLoginButton extends React.Component {
+
+class FacebookLoginButton extends React.Component{
+  constructor(props){
+    super(props);
+    this.responseFacebook = this.responseFacebook.bind(this);
+  }
+
   responseFacebook(response) {
-    const user = {
+    return axios.post(`http://localhost:8000/index.php/api/user_master/fb_login`, {
       username: response.id,
       password: response.id,
+      facebook_id: response.id,
       email: response.email,
       token: response.accessToken
-    };
-
-    console.log(user);
-    console.log(response);
-    return axios.post(`http://localhost:8000/index.php/api/user_master/fb_login`, { user })
+    })
       .then(res => {
-        if(res === "SUCCESS"){
-          console.log("SUCCESS");
+        if(res.data === "SUCCESS"){
+
         }
-        else if(res === "FAILED"){
-          console.log("FAILED");
+        else if(res.data === "FAILED"){
         }
       })
       .catch(error => {
@@ -27,16 +29,18 @@ class FacebookLoginButton extends React.Component {
       });
   }
 
-  render() {
+  render(){
     return (
       <FacebookLogin
-        cssClass="btn-facebook"
         appId="469693686819110"
         autoLoad={true}
         fields="name,email,picture"
+        cssClass="btn-facebook"
+        icon="fa-facebook"
         callback={this.responseFacebook}
+        textButton=" Login with Facebook"
       />
-    )
+    );
   }
 }
 
