@@ -1,125 +1,69 @@
 import React, { Component } from 'react';
 import {
-  Button,
-  Card,
-  CardBody,
-  CardTitle,
-  Col,
+  Col, ListGroup, ListGroupItem,
   Row,
 } from 'reactstrap';
+import axios from "axios/index";
+import TimeAgo from 'react-timeago';
 
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
-    this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-
     this.state = {
-      dropdownOpen: false,
-      radioSelected: 2,
+      items:[]
     };
+
+    this.renderItem = this.renderItem.bind(this);
   }
 
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    });
+  componentWillMount(){
+    axios.get(`http://localhost:8000/index.php/api/post_master/`)
+      .then(response =>{
+        let data = [];
+        response.data.map((content,index) => data[index] = content);
+        this.setState({items:data});
+      })
   }
 
-  onRadioBtnClick(radioSelected) {
-    this.setState({
-      radioSelected: radioSelected,
-    });
+  renderItem(){
+    console.log("renderItem()");
+    let data = [];
+    console.log(this.state.items);
+    for(let i = 0; i<this.state.items.length; i++){
+      data.push(
+        <ListGroupItem tag="a" action>
+          <Row>
+            {/*<Col sm="1">*/}
+              <img src="https://picsum.photos/200" width="80" height="60"/>
+            {/*</Col>*/}
+            <Col sm="10">
+              <span className="font-lg">{this.state.items[i]['post_title']}<br/></span>
+              <a className="text-black-50 font-xs" href="#">
+                <strong>#{this.state.items[i]['clique_name']}</strong>
+              </a><br/>
+              <span className="font-xs">Posted by <a href="#">@{this.state.items[i]['username']}</a></span>
+              <span className="font-xs">  <TimeAgo date={this.state.items[i]['date_created']} /></span>
+            </Col>
+          </Row>
+        </ListGroupItem>
+      )
+    }
+    return data;
   }
 
   render() {
-
+    console.log("render()");
+    console.log(this.state.items);
     return (
-
-      <Col sm={"9"}>
+      <Col sm={"12"}>
         <div className="animated fadeIn">
-          <Card>
-            <CardBody>
-              <Row>
-                <img src="https://picsum.photos/200" width="50" height="50"/>
-                <Col sm="9">
-                  <CardTitle className="mb-0">[Bug] Kenapa doi ga peka?</CardTitle>
-                  <Row>
-                    <Col sm="1">
-                      <div className="small text-muted">@heri</div>
-                    </Col>
-
-                    <Col sm="6">
-                      <div className="small text-muted">an hour ago</div>
-                    </Col>
-                  </Row>
-                  I don't have that subreddit in the subreddit menu of the old design but it appear on the new design and it's not possible to remove or unsubscribe from it.
-                  I don't have that subreddit in the subreddit menu of the old design but it appear on the new design and it's not possible to remove or unsubscribe from it.
-                  I don't have that subreddit in the subreddit menu of the old design but it appear on the new design and it's not possible to remove or unsubscribe from it.
-                </Col>
-              </Row>
-
-              <Row>
-              </Row>
-            </CardBody>
-          </Card>
-
-          <Card>
-            <CardBody>
-              <Row>
-                <img src="https://picsum.photos/100" width="50" height="50"/>
-                <Col sm="9">
-
-                  <Row>
-                    <Col sm="4">
-                      <div className="small text-muted">@adjiedjiewhy</div>
-                    </Col>
-                  </Row>
-                  I don't have that subreddit in the subreddit menu of the old design but it appear on the new design and it's not possible to remove or unsubscribe from it.
-                  I don't have that subreddit in the subreddit menu of the old design but it appear on the new design and it's not possible to remove or unsubscribe from it.
-                  I don't have that subreddit in the subreddit menu of the old design but it appear on the new design and it's not possible to remove or unsubscribe from it.
-
-
-                  <Row>
-                    <Col sm={"1"}>
-                      <Button>
-                        Like
-                      </Button>
-                    </Col>
-                    <Col sm={"1"}>
-                      <Button>
-                        Reply
-                      </Button>
-                    </Col>
-                    <Col sm={"2"}>
-                      <div className="small text-muted">2 hours ago</div>
-                    </Col>
-                  </Row>
-
-
-                </Col>
-
-              </Row>
-
-              <Row>
-
-              </Row>
-            </CardBody>
-          </Card>
-
+          <ListGroup>
+            {this.renderItem()}
+          </ListGroup>
         </div>
       </Col>
-
-
-
-
-
-
-
-
-
     );
   }
 }

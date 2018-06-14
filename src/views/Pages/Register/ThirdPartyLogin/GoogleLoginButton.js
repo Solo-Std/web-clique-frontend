@@ -34,7 +34,7 @@ class GoogleLoginButton extends React.Component{
   render(){
     return (
       <GoogleLogin
-        className="btn-google-plus"
+        className="btn-google-plus fa fa-google-plus"
         clientId="709282008481-2140ljc3dd865ld0rp818lklnh381di8.apps.googleusercontent.com"
         buttonText=" Login with Google"
         onSuccess={this.responseGoogle}
