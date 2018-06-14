@@ -2,8 +2,7 @@
 Clique Project is a university final project for Web Programming course. The main project requirement is using CodeIgniter.
 
 ## Author
- - Michael Oswin Yuwono (a.k.a Owen Yuwono)
- - [owenyuwono@gmail.com](mailto:owenyuwono@gmail.com)
+ - Owen Yuwono ([owenyuwono@gmail.com](mailto:owenyuwono@gmail.com))
 
 ## Development Stack
 This project is created using :
