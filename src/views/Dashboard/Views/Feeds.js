@@ -31,7 +31,7 @@ class Feeds extends Component{
     console.log(this.state.items);
     for(let i = 0; i<this.state.items.length; i++){
       data.push(
-        <ListGroupItem tag="a" action>
+        <ListGroupItem tag="a" onClick={()=>this.props.onClick(this.state.items[i]['post_id'])}>
           <Row>
             {/*<Col sm="1">*/}
             <img src="https://picsum.photos/200" width="80" height="60"/>

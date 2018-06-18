@@ -10,38 +10,40 @@ class Feeds extends Component{
     super(props);
 
     this.state = {
-      items:[]
+      comments:[],
+      posts:[]
     };
 
     this.renderItem = this.renderItem.bind(this);
   }
 
   componentWillMount(){
-    axios.get(`http://localhost:8000/index.php/api/comment_master/1`)
+    axios.get(`http://localhost:8000/index.php/api/comment_master/`+this.props.id)
       .then(response =>{
         let data = [];
         response.data.map((content,index) => data[index] = content);
-        this.setState({items:data});
-        console.log(this.state.items);
-      })
+        this.setState({comments:data});
+      });
+    axios.get(`http://localhost:8000/index.php/api/post_master/`+this.props.id)
+      .then(response =>{
+        this.setState({posts:response.data});
+      });
   }
 
   renderItem(){
-    console.log("renderItem()");
     let data = [];
-    console.log(this.state.items);
-    for(let i = 0; i<this.state.items.length; i++){
+    for(let i = 0; i<this.state.comments.length; i++){
       data.push(
         <ListGroupItem tag="a" action>
           <Row>
             <Col sm="10">
-              <span className="font-xs">Posted by <a href="#">@{this.state.items[i]['username']}</a></span>
-              <span className="font-xs">&nbsp;<TimeAgo date={this.state.items[i]['date_created']} /></span>
+              <span className="font-xs">Posted by <a href="#">@{this.state.comments[i]['username']}</a></span>
+              <span className="font-xs">&nbsp;<TimeAgo date={this.state.comments[i]['date_created']} /></span>
             </Col>
           </Row>
           <Row>
             <Col sm={"10"}>
-              <span className="font-sm">{this.state.items[i]['comment']}<br/></span>
+              <span className="font-sm">{this.state.comments[i]['comment']}<br/></span>
             </Col>
           </Row>
           <Row>
@@ -59,23 +61,23 @@ class Feeds extends Component{
 
   render() {
     console.log("render()");
-    console.log(this.state.items);
+    console.log(this.state.comments);
     return (
       <Col sm={"12"}>
         <ListGroupItem>
           <Container>
             <Row>
               <a className="text-black-50 font-xs" href="#">
-                <strong>#clique_name</strong>
+                <strong>#{this.state.posts['clique_name']}</strong>
               </a><br/>
-              <span className="font-xs">&nbsp;Posted by <a href="#">@username</a></span>
-              {/*<span className="font-xs">  <TimeAgo date={this.state.items[0]['date_created']} /></span>*/}
+              <span className="font-xs">&nbsp;Posted by <a href="#">@{this.state.posts['username']}</a></span>
+              <span className="font-xs">  <TimeAgo date={this.state.posts['date_created']} /></span>
             </Row>
             <Row>
-              <span className="font-lg">Post Title<br/></span>
+              <span className="font-lg">{this.state.posts['post_title']}<br/></span>
             </Row>
             <Row>
-              <i className={"fa fa-comment"}/>&nbsp;<span className="font-xs">{this.state.items.length} Comments<br/></span>
+              <i className={"fa fa-comment"}/>&nbsp;<span className="font-xs">{this.state.comments.length} Comments<br/></span>
             </Row>
             <Row>
               <Col xs={"12"}>

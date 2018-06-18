@@ -11,7 +11,8 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      state:viewState.POST
+      state:viewState.HOME,
+      post_id:0
     };
   }
 
@@ -19,9 +20,9 @@ class Dashboard extends Component {
   {
     switch ( this.state.state ) {
       case viewState.HOME:
-        return <Feeds/>;
+        return <Feeds onClick={d=>this.setState({state:viewState.POST,post_id:d})}/>;
       case viewState.POST:
-        return <Post/>;
+        return <Post id={this.state.post_id}/>;
       default:
         return <Feeds/>;
     }
