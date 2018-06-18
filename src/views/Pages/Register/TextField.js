@@ -1,5 +1,6 @@
 import { FormGroup, Input, InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
 import React from 'react';
+import {validState} from './Register'
 
 class TextField extends React.Component{
   constructor(props){
@@ -10,8 +11,9 @@ class TextField extends React.Component{
     return (
       <Input type={this.props.type}
              value={this.props.value}
-             valid={(this.props.valid === 1)?true:null}
-             invalid={(this.props.valid === 0)?true:null}
+             valid={(this.props.valid === validState.VALID)?true:null}
+             invalid={(this.props.valid !== validState.NONE &&
+                        this.props.valid !== validState.VALID)?true:null}
              onChange={this.props.onChange}
              onBlur={this.props.onBlur}
              placeholder={this.props.placeholder}/>

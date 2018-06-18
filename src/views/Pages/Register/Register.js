@@ -5,14 +5,26 @@ import FacebookLoginButton from "./ThirdPartyLogin/FacebookLoginButton";
 import GoogleLoginButton from "./ThirdPartyLogin/GoogleLoginButton";
 import TextField from "./TextField";
 
+export const validState = {
+  NONE: 1,
+  VALID: 2,
+  EMPTY_STRING: 3,
+  INVALID_FORMAT: 4,
+  CONTAINS_WHITESPACE: 5,
+  INSUFFICIENT_LENGTH: 6,
+  UNEXPECTED_SYMBOLS: 7,
+  NOT_AVAILABLE: 8,
+  DIFFERENT_PASSWORD: 9
+};
+
 class Register extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      username:{ value:'', valid:-1 },
-      password:{ value:'', valid:-1 },
-      confirm_password:{ value:'', valid:-1 },
-      email:{ value:'', valid:-1 },
+      username:{ value:'', valid:validState.NONE },
+      password:{ value:'', valid:validState.NONE },
+      confirm_password:{ value:'', valid:validState.NONE },
+      email:{ value:'', valid:validState.NONE },
       state:"OK"
     };
     this.create = this.create.bind(this);
@@ -58,34 +70,38 @@ class Register extends React.Component {
     }
   }
 
+  generateSubtitleText(state, text){
+    switch(state.valid){
+      case validState.EMPTY_STRING:
+        return ( <p className="text-danger"> {text} cannot be empty </p> );
+      case validState.INVALID_FORMAT:
+        return ( <p className="text-danger"> {text} format is invalid </p> );
+      case validState.CONTAINS_WHITESPACE:
+        return ( <p className="text-danger"> {text} cannot contain spaces </p> );
+      case validState.INSUFFICIENT_LENGTH:
+        return ( <p className="text-danger"> {text} is too short </p> );
+      case validState.UNEXPECTED_SYMBOLS:
+        return ( <p className="text-danger"> Unexpected symbols found </p> );
+      case validState.NOT_AVAILABLE:
+        return ( <p className="text-danger"> {text} is already taken </p> );
+      case validState.DIFFERENT_PASSWORD:
+        return ( <p className="text-danger"> Password and Repeat Password is different </p> );
+      default:
+        return ( <p className="text-muted"> Create your account </p> );
+    }
+  }
+
   renderSubtitle(){
-    const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-    if(this.state.username.valid === 0){
-      if(this.state.username.value === '')
-        return ( <p className="text-danger"> Username cannot be empty </p> );
-      else
-        return ( <p className="text-danger"> Username is taken </p> );
-    }
-    else if(this.state.email.valid === 0){
-      if(this.state.email.value === '')
-        return ( <p className="text-danger" > Email cannot be empty </p> );
-      else if(!email_regex.test(this.state.email.value))
-        return ( <p className="text-danger" > Email format is invalid </p> );
-      else
-        return ( <p className="text-danger" > Email is taken </p> );
-    }
-    else if(this.state.password.valid === 0){
-      if(this.state.password.value === this.state.confirm_password.value)
-        return ( <p className="text-danger " > Password cannot be empty </p> );
-      else
-        return ( <p className="text-danger" > Different Password </p> );
-    }
-    else if(this.state.confirm_password.valid === 0){
-      return ( <p className="text-danger" > Repeat Password cannot be empty </p> );
-    }
-    else {
-      return ( <p className="text-muted"> Create your account </p> );
-    }
+    if(this.state.username.valid !== validState.VALID)
+      return this.generateSubtitleText(this.state.username,"Username");
+    else if(this.state.email.valid !== validState.VALID)
+      return this.generateSubtitleText(this.state.email,"Email");
+    else if(this.state.password.valid !== validState.VALID)
+      return this.generateSubtitleText(this.state.password,"Password");
+    else if(this.state.confirm_password.valid !== validState.VALID)
+      return this.generateSubtitleText(this.state.confirm_password,"Repeat Password");
+    else
+      return this.generateSubtitleText(this.state.username,"");
   }
 
   render() {
@@ -104,24 +120,32 @@ class Register extends React.Component {
                              valid={ this.state.username.valid }
                              onChange={ evt =>{
                                this.setValue(this.state.username,evt.target.value);
-                               this.setValid(this.state.username,-1);
+                               this.setValid(this.state.username,validState.NONE);
                              } }
                              onBlur={ (evt) => {
-                               if(evt.target.value !== ''){
+                               const whitespace = /^\S+$/;
+                               const format = /^[a-z\d\-_]+$/i;
+                               if(evt.target.value.length < 4)
+                                 this.setValid(this.state.username,validState.INSUFFICIENT_LENGTH);
+                               else if(!whitespace.test(evt.target.value))
+                                 this.setValid(this.state.username,validState.CONTAINS_WHITESPACE);
+                               else if(!format.test(evt.target.value))
+                                 this.setValid(this.state.username,validState.INVALID_FORMAT);
+                               else if(evt.target.value === '')
+                                 this.setValid(this.state.username,validState.EMPTY_STRING);
+                               else{
+                                 this.setValid(this.state.username,validState.VALID);
                                  axios.post('http://localhost:8000/index.php/api/user_master/check_username',
                                    { username: this.state.username.value })
                                    .then(res => {
                                      if(res.data === "SUCCESS")
-                                       this.setValid(this.state.username,1);
+                                       this.setValid(this.state.username,validState.VALID);
                                      else if(res.data === "FAILED")
-                                       this.setValid(this.state.username,0);
+                                       this.setValid(this.state.username,validState.NOT_AVAILABLE);
                                    })
                                    .catch(error => {
                                      console.log(error)
                                    });
-                               }
-                               else{
-                                 this.setValid(this.state.username,0);
                                }
                              } }
                              placeholder="Username"
@@ -131,26 +155,28 @@ class Register extends React.Component {
                              value={ this.state.email.value }
                              valid={ this.state.email.valid }
                              onChange={evt => {
-                               this.setValid(this.state.email,-1);
+                               this.setValid(this.state.email, validState.NONE);
                                this.setValue(this.state.email,evt.target.value);
                              }}
                              onBlur={ evt => {
-                               const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-                               if(!email_regex.test(evt.target.value)){
-                                 this.setValid(this.state.email,0);
-                               }
-                               else if(evt.target.value === ''){
-                                 this.setValid(this.state.email,0);
-                               }
+                               const whitespace = /^\S+$/;
+                               const format = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+                               if(!whitespace.test(evt.target.value))
+                                 this.setValid(this.state.email,validState.CONTAINS_WHITESPACE);
+                               if(!format.test(evt.target.value))
+                                 this.setValid(this.state.email,validState.INVALID_FORMAT);
+                               else if(evt.target.value === '')
+                                 this.setValid(this.state.email,validState.EMPTY_STRING);
                                else{
+                                 this.setValid(this.state.username,validState.VALID);
                                  axios.post(`http://localhost:8000/index.php/api/user_master/check_email`
                                    , { email: this.state.email.value })
                                    .then(res => {
                                      if(res.data === "SUCCESS"){
-                                       this.setValid(this.state.email,1);
+                                       this.setValid(this.state.email,validState.VALID);
                                      }
                                      else if(res.data === "FAILED"){
-                                       this.setValid(this.state.email,0);
+                                       this.setValid(this.state.email,validState.NOT_AVAILABLE);
                                      }
                                    })
                                    .catch(error => {
@@ -166,12 +192,17 @@ class Register extends React.Component {
                              value={ this.state.password.value }
                              valid={ this.state.password.valid }
                              onChange={evt => {
-                               this.setValid(this.state.password,-1);
+                               this.setValid(this.state.password,validState.NONE);
                                this.setValue(this.state.password,evt.target.value);
                              }}
                              onBlur={evt => {
-                               if(this.state.password.value === '')
-                                 this.setValid(this.state.password,0);
+                               const whitespace = /^\S+$/;
+                               if(!whitespace.test(evt.target.value))
+                                 this.setValid(this.state.password,validState.CONTAINS_WHITESPACE);
+                               else if(this.state.password.value === '')
+                                 this.setValid(this.state.password,validState.EMPTY_STRING);
+                               else
+                                 this.setValid(this.state.password, validState.VALID);
                              }}
                              placeholder="Password"
                              icon="fa fa-lock"/>
@@ -180,12 +211,19 @@ class Register extends React.Component {
                              value={ this.state.confirm_password.value }
                              valid={ this.state.confirm_password.valid }
                              onChange={evt => {
-                               this.setValid(this.state.confirm_password,-1);
+                               this.setValid(this.state.confirm_password,validState.NONE);
                                this.setValue(this.state.confirm_password,evt.target.value);
                              }}
                              onBlur={evt => {
-                               if(this.state.confirm_password.value === '')
-                                 this.setValid(this.state.confirm_password,0);
+                               const whitespace = /^\S+$/;
+                               if(!whitespace.test(evt.target.value))
+                                 this.setValid(this.state.confirm_password,validState.CONTAINS_WHITESPACE);
+                               else if(this.state.confirm_password.value === '')
+                                 this.setValid(this.state.confirm_password,validState.EMPTY_STRING);
+                               else if(this.state.password.value !== this.state.confirm_password.value)
+                                 this.setValid(this.state.confirm_password, validState.DIFFERENT_PASSWORD);
+                               else
+                                 this.setValid(this.state.confirm_password, validState.VALID);
                              }}
                              placeholder="Repeat Password"
                              icon="fa fa-lock"/>

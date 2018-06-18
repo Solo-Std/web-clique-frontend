@@ -21,42 +21,91 @@ export default {
       icon: 'icon-energy',
     },
     {
-      title: true,
       name: 'Subscribed',
-      wrapper: {
-        element: '',
-        attributes: {},
-      },
+      children: [
+        {
+          name: 'Base',
+          icon: 'icon-puzzle'
+        },
+        {
+          name: 'Buttons',
+          icon: 'icon-cursor'
+        },
+        {
+          name: 'Charts',
+          icon: 'icon-pie-chart',
+        },
+        {
+          name: 'Icons',
+          icon: 'icon-star'
+        },
+        {
+          name: 'Notifications',
+          icon: 'icon-bell'
+        },
+        {
+          name: 'Widgets',
+          icon: 'icon-calculator'
+        }
+      ]
     },
     {
-      name: 'Base',
-      url: '/base',
-      icon: 'icon-puzzle'
+      name: 'Subscribed',
+      children: [
+        {
+          name: 'Base',
+          icon: 'icon-puzzle'
+        },
+        {
+          name: 'Buttons',
+          icon: 'icon-cursor'
+        },
+        {
+          name: 'Charts',
+          icon: 'icon-pie-chart',
+        },
+        {
+          name: 'Icons',
+          icon: 'icon-star'
+        },
+        {
+          name: 'Notifications',
+          icon: 'icon-bell'
+        },
+        {
+          name: 'Widgets',
+          icon: 'icon-calculator'
+        }
+      ]
     },
     {
-      name: 'Buttons',
-      url: '/buttons',
-      icon: 'icon-cursor'
-    },
-    {
-      name: 'Charts',
-      url: '/charts',
-      icon: 'icon-pie-chart',
-    },
-    {
-      name: 'Icons',
-      url: '/icons',
-      icon: 'icon-star'
-    },
-    {
-      name: 'Notifications',
-      url: '/notifications',
-      icon: 'icon-bell'
-    },
-    {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'icon-calculator'
+      name: 'Subscribed',
+      children: [
+        {
+          name: 'Base',
+          icon: 'icon-puzzle'
+        },
+        {
+          name: 'Buttons',
+          icon: 'icon-cursor'
+        },
+        {
+          name: 'Charts',
+          icon: 'icon-pie-chart',
+        },
+        {
+          name: 'Icons',
+          icon: 'icon-star'
+        },
+        {
+          name: 'Notifications',
+          icon: 'icon-bell'
+        },
+        {
+          name: 'Widgets',
+          icon: 'icon-calculator'
+        }
+      ]
     },
     {
       divider: true,
