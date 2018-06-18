@@ -8,21 +8,20 @@ export const viewState = {
 };
 
 class Dashboard extends Component {
-  constructor(props){
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
-      state:viewState.HOME,
-      post_id:0
+      state: viewState.HOME,
+      post_id: 0
     };
   }
 
-  render()
-  {
+  render() {
     switch ( this.state.state ) {
       case viewState.HOME:
-        return <Feeds onClick={d=>this.setState({state:viewState.POST,post_id:d})}/>;
+        return <Feeds onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }/>;
       case viewState.POST:
-        return <Post id={this.state.post_id}/>;
+        return <Post id={ this.state.post_id }/>;
       default:
         return <Feeds/>;
     }
