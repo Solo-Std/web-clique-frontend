@@ -12,17 +12,19 @@ import { ButtonIcon } from "rmwc/Button/index";
 import { Ripple } from 'rmwc/Ripple';
 
 const BLOCK_TAGS = {
-  blockquote: 'quote',
+  blockquote: 'block-quote',
   p: 'paragraph',
-  pre: 'code'
+  h1: 'heading-one',
+  h2: 'heading-two'
 };
-​
+
 const MARK_TAGS = {
   em: 'italic',
   strong: 'bold',
-  u: 'underline'
+  u: 'underlined',
+  pre: 'code'
 };
-​
+
 const rules = [
   {
     deserialize( el, next ) {
@@ -34,28 +36,25 @@ const rules = [
           data: {
             className: el.getAttribute( 'class' ),
           },
-          nodes: next( el.childNodes ),
+          nodes: next( el.childNodes )
         };
       }
     },
     serialize( obj, children ) {
-      if ( obj.object == 'block' ) {
+      if ( obj.object === 'block' ) {
         switch ( obj.type ) {
-          case 'code':
-            return (
-              <pre>
-                <code>{ children }</code>
-              </pre>
-            );
           case 'paragraph':
             return <p className={ obj.data.get( 'className' ) }>{ children }</p>;
-          case 'quote':
+          case 'block-quote':
             return <blockquote>{ children }</blockquote>;
+          case 'heading-one':
+            return <h1>{ children }</h1>;
+          case 'heading-two':
+            return <h2>{ children }</h2>;
         }
       }
-    },
+    }
   },
-  // Add a new rule that handles marks...
   {
     deserialize( el, next ) {
       const type = MARK_TAGS[ el.tagName.toLowerCase() ];
@@ -63,18 +62,24 @@ const rules = [
         return {
           object: 'mark',
           type: type,
-          nodes: next( el.childNodes ),
+          nodes: next( el.childNodes )
         };
       }
     },
     serialize( obj, children ) {
       if ( obj.object == 'mark' ) {
         switch ( obj.type ) {
+          case 'code':
+            return (
+              <pre>
+                <code>{ children }</code>
+              </pre>
+            );
           case 'bold':
             return <strong>{ children }</strong>;
           case 'italic':
             return <em>{ children }</em>;
-          case 'underline':
+          case 'underlined':
             return <u>{ children }</u>;
         }
       }
@@ -83,7 +88,7 @@ const rules = [
 ];
 
 
-const html = new Html( { rules } );
+export const html = new Html( { rules } );
 const DEFAULT_NODE = 'paragraph';
 
 const isBoldHotkey = isKeyHotkey( 'mod+b' );
@@ -183,7 +188,8 @@ class TextEditor extends Component {
 
   onSubmit = () => {
     const content = html.serialize( this.state.value );
-    console.log( content );
+    this.setState({value:html.deserialize('<p></p>')});
+    this.props.onSubmit(content);
   };
 
   render() {
@@ -237,8 +243,8 @@ class TextEditor extends Component {
         { this.renderBlockButton( 'heading-one', 'looks_one' ) }
         { this.renderBlockButton( 'heading-two', 'looks_two' ) }
         { this.renderBlockButton( 'block-quote', 'format_quote' ) }
-        { this.renderBlockButton( 'numbered-list', 'format_list_numbered' ) }
-        { this.renderBlockButton( 'bulleted-list', 'format_list_bulleted' ) }
+        {/*{ this.renderBlockButton( 'numbered-list', 'format_list_numbered' ) }*/}
+        {/*{ this.renderBlockButton( 'bulleted-list', 'format_list_bulleted' ) }*/}
         { this.renderButton() }
       </div>
     );
@@ -263,7 +269,9 @@ class TextEditor extends Component {
 
   renderButton = () => {
     return (
-      <Button onClick={ this.onSubmit } className={ "float-right text-black-50" } dense><ButtonIcon use="mode_comment"/>Post</Button>
+      <Button onClick={ this.onSubmit }
+              className={ "float-right text-black-50" } dense>
+        <ButtonIcon use="mode_comment"/>Post</Button>
     );
   };
 
