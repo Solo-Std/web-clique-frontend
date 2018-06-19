@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {
+  Card,
   Col, Container, FormGroup, Input, Label, ListGroup, ListGroupItem, Row
 } from 'reactstrap';
 import axios from "axios/index";
 import TimeAgo from 'react-timeago';
+import TextEditor from "./Components/TextEditor";
+import Cards from "../../Base/Cards";
 
 class Feeds extends Component {
   constructor( props ) {
@@ -51,9 +54,9 @@ class Feeds extends Component {
             </Row>
             <Row>
               <Col sm={ "12" }>
-                <a className="text-black-50" href={ "#" }><i className="fa fa-comment"/> Reply</a>
+                <a className="text-black-50 font-sm" href={ "#" }><i className="material-icons font-sm">mode_comment</i> Reply</a>
                 &nbsp;
-                <a className="text-black-50" href={ "#" }><i className="fa fa-thumbs-up"/> Like</a>
+                <a className="text-black-50 font-sm" href={ "#" }><i className="material-icons font-sm">thumb_up</i> Like</a>
               </Col>
             </Row>
           </Col>
@@ -85,32 +88,29 @@ class Feeds extends Component {
 
   renderTitle() {
     return (
-      <ListGroupItem>
-        <Col xs={"12"}>
-          <Row>
-            <a className="text-black-50 font-xs" href="#">
-              <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
-            </a><br/>
-            <span className="font-xs">&nbsp;Posted by <a href="#">@{ this.state.posts[ 'username' ] }</a></span>
-            <span className="font-xs">&nbsp;<TimeAgo date={ this.state.posts[ 'date_created' ] }/></span>
-          </Row>
-          <Row>
-            <span className="font-lg">{ this.state.posts[ 'post_title' ] }<br/></span>
-          </Row>
-          <Row>
-            <i className={ "fa fa-comment" }/>&nbsp;<span
-            className="font-xs">{ this.state.comments.length } Comments<br/></span>
-          </Row>
-          <Row>
-            <Col xs={ "12" }>
-              <FormGroup>
-                <Label for="exampleText">Comment</Label>
-                <Input type="textarea" name="text" id="exampleText"/>
-              </FormGroup>
-            </Col>
-          </Row>
-        </Col>
-      </ListGroupItem>
+      <div>
+        <ListGroupItem>
+          <Col xs={"12"}>
+            <Row>
+              <a className="text-black-50 font-xs" href="#">
+                <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
+              </a><br/>
+              <span className="font-xs">&nbsp;Posted by <a href="#">@{ this.state.posts[ 'username' ] }</a></span>
+              <span className="font-xs">&nbsp;<TimeAgo date={ this.state.posts[ 'date_created' ] }/></span>
+            </Row>
+            <Row>
+              <span className="font-lg">{ this.state.posts[ 'post_title' ] }<br/></span>
+            </Row>
+            <Row>
+              <i className="material-icons font-sm">mode_comment</i>&nbsp;<span
+              className="font-xs">{ this.state.comments.length } Comments<br/></span>
+            </Row>
+          </Col>
+        </ListGroupItem>
+        <ListGroupItem>
+          <TextEditor/>
+        </ListGroupItem>
+      </div>
     );
   }
 

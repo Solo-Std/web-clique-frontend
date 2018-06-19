@@ -14,8 +14,8 @@ class ThemeView extends Component {
   }
 
   componentDidMount () {
-    const elem = ReactDOM.findDOMNode(this).parentNode.firstChild
-    const color = window.getComputedStyle(elem).getPropertyValue('background-color')
+    const elem = ReactDOM.findDOMNode(this).parentNode.firstChild;
+    const color = window.getComputedStyle(elem).getPropertyValue('background-color');
     this.setState({
       bgColor: color || this.state.bgColor
     })
@@ -47,9 +47,9 @@ class ThemeColor extends Component {
   render() {
 
     // const { className, children, ...attributes } = this.props
-    const { className, children } = this.props
+    const { className, children } = this.props;
 
-    const classes = classNames(className, 'theme-color w-75 rounded mb-3')
+    const classes = classNames(className, 'theme-color w-75 rounded mb-3');
 
     return (
       <Col xl="2" md="4" sm="6" xs="12" className="mb-4">
