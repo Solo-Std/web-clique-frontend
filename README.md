@@ -46,9 +46,21 @@ This project is created using :
  - Type `php -S localhost:8000` to run the project
 
 #### Credits
- - [CoreUI](https://coreui.io/react/) for React
+ - Built on top of [CoreUI](https://coreui.io/react/) for React
  - [reactstrap](https://reactstrap.github.io/)
  - [react-bootstrap](https://react-bootstrap.github.io/)
  - [react-timeago](https://www.npmjs.com/package/react-timeago)
  - [react-google-login](https://www.npmjs.com/package/react-google-login)
  - [react-facebook-login](https://www.npmjs.com/package/react-facebook-login)
+ - [slatejs](https://www.slatejs.org)
+ - [material-icons](https://material.io/tools/icons/?style=baseline)
+ - [material-design](https://material.io/) web components
+ - [rmwc](https://github.com/jamesmfriedman/rmwc) a React Wrapper for Material Design (Web) Components
+ - [axios](https://github.com/axios/axios) for HTTP REQUESTS
+ 
+#### Frequently Asked Questions
+ > - Q : My PHP is not recognized in my command prompt
+ > - A : Add your PHP path to windows system environment variables
+ 
+ > - Q : PostgreSQL Driver not found
+ > - A : Go To your PHP directory find a file named php.ini, open and find `;extension=postgres` and delete the `;`
