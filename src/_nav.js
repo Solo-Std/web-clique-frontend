@@ -115,7 +115,7 @@ export default {
     //   name: 'Extras',
     // },
     // {
-    //   name: 'Pages',
+    //   name: 'Views',
     //   url: '/pages',
     //   icon: 'icon-star',
     //   children: [

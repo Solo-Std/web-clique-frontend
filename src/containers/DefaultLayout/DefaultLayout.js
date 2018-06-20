@@ -16,6 +16,7 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 import DefaultHeader from './DefaultHeader';
+import Dashboard from "../../views/Dashboard";
 
 class DefaultLayout extends Component {
   render() {
