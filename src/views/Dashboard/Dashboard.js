@@ -13,7 +13,7 @@ class Dashboard extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      state: viewState.PROFILE,//debug disini, ganti profile
+      state: viewState.HOME,//debug disini, ganti profile
       post_id: 0
     };
   }

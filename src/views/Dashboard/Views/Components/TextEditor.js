@@ -97,9 +97,12 @@ const isUnderlinedHotkey = isKeyHotkey( 'mod+u' );
 const isCodeHotkey = isKeyHotkey( 'mod+`' );
 
 class TextEditor extends Component {
-  state = {
-    value: html.deserialize( '<p></p>' )
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      value: html.deserialize( '<p></p>' )
+    };
+  }
 
   hasMark = type => {
     const { value } = this.state;

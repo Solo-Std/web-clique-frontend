@@ -20,14 +20,14 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    axios.get( `http://localhost:8000/index.php/api/fetch_user_posts/1` )
+    axios.get( `http://project-clique.herokuapp.com/index.php/api/fetch_user_posts/1` )
       .then( response => {
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );
          this.setState( { items: data } );
        } );
 
-    axios.get(`http://localhost:8000/index.php/api/user_master/`)
+    axios.get(`http://project-clique.herokuapp.com/index.php/api/user_master/`)
       .then( response =>
         {
           let data = [];
@@ -128,7 +128,6 @@ class Profile extends Component {
         <br/>
 
         <div className="card-body">
-          {/*<div className="jumbotron jumbotron-fluid">*/}
           <h1 class="display-5">Recent Posts</h1>
             <Col sm={ "12" }>
               <div className="animated fadeIn">
@@ -137,9 +136,7 @@ class Profile extends Component {
                 </ListGroup>
               </div>
             </Col>
-          {/*</div>*/}
         </div>
-
       </div>
     );
   }

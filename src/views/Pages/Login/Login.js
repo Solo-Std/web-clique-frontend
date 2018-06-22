@@ -32,7 +32,7 @@ class Login extends React.Component {
 
   submit(){
     console.log(this.state);
-    axios.post('http://localhost:8000/index.php/api/user_master/login',
+    axios.post('http://project-clique.herokuapp.com/index.php/api/user_master/login',
       {
         username: this.state.username,
         password: this.state.password
@@ -80,7 +80,7 @@ class Login extends React.Component {
   }
 
   responseFacebook(response) {
-    return axios.post(`http://localhost:8000/index.php/api/user_master/fb_login`, {
+    return axios.post(`http://project-clique.herokuapp.com/index.php/api/user_master/fb_login`, {
       username: response.id,
       password: response.id,
       email: response.email,
@@ -99,7 +99,7 @@ class Login extends React.Component {
   }
 
   responseGoogle(response) {
-    return axios.post(`http://localhost:8000/index.php/api/user_master/gp_login`,
+    return axios.post(`http://project-clique.herokuapp.com/index.php/api/user_master/gp_login`,
       {
         username: response.profileObj.googleId,
         password: response.profileObj.googleId,
