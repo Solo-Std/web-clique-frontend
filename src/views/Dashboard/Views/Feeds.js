@@ -30,24 +30,17 @@ class Feeds extends Component {
     console.log( this.state.items );
     for ( let i = 0; i < this.state.items.length; i++ ) {
       data.push(
-<<<<<<< HEAD
-        <ListGroupItem tag="a" >
-=======
         <ListGroupItem>
->>>>>>> b9d2108a5a758cd5088689cb4e497cf446bf8d05
           <Col xs={"12"}>
             <Row>
               { /*<Col sm="1">*/ }
               <img src="https://picsum.photos/200" width="80" height="60"/>
               { /*</Col>*/ }
               <Col sm="10">
-<<<<<<< HEAD
                 <span className="font-lg"><a onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }</a><br/></span>
                 <a className="text-black-50 font-xs" onClick={() => this.props.onCliqueClick( this.state.items[ i ][ 'clique_name' ] )}>
-=======
                 <span className="font-lg"><a onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }<br/></a></span>
                 <a className="text-black-50 font-xs" href="#">
->>>>>>> b9d2108a5a758cd5088689cb4e497cf446bf8d05
                   <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
                 </a><br/>
                 <span className="font-xs">Posted by <a className="text-info" onClick={() => {this.props.onProfileClick(this.state.items[i]['username']);

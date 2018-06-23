@@ -19,43 +19,34 @@ class Dashboard extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-<<<<<<< HEAD
-      state: viewState.CLIQUE,//debug disini, ganti profile
-      post_id: 0,
-      clique_name:'all'
-=======
       state: viewState.HOME,//debug disini, ganti profile
       post_id: 0,
       username: localStorage.getItem('username')
->>>>>>> b9d2108a5a758cd5088689cb4e497cf446bf8d05
+      clique_name:'all'
     };
   }
 
   render() {
     switch ( this.state.state ) {
       case viewState.HOME:
-<<<<<<< HEAD
-        return <Feeds onCliqueClick={d=>this.setState({state:viewState.CLIQUE, clique_name:d})}
-                      onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }/>;
-=======
         return <Feeds onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
-                      onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}/>;
->>>>>>> b9d2108a5a758cd5088689cb4e497cf446bf8d05
+                      onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}
+                      onCliqueClick={d=>this.setState({state:viewState.CLIQUE, clique_name:d})}/>;
       case viewState.POST:
         return <Post id={ this.state.post_id } onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}/>;
       case viewState.PROFILE:
-<<<<<<< HEAD
-        return <Profile onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }/>;
+        return <Profile onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
+                        onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}/>;
         // return<IconLabelButtons/>;
       case viewState.CREATE_POST:
         return <CreatePost/>;
       case viewState.CLIQUE:
         return <Clique clique_name={this.state.clique_name} onClick={ d => this.setState( { state: viewState.POST, post_id: d } )}/>;
-=======
+      case viewState.POST:
+        return <Post id={ this.state.post_id } onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}/>;
+      case viewState.PROFILE:
         return <Profile onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
                         onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}/>;
-
->>>>>>> b9d2108a5a758cd5088689cb4e497cf446bf8d05
       default:
         return <Feeds/>;
     }
