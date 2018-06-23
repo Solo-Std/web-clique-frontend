@@ -67,7 +67,7 @@ const rules = [
       }
     },
     serialize( obj, children ) {
-      if ( obj.object == 'mark' ) {
+      if ( obj.object === 'mark' ) {
         switch ( obj.type ) {
           case 'code':
             return (
@@ -97,18 +97,21 @@ const isUnderlinedHotkey = isKeyHotkey( 'mod+u' );
 const isCodeHotkey = isKeyHotkey( 'mod+`' );
 
 class TextEditor extends Component {
-  state = {
-    value: html.deserialize( '<p></p>' )
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      value: html.deserialize( '<p></p>' )
+    };
+  }
 
   hasMark = type => {
     const { value } = this.state;
-    return value.activeMarks.some( mark => mark.type == type );
+    return value.activeMarks.some( mark => mark.type === type );
   };
 
   hasBlock = type => {
     const { value } = this.state;
-    return value.blocks.some( node => node.type == type );
+    return value.blocks.some( node => node.type === type );
   };
 
   onChange = ( { value } ) => {
@@ -149,7 +152,7 @@ class TextEditor extends Component {
     const { document } = value;
 
     // Handle everything but list buttons.
-    if ( type != 'bulleted-list' && type != 'numbered-list' ) {
+    if ( type !== 'bulleted-list' && type !== 'numbered-list' ) {
       const isActive = this.hasBlock( type );
       const isList = this.hasBlock( 'list-item' );
 
@@ -164,7 +167,7 @@ class TextEditor extends Component {
     } else {
       const isList = this.hasBlock( 'list-item' );
       const isType = value.blocks.some( block => {
-        return !!document.getClosest( block.key, parent => parent.type == type );
+        return !!document.getClosest( block.key, parent => parent.type === type );
       } );
 
       if ( isList && isType ) {
@@ -175,7 +178,7 @@ class TextEditor extends Component {
       } else if ( isList ) {
         change
           .unwrapBlock(
-            type == 'bulleted-list' ? 'numbered-list' : 'bulleted-list'
+            type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list'
           )
           .wrapBlock( type );
       } else {

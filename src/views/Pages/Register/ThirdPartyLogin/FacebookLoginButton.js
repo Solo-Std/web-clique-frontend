@@ -10,7 +10,7 @@ class FacebookLoginButton extends React.Component{
   }
 
   responseFacebook(response) {
-    return axios.post(`http://localhost:8000/index.php/api/user_master/fb_login`, {
+    return axios.post(`http://project-clique.herokuapp.com/index.php/api/user_master/fb_login`, {
       username: response.id,
       password: response.id,
       facebook_id: response.id,

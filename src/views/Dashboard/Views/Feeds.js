@@ -17,7 +17,7 @@ class Feeds extends Component {
   }
 
   componentWillMount() {
-    axios.get( `http://localhost:8000/index.php/api/post_master/` )
+    axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/` )
       .then( response => {
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );

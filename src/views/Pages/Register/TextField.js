@@ -3,10 +3,6 @@ import React from 'react';
 import {validState} from './Register'
 
 class TextField extends React.Component{
-  constructor(props){
-    super(props);
-  }
-
   renderInput(){
     return (
       <Input type={this.props.type}
