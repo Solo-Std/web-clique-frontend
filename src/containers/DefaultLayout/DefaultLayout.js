@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import Sidebar from './Sidebar/Sidebar';
 
 import {
   AppBreadcrumb,
@@ -58,10 +59,7 @@ class DefaultLayout extends Component {
         </AppHeader>
         <div className="app-body">
           <AppSidebar float="true" display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <AppSidebarNav navConfig={navigation} {...this.props} />
-            <AppSidebarFooter />
+            <Sidebar/>
           </AppSidebar>
           <main className="main">
             <AppBreadcrumb appRoutes={routes}/>

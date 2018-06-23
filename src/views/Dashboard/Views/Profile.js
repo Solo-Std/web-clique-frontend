@@ -28,16 +28,6 @@ class Profile extends Component {
         response.data.map( ( content, index ) => data[ index ] = content );
          this.setState( { items: data } );
        } );
-
-    axios.get(`http://project-clique.herokuapp.com/index.php/api/user_master/`)
-      .then( response =>
-        {
-          let data = [];
-          response.data.map((content, index) => data[ index ] = content);
-          this.setState({name: data});
-        }
-
-      );
    }
 
   renderItem() {
