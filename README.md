@@ -19,7 +19,7 @@ Clique Project is a university final project for Web Programming course. The mai
  - link utk user (@)
  - link utk url ke postnya
 ##### Profile Bar :
- - UI dulu aja
+ - Benerin tampilan link saat pencet di feeds/profile
 ##### Notification :
  - UI dibenerin = popup list notif
 ##### User Page :

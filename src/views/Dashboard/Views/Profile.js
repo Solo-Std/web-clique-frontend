@@ -13,16 +13,17 @@ class Profile extends Component {
 
     this.state = {
       items: [],
-      name :[]
+      name : []
     };
 
 
     this.renderItem = this.renderItem.bind( this );
     this.renderName = this.renderName.bind(this);
+    this.showUploadButton = this.showUploadButton.bind(this);
   }
 
   componentWillMount() {
-    axios.get( `http://project-clique.herokuapp.com/index.php/api/fetch_user_posts/1` )
+    axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/fetch_user_posts/` +  localStorage.getItem('visiting_profile'))
       .then( response => {
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );
@@ -35,18 +36,19 @@ class Profile extends Component {
     console.log( this.state.items );
     for ( let i = 0; i < this.state.items.length; i++ ) {
       data.push(
-        <ListGroupItem tag="a" onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>
+        <ListGroupItem>
           <Col xs={"12"}>
             <Row>
               { /*<Col sm="1">*/ }
               <img src="https://picsum.photos/200" width="80" height="60"/>
               { /*</Col>*/ }
               <Col sm="10">
-                <span className="font-lg">{ this.state.items[ i ][ 'post_title' ] }<br/></span>
+                <span className="font-lg" onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }<br/></span>
                 <a className="text-black-50 font-xs" href="#">
                   <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
                 </a><br/>
-                <span className="font-xs">Posted by <a href="#">@{ this.state.items[ i ][ 'username' ] }</a></span>
+                <span className="font-xs">Posted by <a className="text-info" onClick={() => {this.props.onProfileClick(this.state.items[i]['username']);
+                  localStorage.setItem("visiting_profile",this.state.items[i]['username'])}}>@{ this.state.items[ i ][ 'username' ] }</a></span>
                 <span className="font-xs">  <TimeAgo date={ this.state.items[ i ][ 'date_created' ] }/></span>
               </Col>
             </Row>
@@ -61,14 +63,25 @@ class Profile extends Component {
   renderName()
   {
     let data =[];
-    console.log(this.state.name);
-    if(this.state.name.length >0 )data.push(this.state.name[1][ 'username' ]) ;
+    // console.log(this.state.name);
+    // if(this.state.name.length >0 )data.push(this.state.name['user_id']) ;
+    if(localStorage.getItem('username') == localStorage.getItem('visiting_profile'))
+    data.push(<div className="container"><h1 className="display-5">Welcome, {localStorage.getItem('visiting_profile')}!</h1>
+      <p className="lead">View and edit your personal info.</p></div>);
+    else
+      data.push(<div className="container"><h1 className="display-5">{localStorage.getItem('visiting_profile')}'s Profile</h1></div>)
+
+    return data;
+  }
+
+  showUploadButton()
+  {let data = [];
+    if(localStorage.getItem('username') == localStorage.getItem('visiting_profile'))
+      data.push(<IconLabelButtons />);
     return data;
   }
 
   render() {
-    //console.log( "render()" );
-    //console.log( this.state.items );
     return(
       <div className="card">
         <div className="card-body">
@@ -78,15 +91,12 @@ class Profile extends Component {
               <img className="profile-picture" src="https://picsum.photos/100" width="150%" height="100%"/>
             </Col>
             <Col sm="6" className="padding1">
-              <div className="container">
-                <h1 className="display-5 ">Welcome,{this.renderName()}!</h1>
-                <p className="lead">View and edit your personal info.</p>
-              </div>
+                {this.renderName()}
             </Col>
           </Row>
 
           <div>
-            <IconLabelButtons/>
+            {this.showUploadButton()}
           </div>
 
           <div className="row">

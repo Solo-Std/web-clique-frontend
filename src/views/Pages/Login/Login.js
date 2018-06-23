@@ -23,6 +23,8 @@ class Login extends React.Component {
     this.state = {
       username:'',
       password:'',
+      user_id:'',
+      visiting_profile:'',
       submit: false
     };
     this.renderUsername = this.renderUsername.bind(this);
@@ -37,7 +39,9 @@ class Login extends React.Component {
     axios.post('http://project-clique.herokuapp.com/index.php/api/user_master/login',
       {
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        user_id: this.state.user_id,
+        visiting_profile:''
       })
       .then(res => {
         if(res.data === "FAILED")
