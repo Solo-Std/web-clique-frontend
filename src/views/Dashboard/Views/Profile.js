@@ -5,6 +5,8 @@ import {
 import axios from "axios/index";
 import TimeAgo from 'react-timeago';
 import './Profile.css';
+import IconLabelButtons from "./Upload.js";
+
 class Profile extends Component {
   constructor( props ) {
     super( props );
@@ -65,6 +67,7 @@ class Profile extends Component {
     return data;
   }
 
+
   renderName()
   {
     let data =[];
@@ -91,6 +94,10 @@ class Profile extends Component {
               </div>
             </Col>
           </Row>
+
+          <div>
+            <IconLabelButtons/>
+          </div>
 
           <div className="row">
             <div className="col-sm-3">
