@@ -29,8 +29,6 @@ class Profile extends Component {
         response.data.map( ( content, index ) => data[ index ] = content );
          this.setState( { items: data } );
        } );
-
-
    }
 
   renderItem() {
