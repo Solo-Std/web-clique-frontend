@@ -13,16 +13,16 @@ Clique Project is a university final project for Web Programming course. The mai
     - Scrollable
     - Tulisannya/Box di tipisin
  - url ke clique/kategori yang di pilih
-##### Feeds : 
- - link utk clique (#)
- - link utk user (@)
- - link utk url ke postnya
-##### Profile Bar :
+##### Profile Page :
  - Benerin tampilan link saat pencet di feeds/profile
-##### Notification :
+ - Upload File
+##### Profile Bar :
+ - Logout
+ - Tampilin username
+ - link ke Profile Page
+ - Edit Password 
+ ##### Notification :
  - UI dibenerin = popup list notif
-##### User Page :
- - UI User Profile Page
 
 ## Development Stack
 This project is created using :
@@ -53,6 +53,7 @@ This project is created using :
  - [react-timeago](https://www.npmjs.com/package/react-timeago)
  - [react-google-login](https://www.npmjs.com/package/react-google-login)
  - [react-facebook-login](https://www.npmjs.com/package/react-facebook-login)
+ - [react-select](https://github.com/JedWatson/react-select)
  - [slatejs](https://www.slatejs.org)
  - [material-icons](https://material.io/tools/icons/?style=baseline)
  - [material-design](https://material.io/) web components

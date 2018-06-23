@@ -21,7 +21,7 @@ class Dashboard extends Component {
     this.state = {
       state: viewState.HOME,//debug disini, ganti profile
       post_id: 0,
-      username: localStorage.getItem('username')
+      username: localStorage.getItem('username'),
       clique_name:'all'
     };
   }
@@ -42,11 +42,6 @@ class Dashboard extends Component {
         return <CreatePost/>;
       case viewState.CLIQUE:
         return <Clique clique_name={this.state.clique_name} onClick={ d => this.setState( { state: viewState.POST, post_id: d } )}/>;
-      case viewState.POST:
-        return <Post id={ this.state.post_id } onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}/>;
-      case viewState.PROFILE:
-        return <Profile onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
-                        onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}/>;
       default:
         return <Feeds/>;
     }
