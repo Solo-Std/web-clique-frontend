@@ -119,8 +119,9 @@ class Post extends Component {
               <Col xs={ "12" }>
                 <Row>
                   <Col sm="12">
-                    <span className="font-xs">Posted by <a
-                      href="#">@{ this.state.comments[ i ][ 'username' ] }</a></span>
+                    <span className="font-xs">posted by
+                      <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.comments[ i ][ 'username' ]);
+                        localStorage.setItem("visiting_profile",this.state.comments[ i ][ 'username' ])}}>@{ this.state.comments[ i ][ 'username' ] }</a></span>
                     <span className="font-xs">&nbsp;<TimeAgo
                       date={ this.state.comments[ i ][ 'date_created' ] }/></span>
                   </Col>
@@ -163,7 +164,8 @@ class Post extends Component {
                   </span>
               </Ripple>
               &nbsp;
-              <a href="#">@{ this.state.comments[ index ][ 'replies' ][ i ][ 'username' ] }</a>
+              <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.comments[ index ][ 'replies' ][ i ][ 'username' ]);
+                localStorage.setItem("visiting_profile",this.state.comments[ index ][ 'replies' ][ i ][ 'username' ])}}>@{ this.state.comments[ index ][ 'replies' ][ i ][ 'username' ] }</a>
               &nbsp;
               <TimeAgo date={ this.state.comments[ index ][ 'replies' ][ i ][ 'date_created' ] }/>
             </small>
@@ -200,7 +202,8 @@ class Post extends Component {
                 <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
               </a><br/>
               <span className="font-xs">&nbsp;Posted by
-                <a href="#">@{ this.state.posts[ 'username' ] }</a>
+                <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.posts[ 'username' ]);
+                  localStorage.setItem("visiting_profile",this.state.posts[ 'username' ])}}>@{ this.state.posts[ 'username' ] }</a>
               </span>
               <span className="font-xs">&nbsp;
                 <TimeAgo date={ this.state.posts[ 'date_created' ] }/>
