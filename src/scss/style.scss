@@ -6,6 +6,31 @@
 // Temp fix for reactstrap
 @import '@coreui/coreui/scss/_dropdown-menu-right.scss';
 
+@import "@material/list/mdc-list";
+
+.sidebar-container{
+  background-color: #21b5b5;
+}
+
+#c1{
+  height: 100%;
+  width: 100%;
+  border: 1px solid green;
+  overflow: hidden;
+}
+
+.sidebar-scroll {
+  //width: 13.3%;//BRUTE FORCE
+  position: fixed;
+  overflow-y: scroll;//SCROLLBAR IS STILL VIEWABLE
+  top: 45px; //FIRST ITEM IS BRUTE FORCED TO BE VIEWABLE
+  bottom: 0;
+}
+
+.sidebar-text{
+  color: white;
+}
+
 // If you want to add something do it here
 @import "custom";
 
