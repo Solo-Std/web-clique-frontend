@@ -24,6 +24,15 @@ Clique Project is a university final project for Web Programming course. The mai
  - Edit Password 
  ##### Notification :
  - UI dibenerin = popup list notif
+ ### Main Requirements
+ - CodeIgniter :heavy_check_mark:
+ - MVC :heavy_check_mark:
+ - CRUD with MySQL Database (Tinggal Delete)
+ - Login Feature with Session Class :heavy_check_mark:
+ - File Upload
+ - Send Email
+ - XSS & SQL Injection Prevention :heavy_check_mark:
+ - Well-designed UI/UX :heavy_check_mark:
 
 ## Development Stack
 This project is created using :
