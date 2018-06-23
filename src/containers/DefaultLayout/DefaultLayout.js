@@ -16,10 +16,41 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 import DefaultHeader from './DefaultHeader';
-import Dashboard from "../../views/Dashboard";
+import axios from "axios/index";
 
 class DefaultLayout extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      valid_session:true
+    }
+  }
+
+  componentWillMount(){
+    if(localStorage.getItem("session_token") === null ||
+      localStorage.getItem("username") === null){
+      this.setState( { valid_session: false } );
+    }
+    else return axios.post( `http://project-clique.herokuapp.com/index.php/api/user_master/check_session`,
+      {
+        session_token: localStorage.getItem("session_token"),
+        username: localStorage.getItem("username")
+      } )
+      .then( res => {
+        if(res.data === "SUCCESS")
+          this.setState( { valid_session: true } );
+        else
+          this.setState( { valid_session: false } );
+      } )
+      .catch( error => {
+        console.log( error );
+      } );
+  }
+
   render() {
+    if(this.state.valid_session === false){
+      return <Redirect to='/login'/>;
+    }
     return (
       <div className="app">
         <AppHeader fixed>

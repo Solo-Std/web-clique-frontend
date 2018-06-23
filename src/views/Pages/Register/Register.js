@@ -5,10 +5,6 @@ import {
   CardFooter,
   Col,
   Container,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
   Row
 } from 'reactstrap';
 import axios from 'axios';
@@ -71,6 +67,8 @@ class Register extends React.Component {
           email: this.state.email.value
         } )
         .then( res => {
+          localStorage.setItem("session_token",res.data['__ci_last_regenerate']);
+          localStorage.setItem("username",res.data['username']);
           this.setState( { submit: true } );
         } )
         .catch( error => {

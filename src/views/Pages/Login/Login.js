@@ -15,13 +15,15 @@ import {
 import axios from "axios/index";
 import FacebookLoginButton from "../Register/ThirdPartyLogin/FacebookLoginButton";
 import GoogleLoginButton from "../Register/ThirdPartyLogin/GoogleLoginButton";
+import { Redirect } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       username:'',
-      password:''
+      password:'',
+      submit: false
     };
     this.renderUsername = this.renderUsername.bind(this);
     this.responseFacebook = this.responseFacebook.bind(this);
@@ -38,11 +40,14 @@ class Login extends React.Component {
         password: this.state.password
       })
       .then(res => {
-        if(res.data === "SUCCESS")
-          console.log("SUCCESS");
-        else if(res.data === "FAILED")
+        if(res.data === "FAILED")
           console.log("FAILED");
-
+        else{
+          localStorage.setItem("session_token",res.data['__ci_last_regenerate']);
+          localStorage.setItem("username",res.data['username']);
+          this.setState({submit:true});
+          console.log("SUCCESS");
+        }
       })
       .catch(error => {
         console.log(error)
@@ -120,6 +125,9 @@ class Login extends React.Component {
   }
 
   render() {
+    if ( this.state.submit ) {
+      return <Redirect to="/dashboard"/>;
+    }
     return (
       <div className="app flex-row align-items-center">
         <Container>

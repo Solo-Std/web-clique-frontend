@@ -10,7 +10,7 @@ class GoogleLoginButton extends React.Component{
   }
 
   responseGoogle(response) {
-    return axios.post(`http://localhost:8000/index.php/api/user_master/gp_login`,
+    return axios.post(`http://project-clique.herokuapp.com/index.php/api/user_master/gp_login`,
       {
         username: response.profileObj.googleId,
         password: response.profileObj.googleId,
