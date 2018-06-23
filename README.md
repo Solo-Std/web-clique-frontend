@@ -9,21 +9,27 @@ Clique Project is a university final project for Web Programming course. The mai
  
 ## To-Do List
 ### Homepage
-##### Sidebar : 
+##### Sidebar : (Adjie)
  - UI nya di rapikan
-    - Scrollable
-    - Tulisannya/Box di tipisin
  - url ke clique/kategori yang di pilih
 ##### Profile Page :
  - Benerin tampilan link saat pencet di feeds/profile
  - Upload File
-##### Profile Bar :
+##### Profile Bar : (Heri)
+ `DefaultHeader.js`
  - Logout
  - Tampilin username
  - link ke Profile Page
  - Edit Password 
+ ##### Post & Comments : (Adjie)
+ - Upvote, Likes
+ - Delete Post / Comment
  ##### Notification :
  - UI dibenerin = popup list notif
+ ##### Chat System :
+ - Friend List
+ ##### Friend Relationship System : (Owen)
+ - Add Friend, Unfriend
  ### Main Requirements
  - CodeIgniter :heavy_check_mark:
  - MVC :heavy_check_mark:
