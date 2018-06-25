@@ -39,6 +39,7 @@
     "react-bootstrap-sidebar": "0.0.1",
     "react-chartjs-2": "^2.7.2",
     "react-chat-window": "^1.0.8",
+    "react-content-loader": "^3.1.2",
     "react-dom": "^16.4.1",
     "react-facebook-login": "^4.0.1",
     "react-google-login": "^3.2.1",
