@@ -20,28 +20,23 @@ class Sidebar extends Component{
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );
         this.setState( { items: data } );
+        console.log(this.state.items[0]['clique_id']);
       } );
   }
 
   render(){
     return(
       <ul className="mdc-list sidebar-scroll">
-        { this.sayHi() }
         { this.renderClique() }
       </ul>
     );
-  }
-
-  sayHi(){
-    console.log("USER_ID: " + localStorage.getItem('user_id'));
-    console.log("DATA: " + this.state.items.length);
   }
 
   renderClique(){
     let data = [];
     for(let i = 0; i < this.state.items.length; i++){
       data.push(
-        <li className="mdc-list-item sidebar-container sidebar-text">Sidebar item</li>
+        <li className="mdc-list-item sidebar-container sidebar-text">{this.state.items[i]['title']}</li>
       );
     }
 
