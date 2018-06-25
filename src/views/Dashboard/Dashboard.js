@@ -27,6 +27,9 @@ class Dashboard extends Component {
   }
 
   render() {
+    if(this.props.profile && this.state.state !== viewState.PROFILE){
+      this.setState({state:viewState.PROFILE});
+    }
     switch ( this.state.state ) {
       case viewState.HOME:
         return <Feeds onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
@@ -41,7 +44,9 @@ class Dashboard extends Component {
       case viewState.CREATE_POST:
         return <CreatePost/>;
       case viewState.CLIQUE:
-        return <Clique clique_name={this.state.clique_name} onClick={ d => this.setState( { state: viewState.POST, post_id: d } )}/>;
+        return <Clique clique_name={this.state.clique_name} onClick={ d => this.setState( { state: viewState.POST, post_id: d } )}
+                       onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}
+        />;
       default:
         return <Feeds/>;
     }
