@@ -17,9 +17,9 @@ Clique Project is a university final project for Web Programming course. The mai
  - Upload File
 ##### Profile Bar : (Heri)
  `DefaultHeader.js`
- - Logout
+ - Logout :heavy_check_mark:
  - Tampilin username
- - link ke Profile Page
+ - link ke Profile Page :heavy_check_mark:
  - Edit Password 
  ##### Post & Comments : (Adjie)
  - Upvote, Likes

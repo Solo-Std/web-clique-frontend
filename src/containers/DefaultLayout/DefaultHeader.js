@@ -16,9 +16,20 @@ const defaultProps = {};
 
 class DefaultHeader extends Component {
 
+  constructor( props ) {
+    super( props );
+    this.state = {
+      redirect:false
+    };
+  }
+
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
+
+    const {redirect} = this.state;
+    if(redirect)
+      return <Redirect to='/login'></Redirect>;
 
     return (
       <React.Fragment>
@@ -58,7 +69,10 @@ class DefaultHeader extends Component {
               {/*<DropdownItem><i className="fa fa-file"/> Projects<Badge color="primary">42</Badge></DropdownItem>*/}
               {/*<DropdownItem divider />*/}
               {/*<DropdownItem><i className="fa fa-shield"/> Lock Account</DropdownItem>*/}
-              <DropdownItem><i className="fa fa-lock"/> Logout</DropdownItem>
+              <DropdownItem  onClick={ () => {
+                this.props.logout(); this.setState({redirect:true})
+              }}><i className="fa fa-lock"/> Logout</DropdownItem>
+
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
