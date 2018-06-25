@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
  * CoreUI - Open Source Dashboard UI Kit
- * @version v2.0.2
+ * @version v2.0.3
  * @link https://coreui.io
  * Copyright (c) 2018 creativeLabs Łukasz Holeczek
  * Licensed under MIT (https://coreui.io/license)
@@ -10290,24 +10290,6 @@ a.mdc-list-item {
   color: rgba(0, 0, 0, 0.87);
   /* @alternate */
   color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87)); }
-
-.sidebar-container {
-  background-color: #21b5b5; }
-
-#c1 {
-  height: 100%;
-  width: 100%;
-  border: 1px solid green;
-  overflow: hidden; }
-
-.sidebar-scroll {
-  position: fixed;
-  overflow-y: scroll;
-  top: 45px;
-  bottom: 0; }
-
-.sidebar-text {
-  color: white; }
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }

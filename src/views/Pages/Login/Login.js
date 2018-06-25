@@ -49,6 +49,7 @@ class Login extends React.Component {
         else{
           localStorage.setItem("session_token",res.data['__ci_last_regenerate']);
           localStorage.setItem("username",res.data['username']);
+          localStorage.setItem("user_id",1);
           this.setState({submit:true});
           console.log("SUCCESS");
         }

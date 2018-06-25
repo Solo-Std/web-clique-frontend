@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios/index";
+import "./Sidebar.css";
 
 class Sidebar extends Component{
   constructor(props){
@@ -9,10 +10,12 @@ class Sidebar extends Component{
       items: [],
       name: []
     };
+
+    this.renderClique = this.renderClique.bind( this );
   }
 
   componentWillMount(){
-    axios.get( `http://project-clique.herokuapp.com/index.php/api/subscribed_clique_master/getclique/` + localStorage.getItem('') )
+    axios.get( 'https://project-clique.herokuapp.com/index.php/api/subscribed_clique_relation/getsubscribedclique/' + localStorage.getItem('user_id') )
       .then( response => {
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );
@@ -23,38 +26,26 @@ class Sidebar extends Component{
   render(){
     return(
       <ul className="mdc-list sidebar-scroll">
-        <li className="mdc-list-item sidebar-container sidebar-text">First item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">1234567890123456</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Single-line item</li>
-        <li className="mdc-list-item sidebar-container sidebar-text">Last item</li>
-
+        { this.sayHi() }
         { this.renderClique() }
       </ul>
     );
   }
 
   sayHi(){
-    console.log("Hi");
+    console.log("USER_ID: " + localStorage.getItem('user_id'));
+    console.log("DATA: " + this.state.items.length);
   }
 
   renderClique(){
+    let data = [];
+    for(let i = 0; i < this.state.items.length; i++){
+      data.push(
+        <li className="mdc-list-item sidebar-container sidebar-text">Sidebar item</li>
+      );
+    }
 
+    return data;
   }
 
 }
