@@ -202,8 +202,8 @@ class Post extends Component {
                 <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
               </a><br/>
               <span className="font-xs">&nbsp;Posted by
-                <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.posts[ 'username' ]);
-                  localStorage.setItem("visiting_profile",this.state.posts[ 'username' ])}}>@{ this.state.posts[ 'username' ] }</a>
+                <a className="text-info" onClick={ () => { this.props.onProfileClick(this.state.posts[ 'username' ]);
+                  localStorage.setItem("visiting_profile",this.state.posts[ 'username' ]) } }>@{ this.state.posts[ 'username' ] }</a>
               </span>
               <span className="font-xs">&nbsp;
                 <TimeAgo date={ this.state.posts[ 'date_created' ] }/>

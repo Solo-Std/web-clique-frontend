@@ -18,13 +18,17 @@ import navigation from '../../_nav';
 import routes from '../../routes';
 import DefaultHeader from './DefaultHeader';
 import axios from "axios/index";
+import Dashboard from "../../views/Dashboard";
+import './DefaultLayout.css';
 
 class DefaultLayout extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      valid_session: true
+      valid_session: true,
+      profile:false
     };
+    this.onClick = this.onClick.bind(this);
   }
 
   componentWillMount() {
@@ -48,6 +52,11 @@ class DefaultLayout extends Component {
       } );
   }
 
+  onClick(){
+    this.setState({profile:!this.state.profile});
+    localStorage.setItem('visiting_profile',localStorage.getItem('username'));
+  }
+
   render() {
     if ( this.state.valid_session === false ) {
       return <Redirect to='/login'/>;
@@ -55,27 +64,30 @@ class DefaultLayout extends Component {
     return (
       <div className="app">
         <AppHeader fixed>
-          <DefaultHeader/>
+          <DefaultHeader onClick={()=>{
+            this.onClick()
+          }}/>
         </AppHeader>
         <div className="app-body">
           <AppSidebar float="true" display="lg">
             <Sidebar/>
           </AppSidebar>
-          <main className="main">
-            <AppBreadcrumb appRoutes={ routes }/>
-            <Container fluid>
-              <Switch>
-                { routes.map( ( route, idx ) => {
-                    return route.component ? (
-                        <Route key={ idx } path={ route.path } exact={ route.exact } name={ route.name } render={ props => (
-                          <route.component { ...props } />
-                        ) }/> )
-                      : ( null );
-                  },
-                ) }
-                <Redirect from="/" to="/dashboard"/>
-              </Switch>
-            </Container>
+          <main className="main defaultlayout" >
+            {/*<AppBreadcrumb appRoutes={ routes }/>*/}
+            <Dashboard profile={this.state.profile}/>
+            {/*<Container fluid>*/}
+              {/*<Switch>*/}
+                {/*{ routes.map( ( route, idx ) => {*/}
+                    {/*return route.component ? (*/}
+                        {/*<Route key={ J/idx } path={ route.path } exact={ route.exact } name={ route.name } render={ props => (*/}
+                          {/*<route.component { ...props } />*/}
+                        {/*) }/> )*/}
+                      {/*: ( null );*/}
+                  {/*},*/}
+                {/*) }*/}
+                {/*<Redirect from="/" to="/dashboard"/>*/}
+              {/*</Switch>*/}
+            {/*</Container>*/}
           </main>
         </div>
       </div>

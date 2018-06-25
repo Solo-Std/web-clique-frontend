@@ -48,7 +48,7 @@ class Profile extends Component {
                   <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
                 </a><br/>
                 <span className="font-xs">Posted by <a className="text-info" onClick={() => {this.props.onProfileClick(this.state.items[i]['username']);
-                  localStorage.setItem("visiting_profile",this.state.items[i]['username'])}}>@{ this.state.items[ i ][ 'username' ] }</a></span>
+                  localStorage.setItem("visiting_profile",this.state.items[i]['username']) } }>@{ this.state.items[ i ][ 'username' ] }</a></span>
                 <span className="font-xs">  <TimeAgo date={ this.state.items[ i ][ 'date_created' ] }/></span>
               </Col>
             </Row>

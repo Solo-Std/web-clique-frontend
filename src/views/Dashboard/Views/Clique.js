@@ -34,18 +34,19 @@ class Feeds extends Component {
     console.log( this.state.items );
     for ( let i = 0; i < this.state.items.length; i++ ) {
       data.push(
-        <ListGroupItem tag="a" onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>
+        <ListGroupItem>
           <Col xs={ "12" }>
             <Row>
               { /*<Col sm="1">*/ }
               <img src="https://picsum.photos/200" width="80" height="60"/>
               { /*</Col>*/ }
               <Col sm="10">
-                <span className="font-lg">{ this.state.items[ i ][ 'post_title' ] }<br/></span>
+                <span className="font-lg" onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }<br/></span>
                 <a className="text-black-50 font-xs" href="#">
                   <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
                 </a><br/>
-                <span className="font-xs">Posted by <a href="#">@{ this.state.items[ i ][ 'username' ] }</a></span>
+                <span className="font-xs">Posted by <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.items[i][ 'username' ]);
+                  localStorage.setItem("visiting_profile",this.state.items[i][ 'username' ])}}>@{ this.state.items[ i ][ 'username' ] }</a></span>
                 <span className="font-xs">  <TimeAgo date={ this.state.items[ i ][ 'date_created' ] }/></span>
               </Col>
             </Row>
