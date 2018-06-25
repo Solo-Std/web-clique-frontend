@@ -32,6 +32,9 @@ Clique Project is a university final project for Web Programming course. The mai
  - Add Friend, Unfriend
  ##### Login:
  - Invalid login prompt/pop-up 
+ ##### Search System
+ - Search Bar pada Navigation Bar
+ - Layar utk menampilkan hasil search
  ### Main Requirements
  - CodeIgniter :heavy_check_mark:
  - MVC :heavy_check_mark:
