@@ -38,6 +38,7 @@ class Profile extends Component {
         response.data.map( ( content, index ) => data[ index ] = content );
         this.setState( { items: data } );
       } );
+   }
 
     if ( localStorage.getItem( 'username' ) === localStorage.getItem( 'visiting_profile' ) )
       this.setState( { userState: userState.CURRENT } );
