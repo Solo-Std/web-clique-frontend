@@ -22,7 +22,7 @@ class Dashboard extends Component {
       state: viewState.HOME,//debug disini, ganti profile
       post_id: 0,
       username: localStorage.getItem('username'),
-      clique_name:'all'
+      clique_name:props.clique_name
     };
   }
 
@@ -30,6 +30,20 @@ class Dashboard extends Component {
     if(this.props.profile && this.state.state !== viewState.PROFILE){
       this.setState({state:viewState.PROFILE});
     }
+
+    else if(this.props.all && this.state.state !== viewState.HOME){
+      this.setState({state: viewState.HOME});
+    }
+
+    else if(this.props.sidebar && this.state.state !== viewState.CLIQUE)
+    {this.setState({state:viewState.CLIQUE});}
+
+    else if(this.props.sidebar && this.state.state == viewState.CLIQUE)
+    {
+      return <Clique clique_name={localStorage.getItem("visiting_clique")} onClick={ d => this.setState( { state: viewState.POST, post_id: d } )}
+                    onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}
+    />;}
+
     switch ( this.state.state ) {
       case viewState.HOME:
         return <Feeds onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }

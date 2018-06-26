@@ -19,7 +19,20 @@ class Feeds extends Component {
     this.renderTitle = this.renderTitle.bind( this );
   }
 
-  componentWillMount() {
+
+  componentDidUpdate() {
+    axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
+      .then( response => {
+        console.log( this.props.clique_name );
+        let data = [];
+        response.data.map( ( content, index ) => data[ index ] = content );
+        this.setState( { items: data } );
+      } );
+  }
+
+  componentWillMount()
+  {
+
     axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
       .then( response => {
         console.log( this.props.clique_name );

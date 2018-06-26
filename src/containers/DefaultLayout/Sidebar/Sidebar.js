@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import axios from "axios/index";
 import "./Sidebar.css";
+import PropTypes from 'prop-types';
+
+const defaultProps = {};
+
+const propTypes=
+  {
+    children: PropTypes.node
+  };
 
 class Sidebar extends Component{
   constructor(props){
@@ -27,6 +35,9 @@ class Sidebar extends Component{
   render(){
     return(
       <ul className="mdc-list sidebar-scroll">
+        <li className={"mdc-list-item sidebar-container sidebar-text"}
+          onClick={ ()=>{this.props.onSidebarAllClick();} }
+        >All</li>
         { this.renderClique() }
       </ul>
     );
@@ -36,7 +47,11 @@ class Sidebar extends Component{
     let data = [];
     for(let i = 0; i < this.state.items.length; i++){
       data.push(
-        <li className="mdc-list-item sidebar-container sidebar-text">{this.state.items[i]['title']}</li>
+          <li className="mdc-list-item sidebar-container sidebar-text"
+              onClick={()=>{this.props.onSidebarCliqueClick(this.state.items[i]['title']);
+              localStorage.setItem("visiting_clique",this.state.items[i]['title']); }}
+          >{this.state.items[i]['title']}</li>
+
       );
     }
 
@@ -44,5 +59,8 @@ class Sidebar extends Component{
   }
 
 }
+
+Sidebar.propTypes = propTypes;
+Sidebar.defaultProps = defaultProps;
 
 export default Sidebar;
