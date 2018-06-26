@@ -26,9 +26,14 @@ class DefaultLayout extends Component {
     super( props );
     this.state = {
       valid_session: true,
-      profile:false
+      profile:false,
+      sidebar:false,
+      all: true,
+      visiting_clique:'gaming'
     };
+    this.onSidebarCliqueClick = this.onSidebarCliqueClick.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentWillMount() {
@@ -57,6 +62,28 @@ class DefaultLayout extends Component {
     localStorage.setItem('visiting_profile',localStorage.getItem('username'));
   }
 
+  onSidebarCliqueClick()
+  {
+    this.setState({sidebar:!this.state.sidebar});
+    this.setState({all:false});
+    this.setState({visiting_clique:localStorage.getItem("visiting_clique")});
+    console.log('Clicked Clique: '+ localStorage.getItem("visiting_clique"));
+  }
+
+  onSidebarAllClick()
+  {
+    this.setState({sidebar: false});
+    this.setState({all: true});
+  }
+
+  testAll(){
+  }
+
+  logout()
+  {
+    localStorage.setItem('session_token','');
+  }
+
   render() {
     if ( this.state.valid_session === false ) {
       return <Redirect to='/login'/>;
@@ -64,17 +91,22 @@ class DefaultLayout extends Component {
     return (
       <div className="app">
         <AppHeader fixed>
-          <DefaultHeader onClick={()=>{
+          <DefaultHeader
+            onClick={()=>{
             this.onClick()
-          }}/>
+          }}
+          logout={()=>{this.logout()}}/>
+
         </AppHeader>
         <div className="app-body">
           <AppSidebar float="true" display="lg">
-            <Sidebar/>
+            <Sidebar
+              onSidebarAllClick={()=>{this.onSidebarAllClick()}}
+              onSidebarCliqueClick={()=>{this.onSidebarCliqueClick()}}/>
           </AppSidebar>
           <main className="main defaultlayout" >
             {/*<AppBreadcrumb appRoutes={ routes }/>*/}
-            <Dashboard profile={this.state.profile}/>
+            <Dashboard clique_name={localStorage.getItem("visiting_clique")} all={this.state.all} profile={this.state.profile} sidebar={this.state.sidebar}/>
             {/*<Container fluid>*/}
               {/*<Switch>*/}
                 {/*{ routes.map( ( route, idx ) => {*/}

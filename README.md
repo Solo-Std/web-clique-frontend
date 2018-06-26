@@ -11,15 +11,15 @@ Clique Project is a university final project for Web Programming course. The mai
 ### Homepage
 ##### Sidebar : (Adjie)
  - UI nya di rapikan
- - url ke clique/kategori yang di pilih
+ - url ke clique/kategori yang di pilih :heavy_check_mark:
 ##### Profile Page :
  - Benerin tampilan link saat pencet di feeds/profile
  - Upload File
 ##### Profile Bar : (Heri)
  `DefaultHeader.js`
- - Logout
+ - Logout :heavy_check_mark:
  - Tampilin username
- - link ke Profile Page
+ - link ke Profile Page :heavy_check_mark:
  - Edit Password 
  ##### Post & Comments : (Adjie)
  - Upvote, Likes
