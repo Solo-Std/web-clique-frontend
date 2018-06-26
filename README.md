@@ -38,7 +38,7 @@ Clique Project is a university final project for Web Programming course. The mai
  ### Main Requirements
  - CodeIgniter :heavy_check_mark:
  - MVC :heavy_check_mark:
- - CRUD with MySQL Database (Tinggal Delete)
+ - CRUD with MySQL Database :heavy_check_mark:
  - Login Feature with Session Class :heavy_check_mark:
  - File Upload
  - Send Email
