@@ -80,7 +80,7 @@ class Feeds extends Component {
             </Col>
           </Row>
           <Row><Col>
-            <Button>Subscribe</Button>
+            <p><Button>Subscribe</Button></p>
           </Col></Row>
         </Container>
       </Card>
