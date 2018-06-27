@@ -3,8 +3,11 @@ import {
   Col, ListGroup, ListGroupItem, Row
 } from 'reactstrap';
 import axios from "axios/index";
-import TimeAgo from 'react-timeago';
 import './Feeds.css';
+import CliqueLink from "../Links/CliqueLink";
+import PostLink from "../Links/PostLink";
+import ProfileLink from "../Links/ProfileLink";
+
 class Feeds extends Component {
   constructor( props ) {
     super( props );
@@ -27,42 +30,27 @@ class Feeds extends Component {
 
   renderItem() {
     let data = [];
-    this.state.items.forEach((item,idx)=>{
+    this.state.items.forEach( ( item, idx ) => {
       data.push(
-        <ListGroupItem key={idx}>
-          <Col xs={"12"}>
+        <ListGroupItem key={ idx }>
+          <Col xs={ "12" }>
             <Row>
-              { /*<Col sm="1">*/ }
-              <img src="https://picsum.photos/200" width="80" height="60" alt={"cannot load"}/>
-              { /*</Col>*/ }
+              <img src="https://picsum.photos/200" width="80" height="60" alt={ "cannot load" }/>
               <Col sm="10">
-                <span className="font-lg">
-                  <a onClick={ () => this.props.onClick( item[ 'post_id' ] ) }>{ item[ 'post_title' ] }</a><br/>
-                </span>
-                <a className="text-black-50 font-xs"
-                   onClick={() => this.props.onCliqueClick( item[ 'clique_name' ] )}>
-                  <strong>#{ item[ 'clique_name' ] }</strong>
-                </a><br/>
-                <span className="font-xs">Posted by&nbsp;
-                  <a className="text-info" onClick={() => {
-                    this.props.onProfileClick(item['username']);
-                    localStorage.setItem("visiting_profile",item['username']);
-                  }}>
-                    @{ item[ 'username' ] }</a>
-                </span>
-                <span className="font-xs">  <TimeAgo date={ item[ 'date_created' ] }/></span>
+                <PostLink onClick={ this.props.onPostClick }
+                          value={ item }/>
+                <CliqueLink onClick={ this.props.onCliqueClick }
+                            value={ item }/>
+                <ProfileLink onClick={ this.props.onProfileClick }
+                             value={ item }/>
               </Col>
             </Row>
           </Col>
         </ListGroupItem>
       );
-    })
-    for ( let i = 0; i < this.state.items.length; i++ ) {
-
-    }
+    } );
     return data;
   }
-
 
 
   render() {
