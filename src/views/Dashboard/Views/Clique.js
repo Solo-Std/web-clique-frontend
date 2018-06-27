@@ -81,6 +81,9 @@ class Feeds extends Component {
           <Row><Col>
             <p onClick={this.subscribe}><Button>Subscribe</Button></p>
           </Col></Row>
+          <Row><Col>
+            <p><Button>Unsubscribe</Button></p>
+          </Col></Row>
         </Container>
       </Card>
 
