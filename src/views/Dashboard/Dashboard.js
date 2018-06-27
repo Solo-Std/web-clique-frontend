@@ -38,7 +38,7 @@ class Dashboard extends Component {
     else if(this.props.sidebar && this.state.state !== viewState.CLIQUE)
     {this.setState({state:viewState.CLIQUE});}
 
-    else if(this.props.sidebar && this.state.state == viewState.CLIQUE)
+    else if(this.props.sidebar && this.state.state === viewState.CLIQUE)
     {
       return <Clique clique_name={localStorage.getItem("visiting_clique")} onClick={ d => this.setState( { state: viewState.POST, post_id: d } )}
                     onProfileClick={ d => this.setState({state: viewState.PROFILE, username:d})}

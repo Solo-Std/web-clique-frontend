@@ -13,8 +13,8 @@ import {
   Row
 } from 'reactstrap';
 import axios from "axios/index";
-import FacebookLoginButton from "../Register/ThirdPartyLogin/FacebookLoginButton";
-import GoogleLoginButton from "../Register/ThirdPartyLogin/GoogleLoginButton";
+// import FacebookLoginButton from "../Register/ThirdPartyLogin/FacebookLoginButton";
+// import GoogleLoginButton from "../Register/ThirdPartyLogin/GoogleLoginButton";
 import { Redirect } from "react-router-dom";
 
 class Login extends React.Component {
@@ -159,12 +159,12 @@ class Login extends React.Component {
                 </CardBody>
                 <CardFooter className="p-4">
                   <Row>
-                    <Col xs="12" sm="6">
-                      <FacebookLoginButton/>
-                    </Col>
-                    <Col xs="12" sm="6">
-                      <GoogleLoginButton/>
-                    </Col>
+                    {/*<Col xs="12" sm="6">*/}
+                      {/*<FacebookLoginButton/>*/}
+                    {/*</Col>*/}
+                    {/*<Col xs="12" sm="6">*/}
+                      {/*<GoogleLoginButton/>*/}
+                    {/*</Col>*/}
                   </Row>
                 </CardFooter>
               </Card>

@@ -51,6 +51,8 @@ const rules = [
             return <h1>{ children }</h1>;
           case 'heading-two':
             return <h2>{ children }</h2>;
+          default:
+            return null;
         }
       }
     }
@@ -81,6 +83,8 @@ const rules = [
             return <em>{ children }</em>;
           case 'underlined':
             return <u>{ children }</u>;
+          default:
+            return null;
         }
       }
     }
@@ -293,6 +297,8 @@ class TextEditor extends Component {
         return <li { ...attributes }>{ children }</li>;
       case 'numbered-list':
         return <ol { ...attributes }>{ children }</ol>;
+      default:
+        return null;
     }
   };
 
@@ -307,6 +313,8 @@ class TextEditor extends Component {
         return <em { ...attributes }>{ children }</em>;
       case 'underlined':
         return <u { ...attributes }>{ children }</u>;
+      default:
+        return null;
     }
   };
 }

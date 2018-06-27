@@ -45,15 +45,16 @@ class Sidebar extends Component{
 
   renderClique(){
     let data = [];
-    for(let i = 0; i < this.state.items.length; i++){
+    this.state.items.forEach((item, idx)=> {
       data.push(
-          <li className="mdc-list-item sidebar-container sidebar-text"
-              onClick={()=>{this.props.onSidebarCliqueClick(this.state.items[i]['title']);
-              localStorage.setItem("visiting_clique",this.state.items[i]['title']); }}
-          >{this.state.items[i]['title']}</li>
-
-      );
-    }
+        <li key={idx} className="mdc-list-item sidebar-container sidebar-text"
+            onClick={ () => {
+              this.props.onSidebarCliqueClick( item[ 'title' ] );
+              localStorage.setItem( "visiting_clique", item[ 'title' ] );
+            } }
+        >{ item[ 'title' ] }</li>
+      )
+    });
 
     return data;
   }

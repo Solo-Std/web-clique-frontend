@@ -27,36 +27,38 @@ class Feeds extends Component {
 
   renderItem() {
     let data = [];
-    console.log( this.state.items );
-    for ( let i = 0; i < this.state.items.length; i++ ) {
+    this.state.items.forEach((item,idx)=>{
       data.push(
-        <ListGroupItem>
+        <ListGroupItem key={idx}>
           <Col xs={"12"}>
             <Row>
               { /*<Col sm="1">*/ }
-              <img src="https://picsum.photos/200" width="80" height="60"/>
+              <img src="https://picsum.photos/200" width="80" height="60" alt={"cannot load"}/>
               { /*</Col>*/ }
               <Col sm="10">
                 <span className="font-lg">
-                  <a onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }</a><br/>
+                  <a onClick={ () => this.props.onClick( item[ 'post_id' ] ) }>{ item[ 'post_title' ] }</a><br/>
                 </span>
                 <a className="text-black-50 font-xs"
-                   onClick={() => this.props.onCliqueClick( this.state.items[ i ][ 'clique_name' ] )}>
-                  <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
+                   onClick={() => this.props.onCliqueClick( item[ 'clique_name' ] )}>
+                  <strong>#{ item[ 'clique_name' ] }</strong>
                 </a><br/>
                 <span className="font-xs">Posted by&nbsp;
                   <a className="text-info" onClick={() => {
-                    this.props.onProfileClick(this.state.items[i]['username']);
-                    localStorage.setItem("visiting_profile",this.state.items[i]['username']);
+                    this.props.onProfileClick(item['username']);
+                    localStorage.setItem("visiting_profile",item['username']);
                   }}>
-                    @{ this.state.items[ i ][ 'username' ] }</a>
+                    @{ item[ 'username' ] }</a>
                 </span>
-                <span className="font-xs">  <TimeAgo date={ this.state.items[ i ][ 'date_created' ] }/></span>
+                <span className="font-xs">  <TimeAgo date={ item[ 'date_created' ] }/></span>
               </Col>
             </Row>
           </Col>
         </ListGroupItem>
       );
+    })
+    for ( let i = 0; i < this.state.items.length; i++ ) {
+
     }
     return data;
   }

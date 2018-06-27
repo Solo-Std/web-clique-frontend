@@ -84,46 +84,43 @@ class Profile extends Component {
 
   renderItem() {
     let data = [];
-    for ( let i = 0; i < this.state.items.length; i++ ) {
+    this.state.items.forEach((item,idx)=>{
       data.push(
-        <ListGroupItem>
+        <ListGroupItem key={idx}>
           <Col xs={ "12" }>
             <Row>
               { /*<Col sm="1">*/ }
-              <img src="https://picsum.photos/200" width="80" height="60"/>
+              <img src="https://picsum.photos/200" width="80" height="60" alt={"cannot load"}/>
               { /*</Col>*/ }
               <Col sm="10">
                 <span className="font-lg"
-                      onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }<br/></span>
-                <a className="text-black-50 font-xs" href="#">
-                  <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
+                      onClick={ () => this.props.onClick( item[ 'post_id' ] ) }>{ item[ 'post_title' ] }<br/></span>
+                <a className="text-black-50 font-xs" >
+                  <strong>#{ item[ 'clique_name' ] }</strong>
                 </a><br/>
                 <span className="font-xs">Posted by <a className="text-info" onClick={ () => {
-                  this.props.onProfileClick( this.state.items[ i ][ 'username' ] );
-                  localStorage.setItem( "visiting_profile", this.state.items[ i ][ 'username' ] );
-                } }>@{ this.state.items[ i ][ 'username' ] }</a></span>
-                <span className="font-xs">  <TimeAgo date={ this.state.items[ i ][ 'date_created' ] }/></span>
+                  this.props.onProfileClick( item[ 'username' ] );
+                  localStorage.setItem( "visiting_profile", item[ 'username' ] );
+                } }>@{ item[ 'username' ] }</a></span>
+                <span className="font-xs">  <TimeAgo date={ item[ 'date_created' ] }/></span>
               </Col>
             </Row>
           </Col>
         </ListGroupItem>
       );
-    }
+    });
     return data;
   }
 
 
   renderName() {
-    let data = [];
     if ( localStorage.getItem( 'username' ) === localStorage.getItem( 'visiting_profile' ) )
-      data.push( <div className="container"><h1
+      return ( <div className="container"><h1
         className="display-5">Welcome, { localStorage.getItem( 'visiting_profile' ) }!</h1>
         <p className="lead">View and edit your personal info.</p></div> );
     else
-      data.push( <div className="container"><h1 className="display-5">{ localStorage.getItem( 'visiting_profile' ) }'s
+      return ( <div className="container"><h1 className="display-5">{ localStorage.getItem( 'visiting_profile' ) }'s
         Profile</h1></div> );
-
-    return data;
   }
 
   showUploadButton() {
@@ -141,6 +138,8 @@ class Profile extends Component {
         return <Button onClick={ this.unfriend }>Unfriend</Button>;
       case userState.NON_FRIEND:
         return <Button onClick={ this.add_friend }>Add Friend</Button>;
+      default:
+        return null;
     }
   }
 
@@ -151,7 +150,7 @@ class Profile extends Component {
           <Row>
             { /*<Row>*/ }
             <Col sm="1">
-              <img className="profile-picture" src="https://picsum.photos/100" width="150%" height="100%"/>
+              <img className="profile-picture" alt={"cannot load"} src="https://picsum.photos/100" width="150%" height="100%"/>
             </Col>
             <Col sm="6" className="padding1">
               { this.renderName() }
@@ -198,7 +197,7 @@ class Profile extends Component {
         <br/>
 
         <div className="card-body">
-          <h1 class="display-5">Recent Posts</h1>
+          <h1 className="display-5">Recent Posts</h1>
           <Col sm={ "12" }>
             <div className="animated fadeIn">
               <ListGroup>

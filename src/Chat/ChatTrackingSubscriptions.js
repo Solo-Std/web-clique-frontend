@@ -8,7 +8,6 @@ export default function ChatTrackingSubscription(
 ) {
 
   this.cable = ActionCable.createConsumer(WEBSOCKET_HOST);
-  this.channel;
   this.chatId = chatId;
   this.onUpdate = onUpdate;
 

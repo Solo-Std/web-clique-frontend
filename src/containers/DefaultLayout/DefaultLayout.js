@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar';
 
 import {
-  AppBreadcrumb,
   AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarNav,
+  AppSidebar
 } from '@coreui/react';
-// sidebar nav config
-import navigation from '../../_nav';
-// routes config
-import routes from '../../routes';
 import DefaultHeader from './DefaultHeader';
 import axios from "axios/index";
 import Dashboard from "../../views/Dashboard";

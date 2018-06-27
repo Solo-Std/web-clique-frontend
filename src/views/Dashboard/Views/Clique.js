@@ -50,11 +50,11 @@ class Feeds extends Component {
           <Col xs={ "12" }>
             <Row>
               { /*<Col sm="1">*/ }
-              <img src="https://picsum.photos/200" width="80" height="60"/>
+              <img src="https://picsum.photos/200" width="80" height="60" alt={"cannot load"}/>
               { /*</Col>*/ }
               <Col sm="10">
                 <span className="font-lg" onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }<br/></span>
-                <a className="text-black-50 font-xs" href="#">
+                <a className="text-black-50 font-xs">
                   <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
                 </a><br/>
                 <span className="font-xs">Posted by <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.items[i][ 'username' ]);
