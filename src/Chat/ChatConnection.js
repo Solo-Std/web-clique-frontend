@@ -35,7 +35,6 @@ class ChatConnection extends React.Component {
 
   onSend( evt ) {
     if ( evt.charCode === 13 ){
-      console.log( "local log : " + evt.target.value );
       this.chatChannel.send(evt.target.value);
       this.setState( { message: '' } );
     }

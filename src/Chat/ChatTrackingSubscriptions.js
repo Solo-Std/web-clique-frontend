@@ -1,6 +1,6 @@
 import ActionCable from 'actioncable';
 
-const WEBSOCKET_HOST = 'ws://localhost:4000/cable';
+const WEBSOCKET_HOST = 'ws://127.0.0.1:4000/cable';
 
 export default function ChatTrackingSubscription(
   chatId,
