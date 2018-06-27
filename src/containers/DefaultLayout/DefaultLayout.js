@@ -28,7 +28,7 @@ class DefaultLayout extends Component {
       valid_session: true,
       profile:false,
       sidebar:false,
-      all: true,
+      all: false,
       visiting_clique:'gaming'
     };
     this.onSidebarCliqueClick = this.onSidebarCliqueClick.bind(this);
