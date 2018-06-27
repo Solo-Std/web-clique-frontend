@@ -12,6 +12,7 @@ Clique Project is a university final project for Web Programming course. The mai
 ##### Sidebar : (Adjie)
  - UI nya di rapikan
  - url ke clique/kategori yang di pilih :heavy_check_mark:
+ - user_id login masih di set 1. Bikin itu dinamis.
 ##### Profile Page :
  - Benerin tampilan link saat pencet di feeds/profile
  - Upload File

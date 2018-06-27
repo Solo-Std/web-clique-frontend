@@ -17,8 +17,8 @@ class Feeds extends Component {
 
     this.renderItem = this.renderItem.bind( this );
     this.renderTitle = this.renderTitle.bind( this );
+    this.subscribe = this.subscribe.bind( this );
   }
-
 
   componentDidUpdate() {
     axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
@@ -32,7 +32,6 @@ class Feeds extends Component {
 
   componentWillMount()
   {
-
     axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
       .then( response => {
         console.log( this.props.clique_name );
@@ -80,12 +79,27 @@ class Feeds extends Component {
             </Col>
           </Row>
           <Row><Col>
-            <p><Button>Subscribe</Button></p>
+            <p onClick={this.subscribe}><Button>Subscribe</Button></p>
           </Col></Row>
         </Container>
       </Card>
 
     );
+  }
+
+  subscribe(){
+    console.log(localStorage.getItem('user_id') + " IS NOW SUBSCRIBED TO " + this.props.clique_name);
+    axios.post( `http://project-clique.herokuapp.com/index.php/api/subscribed_clique_relation/`,
+    {
+      clique_name: this.props.clique_name,
+      user_id: localStorage.getItem('user_id')
+    })
+      .then( res => {
+
+      } )
+      .catch( error => {
+        console.log( error );
+      } );
   }
 
   render() {
