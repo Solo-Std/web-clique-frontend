@@ -20,6 +20,7 @@ import DefaultHeader from './DefaultHeader';
 import axios from "axios/index";
 import Dashboard from "../../views/Dashboard";
 import './DefaultLayout.css';
+import ChatConnection from "../../Chat/ChatConnection";
 
 class DefaultLayout extends Component {
   constructor( props ) {
@@ -28,7 +29,7 @@ class DefaultLayout extends Component {
       valid_session: true,
       profile:false,
       sidebar:false,
-      all: true,
+      all: false,
       visiting_clique:'gaming'
     };
     this.onSidebarCliqueClick = this.onSidebarCliqueClick.bind(this);
@@ -90,6 +91,7 @@ class DefaultLayout extends Component {
     }
     return (
       <div className="app">
+        <ChatConnection chatId={1}/>
         <AppHeader fixed>
           <DefaultHeader
             onClick={()=>{

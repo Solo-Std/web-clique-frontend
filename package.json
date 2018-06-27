@@ -20,6 +20,8 @@
     "@material-ui/icons": "^1.1.0",
     "@material/button": "^0.36.1",
     "@material/ripple": "^0.36.0",
+    "actioncable": "^5.2.0",
+    "actioncable-js": "^5.0.0-rc2",
     "axios": "latest",
     "bootstrap": "^4.1.1",
     "chart.js": "^2.7.2",
