@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Feeds from './Views/Feeds';
 import Post from "./Views/Post";
-import Profile from "./Views/Profile";
+import Profile from "./Views/Profile/Profile";
 import CreatePost from "./Views/CreatePost";
 import Clique from "./Views/Clique";
 
