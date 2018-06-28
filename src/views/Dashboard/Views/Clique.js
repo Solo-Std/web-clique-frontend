@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import axios from "axios/index";
 import { Button } from "rmwc/Button/index";
-import PostList from "../PostList";
+import PostList from "../Lists/PostList";
 
 class Feeds extends Component {
   constructor( props ) {
@@ -21,28 +21,32 @@ class Feeds extends Component {
         <Container>
           <Row>
             <Col>
-              <h1>#{this.props.clique_name}</h1>
+              <h1>#{ this.props.clique_name }</h1>
             </Col>
           </Row>
-          <Row><Col>
-            <p onClick={this.subscribe}><Button>Subscribe</Button></p>
-          </Col></Row>
-          <Row><Col>
-            <p><Button>Unsubscribe</Button></p>
-          </Col></Row>
+          <Row>
+            <Col>
+              <p onClick={ this.subscribe }><Button>Subscribe</Button></p>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <p><Button>Unsubscribe</Button></p>
+            </Col>
+          </Row>
         </Container>
       </Card>
 
     );
   }
 
-  subscribe(){
-    console.log(localStorage.getItem('user_id') + " IS NOW SUBSCRIBED TO " + this.props.clique_name);
+  subscribe() {
+    console.log( localStorage.getItem( 'user_id' ) + " IS NOW SUBSCRIBED TO " + this.props.clique_name );
     axios.post( `http://project-clique.herokuapp.com/index.php/api/subscribed_clique_relation/`,
-    {
-      clique_name: this.props.clique_name,
-      user_id: localStorage.getItem('user_id')
-    })
+      {
+        clique_name: this.props.clique_name,
+        user_id: localStorage.getItem( 'user_id' )
+      } )
       .then( res => {
 
       } )
@@ -58,7 +62,7 @@ class Feeds extends Component {
           { this.renderTitle() }
           <ListGroup>
             <PostList data="clique"
-                      param={this.props.clique_name}
+                      param={ this.props.clique_name }
                       onProfileClick={ this.props.onProfileClick }
                       onCliqueClick={ this.props.onCliqueClick }
                       onPostClick={ this.props.onPostClick }

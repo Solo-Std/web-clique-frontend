@@ -8,7 +8,7 @@ import './Profile.css';
 import IconLabelButtons from "../Upload.js";
 import { Image } from "react-bootstrap";
 import Callout from "./Callout";
-import PostList from "../../PostList";
+import PostList from "../../Lists/PostList";
 
 const userState = {
   LOADING: 1,

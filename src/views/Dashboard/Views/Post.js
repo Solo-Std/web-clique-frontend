@@ -154,9 +154,6 @@ class Post extends Component {
           </div>
         );
     });
-    for ( let i = 0; i < this.state.comments.length; i++ ) {
-
-    }
     return data;
   }
 

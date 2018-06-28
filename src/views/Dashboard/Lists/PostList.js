@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import axios from "axios/index";
 import { Col, ListGroupItem, Row } from "reactstrap";
-import CliqueLink from "./Links/CliqueLink";
-import PostLink from "./Links/PostLink";
-import ProfileLink from "./Links/ProfileLink";
+import CliqueLink from "../Links/CliqueLink";
+import PostLink from "../Links/PostLink";
+import ProfileLink from "../Links/ProfileLink";
 
 class PostList extends Component{
   constructor(props){

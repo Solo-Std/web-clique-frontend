@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, ListGroup } from 'reactstrap';
 import './Feeds.css';
-import PostList from "../PostList";
+import PostList from "../Lists/PostList";
 
 class Feeds extends Component {
   render() {
