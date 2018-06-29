@@ -18,7 +18,7 @@ class Dashboard extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      state: viewState.HOME,//debug disini, ganti profile
+      state: viewState.HOME,
       post_id: 0,
       username: localStorage.getItem( 'username' ),
       clique_name: props.clique_name
@@ -52,15 +52,18 @@ class Dashboard extends Component {
                       onCliqueClick={ d => this.setState( { state: viewState.CLIQUE, clique_name: d } ) }/>;
       case viewState.POST:
         return <Post id={ this.state.post_id }
-                     onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }/>;
+                     onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }
+                     onCliqueClick={ d => this.setState( { state: viewState.CLIQUE, clique_name: d } ) }/>;
       case viewState.PROFILE:
-        return <Profile onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
-                        onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }/>;
+        return <Profile onPostClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
+                        onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }
+                        onCliqueClick={ d => this.setState( { state: viewState.CLIQUE, clique_name: d } ) }/>;
       case viewState.CREATE_POST:
         return <CreatePost/>;
       case viewState.CLIQUE:
         return <Clique clique_name={ this.state.clique_name }
-                       onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
+                       onPostClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
+                       onCliqueClick={ d => this.setState( { state: viewState.CLIQUE, clique_name: d } ) }
                        onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }
         />;
       default:

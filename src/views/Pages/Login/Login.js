@@ -18,48 +18,48 @@ import axios from "axios/index";
 import { Redirect } from "react-router-dom";
 
 class Login extends React.Component {
-  constructor(props){
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
-      username:'',
-      password:'',
-      user_id:'',
-      visiting_profile:'',
+      username: '',
+      password: '',
+      user_id: '',
+      visiting_profile: '',
       submit: false
     };
-    this.renderUsername = this.renderUsername.bind(this);
-    this.responseFacebook = this.responseFacebook.bind(this);
-    this.responseGoogle = this.responseGoogle.bind(this);
-    this.renderPassword = this.renderPassword.bind(this);
-    this.submit = this.submit.bind(this);
+    this.renderUsername = this.renderUsername.bind( this );
+    this.responseFacebook = this.responseFacebook.bind( this );
+    this.responseGoogle = this.responseGoogle.bind( this );
+    this.renderPassword = this.renderPassword.bind( this );
+    this.submit = this.submit.bind( this );
   }
 
-  submit(){
-    console.log(this.state);
-    axios.post('http://project-clique.herokuapp.com/index.php/api/user_master/login',
+  submit() {
+    console.log( this.state );
+    axios.post( 'http://project-clique.herokuapp.com/index.php/api/user_master/login',
       {
         username: this.state.username,
         password: this.state.password,
         user_id: this.state.user_id,
-        visiting_profile:''
-      })
-      .then(res => {
-        if(res.data === "FAILED")
-          console.log("FAILED");
-        else{
-          localStorage.setItem("session_token",res.data['__ci_last_regenerate']);
-          localStorage.setItem("username",res.data['username']);
-          localStorage.setItem("user_id",1);
-          this.setState({submit:true});
-          console.log("SUCCESS");
+        visiting_profile: ''
+      } )
+      .then( res => {
+        if ( res.data === "FAILED" )
+          console.log( "FAILED" );
+        else {
+          localStorage.setItem( "session_token", res.data[ '__ci_last_regenerate' ] );
+          localStorage.setItem( "username", res.data[ 'username' ] );
+          localStorage.setItem( "user_id", 1 );
+          this.setState( { submit: true } );
+          console.log( "SUCCESS" );
         }
-      })
-      .catch(error => {
-        console.log(error)
-      });
+      } )
+      .catch( error => {
+        console.log( error );
+      } );
   }
 
-  renderUsername(){
+  renderUsername() {
     return (
       <InputGroup className="mb-3">
         <InputGroupAddon addonType="prepend">
@@ -68,13 +68,13 @@ class Login extends React.Component {
           </InputGroupText>
         </InputGroupAddon>
         <Input type="text" placeholder="Username"
-               value={this.state.username}
-               onChange={evt => this.setState({username : evt.target.value})}/>
+               value={ this.state.username }
+               onChange={ evt => this.setState( { username: evt.target.value } ) }/>
       </InputGroup>
     );
   }
 
-  renderPassword(){
+  renderPassword() {
     return (
       <InputGroup className="mb-4">
         <InputGroupAddon addonType="prepend">
@@ -83,50 +83,50 @@ class Login extends React.Component {
           </InputGroupText>
         </InputGroupAddon>
         <Input type="password" placeholder="Password"
-               value={this.state.password}
-               onChange={evt =>this.setState({password:evt.target.value})}/>
+               value={ this.state.password }
+               onChange={ evt => this.setState( { password: evt.target.value } ) }/>
       </InputGroup>
     );
   }
 
-  responseFacebook(response) {
-    return axios.post(`http://project-clique.herokuapp.com/index.php/api/user_master/fb_login`, {
+  responseFacebook( response ) {
+    return axios.post( `http://project-clique.herokuapp.com/index.php/api/user_master/fb_login`, {
       username: response.id,
       password: response.id,
       email: response.email,
       token: response.accessToken
-    })
-      .then(res => {
-        if(res.data === "SUCCESS"){
+    } )
+      .then( res => {
+        if ( res.data === "SUCCESS" ) {
 
         }
-        else if(res.data === "FAILED"){
+        else if ( res.data === "FAILED" ) {
         }
-      })
-      .catch(error => {
-        console.log(error)
-      });
+      } )
+      .catch( error => {
+        console.log( error );
+      } );
   }
 
-  responseGoogle(response) {
-    return axios.post(`http://project-clique.herokuapp.com/index.php/api/user_master/gp_login`,
+  responseGoogle( response ) {
+    return axios.post( `http://project-clique.herokuapp.com/index.php/api/user_master/gp_login`,
       {
         username: response.profileObj.googleId,
         password: response.profileObj.googleId,
         email: response.profileObj.email,
         token: response.accessToken
-      })
-      .then(res => {
-        console.log(res.data);
-        if(res.data === "SUCCESS"){
+      } )
+      .then( res => {
+        console.log( res.data );
+        if ( res.data === "SUCCESS" ) {
 
         }
-        else if(res.data === "FAILED"){
+        else if ( res.data === "FAILED" ) {
         }
-      })
-      .catch(error => {
-        console.log(error)
-      });
+      } )
+      .catch( error => {
+        console.log( error );
+      } );
   }
 
   render() {
@@ -143,13 +143,13 @@ class Login extends React.Component {
                   <h1>Login</h1>
                   <p className="text-muted">Sign In to your account</p>
 
-                  {this.renderUsername()}
+                  { this.renderUsername() }
 
-                  {this.renderPassword()}
+                  { this.renderPassword() }
 
                   <Row>
                     <Col xs="6">
-                      <Button color="primary" onClick={this.submit} className="px-4">Login</Button>
+                      <Button color="primary" onClick={ this.submit } className="px-4">Login</Button>
                     </Col>
                     <Col xs="6" className="text-right">
                       <Button color="link" className="px-0">Forgot password?</Button>
@@ -159,12 +159,12 @@ class Login extends React.Component {
                 </CardBody>
                 <CardFooter className="p-4">
                   <Row>
-                    {/*<Col xs="12" sm="6">*/}
-                      {/*<FacebookLoginButton/>*/}
-                    {/*</Col>*/}
-                    {/*<Col xs="12" sm="6">*/}
-                      {/*<GoogleLoginButton/>*/}
-                    {/*</Col>*/}
+                    { /*<Col xs="12" sm="6">*/ }
+                    { /*<FacebookLoginButton/>*/ }
+                    { /*</Col>*/ }
+                    { /*<Col xs="12" sm="6">*/ }
+                    { /*<GoogleLoginButton/>*/ }
+                    { /*</Col>*/ }
                   </Row>
                 </CardFooter>
               </Card>
