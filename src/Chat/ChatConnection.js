@@ -8,8 +8,6 @@ const WEBSOCKET_HOST = 'wss://websocket-clique.herokuapp.com/';
 class ChatConnection extends Component {
   constructor( props ) {
     super( props );
-    // let access_token = localStorage.getItem( ACCESS_TOKEN_NAME );
-    // let client = localStorage.getItem( CLIENT_NAME );
     this.state = {
       chat: {},
       messages: [],
@@ -20,8 +18,8 @@ class ChatConnection extends Component {
     this.outbox = new ReconnectingWebSocket(WEBSOCKET_HOST + "/submit");
 
     this.inbox.onmessage = (message) =>{
-      console.log(message.data);
-      let data = message.data;
+      let data = JSON.parse(message.data);
+      console.log(data);
       let _messages = this.state.messages;
       _messages.push(data);
       this.setState({messages:_messages});
@@ -29,12 +27,12 @@ class ChatConnection extends Component {
 
     this.inbox.onclose = () =>{
       console.log('inbox closed');
-      if(inbox.url!==null)this.inbox = new WebSocket(inbox.url);
+      this.inbox = new WebSocket(WEBSOCKET_HOST + "/receive");
     };
 
     this.outbox.onclose = () =>{
       console.log('outbox closed');
-      if(outbox.url!==null)this.outbox = new WebSocket(outbox.url);
+      this.outbox = new WebSocket(WEBSOCKET_HOST + "/submit");
     };
 
     this.onSend = this.onSend.bind( this );
@@ -43,7 +41,11 @@ class ChatConnection extends Component {
 
   onSend( evt ) {
     if ( evt.charCode === 13 ){
-      this.outbox.send(evt.target.value);
+      let data = {
+        text:evt.target.value,
+        user:localStorage.getItem("username")
+      };
+      this.outbox.send(JSON.stringify({text:data.text, user:data.user}));
       this.setState( { message: '' } );
     }
   }
@@ -51,7 +53,7 @@ class ChatConnection extends Component {
   renderChat(){
     let _data = [];
     this.state.messages.forEach((msg,idx)=>{
-      _data.push(<p key={idx}>{msg}</p>);
+      _data.push(<p key={idx}>{msg.user} : {msg.text}</p>);
     });
     return _data;
   }
