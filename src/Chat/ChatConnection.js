@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Input } from "reactstrap";
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
-const WEBSOCKET_HOST = 'wss://websocket-clique.herokuapp.com/';
+const WEBSOCKET_HOST = 'wss://websocket-clique.herokuapp.com';
 
 class ChatConnection extends Component {
   constructor( props ) {
@@ -26,12 +26,20 @@ class ChatConnection extends Component {
 
     this.inbox.onclose = () =>{
       console.log('inbox closed');
-      this.inbox = new WebSocket(WEBSOCKET_HOST + "/receive");
+      this.inbox = new ReconnectingWebSocket(WEBSOCKET_HOST + "/receive");
+    };
+
+    this.inbox.onopen = () =>{
+      console.log('inbox opened');
     };
 
     this.outbox.onclose = () =>{
       console.log('outbox closed');
-      this.outbox = new WebSocket(WEBSOCKET_HOST + "/submit");
+      this.outbox = new ReconnectingWebSocket(WEBSOCKET_HOST + "/submit");
+    };
+
+    this.outbox.onopen = () => {
+      console.log("outbox opened");
     };
 
     this.onSend = this.onSend.bind( this );
