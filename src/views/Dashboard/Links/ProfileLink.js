@@ -11,6 +11,7 @@ class ProfileLink extends Component {
         } }>
           @{ this.props.value[ 'username' ] }
         </a>
+        &nbsp;
         <span className="font-xs">
           <TimeAgo date={ this.props.value[ 'date_created' ] }/>
         </span>

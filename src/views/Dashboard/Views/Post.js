@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Col, Container, ListGroup, ListGroupItem, Row
 } from 'reactstrap';
-import axios from "axios/index";
+import API from "../../../api";
 import TimeAgo from 'react-timeago';
 import TextEditor from "./Components/TextEditor";
 import { Ripple } from "rmwc/Ripple";
@@ -47,7 +47,7 @@ class Post extends Component {
   }
 
   postComment( content ) {
-    return axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/insert`,
+    return API.post( `comment_master/insert`,
       {
         comment: content,
         username: localStorage.getItem("username"),
@@ -55,7 +55,7 @@ class Post extends Component {
       } )
       .then( res => {
         if ( res.data === "SUCCESS" ) {
-          axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/`,{
+          API.post( `comment_master/`,{
             id:this.props.id
           } )
             .then( response => {
@@ -74,7 +74,7 @@ class Post extends Component {
   }
 
   postReply( content ) {
-    return axios.post( `http://project-clique.herokuapp.com/index.php/api/reply_master/insert`,
+    return API.post( `reply_master/insert`,
       {
         reply: content,
         username: localStorage.getItem("username"),
@@ -82,7 +82,7 @@ class Post extends Component {
       } )
       .then( res => {
         if ( res.data === "SUCCESS" ) {
-          axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/`,{
+          API.post( `comment_master/`,{
             id: this.props.id
           })
             .then( response => {
@@ -101,7 +101,7 @@ class Post extends Component {
   }
 
   componentWillMount() {
-    axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/`,{
+    API.post( `comment_master/`,{
       id: this.props.id
     } )
       .then( response => {
@@ -109,7 +109,7 @@ class Post extends Component {
         response.data.map( ( content, index ) => data[ index ] = content );
         this.setState( { comments: data } );
       } );
-    axios.post( `http://project-clique.herokuapp.com/index.php/api/post_master/`,{
+    API.post( `post_master/`,{
       id: this.props.id
     })
       .then( response => {
@@ -208,6 +208,7 @@ class Post extends Component {
               <a className="text-black-50 font-xs">
                 <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
               </a><br/>
+              &nbsp;
               <ProfileLink onClick={ this.props.onProfileClick }
                            value={ this.state.posts }/>
             </Row>

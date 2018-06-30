@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import ChatTrackingSubscription from './ChatTrackingSubscriptions';
+import {inbox, outbox} from './WSAPI';
 import { Card, Input } from "reactstrap";
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
+const WEBSOCKET_HOST = 'wss://websocket-clique.herokuapp.com/';
 
 class ChatConnection extends Component {
   constructor( props ) {
@@ -14,33 +16,34 @@ class ChatConnection extends Component {
       message: ''
     };
 
+    this.inbox = new ReconnectingWebSocket(WEBSOCKET_HOST + "/receive");
+    this.outbox = new ReconnectingWebSocket(WEBSOCKET_HOST + "/submit");
+
+    this.inbox.onmessage = (message) =>{
+      console.log(message.data);
+      let data = message.data;
+      let _messages = this.state.messages;
+      _messages.push(data);
+      this.setState({messages:_messages});
+    };
+
+    this.inbox.onclose = () =>{
+      console.log('inbox closed');
+      if(inbox.url!==null)this.inbox = new WebSocket(inbox.url);
+    };
+
+    this.outbox.onclose = () =>{
+      console.log('outbox closed');
+      if(outbox.url!==null)this.outbox = new WebSocket(outbox.url);
+    };
+
     this.onSend = this.onSend.bind( this );
     this.renderChat = this.renderChat.bind( this );
   }
 
-  componentWillMount() {
-    const { chatId } = this.props;
-
-    this.chatChannel = new ChatTrackingSubscription( {
-      chatId,
-      onUpdate: this.onChatUpdate,
-    } );
-
-    this.chatChannel.subscribe();
-  }
-
-  onChatUpdate( data ) {
-    console.log("onChatUpdate");
-    const { chat } = data;
-    this.setState( () => ( { chat } ) );
-  }
-
   onSend( evt ) {
     if ( evt.charCode === 13 ){
-      this.chatChannel.send(evt.target.value);
-      let _messages = this.state.messages;
-      _messages.push(evt.target.value);
-      this.setState({messages:_messages})
+      this.outbox.send(evt.target.value);
       this.setState( { message: '' } );
     }
   }

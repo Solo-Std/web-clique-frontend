@@ -3,7 +3,7 @@ import {
   Card,
   Col, Container, ListGroup, Row
 } from 'reactstrap';
-import axios from "axios/index";
+import API from "../../../api";
 import { Button } from "rmwc/Button/index";
 import PostList from "../Lists/PostList";
 
@@ -42,7 +42,7 @@ class Feeds extends Component {
 
   subscribe() {
     console.log( localStorage.getItem( 'user_id' ) + " IS NOW SUBSCRIBED TO " + this.props.clique_name );
-    axios.post( `http://project-clique.herokuapp.com/index.php/api/subscribed_clique_relation/`,
+    API.post( `subscribed_clique_relation/`,
       {
         clique_name: this.props.clique_name,
         user_id: localStorage.getItem( 'user_id' )

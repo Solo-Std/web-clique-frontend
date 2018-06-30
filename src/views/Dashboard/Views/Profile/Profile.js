@@ -3,7 +3,7 @@ import {
   Button,
   Col, ListGroup, Row
 } from 'reactstrap';
-import axios from "axios/index";
+import API from "../../../../api";
 import './Profile.css';
 import IconLabelButtons from "../Upload.js";
 import { Image } from "react-bootstrap";
@@ -36,7 +36,7 @@ class Profile extends Component {
   async unfriend() {
     try{
       this.setState( { userState: userState.LOADING } );
-      await axios.post( 'http://project-clique.herokuapp.com/index.php/api/user_friends_relation/unfriend',{
+      await API.post( 'user_friends_relation/unfriend',{
         visitor:localStorage.getItem( "username" ),
         visited:localStorage.getItem( "visiting_profile" )
       } );
@@ -50,7 +50,7 @@ class Profile extends Component {
   async add_friend() {
     try{
       this.setState( { userState: userState.LOADING } );
-      await axios.post( 'http://project-clique.herokuapp.com/index.php/api/user_friends_relation/add_friend',{
+      await API.post( 'user_friends_relation/add_friend',{
         visitor:localStorage.getItem( "username" ),
         visited:localStorage.getItem( "visiting_profile" )
       } );
@@ -62,7 +62,7 @@ class Profile extends Component {
 
   async is_friend() {
     try{
-      const response = await axios.post( 'http://project-clique.herokuapp.com/index.php/api/user_friends_relation/is_friend',{
+      const response = await API.post( 'user_friends_relation/is_friend',{
         visitor:localStorage.getItem( "username" ),
         visited:localStorage.getItem( "visiting_profile" )
       });
