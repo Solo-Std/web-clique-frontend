@@ -1,72 +1,18 @@
 import React, { Component } from 'react';
 import {
   Card,
-  Col, Container, ListGroup, ListGroupItem, Row
+  Col, Container, ListGroup, Row
 } from 'reactstrap';
-import axios from "axios/index";
-import TimeAgo from 'react-timeago';
+import API from "../../../api";
 import { Button } from "rmwc/Button/index";
+import PostList from "../Lists/PostList";
 
 class Feeds extends Component {
   constructor( props ) {
     super( props );
 
-    this.state = {
-      items: []
-    };
-
-    this.renderItem = this.renderItem.bind( this );
     this.renderTitle = this.renderTitle.bind( this );
     this.subscribe = this.subscribe.bind( this );
-  }
-
-  componentDidUpdate() {
-    axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
-      .then( response => {
-        console.log( this.props.clique_name );
-        let data = [];
-        response.data.map( ( content, index ) => data[ index ] = content );
-        this.setState( { items: data } );
-      } );
-  }
-
-  componentWillMount()
-  {
-    axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
-      .then( response => {
-        console.log( this.props.clique_name );
-        let data = [];
-        response.data.map( ( content, index ) => data[ index ] = content );
-        this.setState( { items: data } );
-      } );
-  }
-
-  renderItem() {
-    let data = [];
-    console.log( this.state.items );
-    for ( let i = 0; i < this.state.items.length; i++ ) {
-      data.push(
-        <ListGroupItem>
-          <Col xs={ "12" }>
-            <Row>
-              { /*<Col sm="1">*/ }
-              <img src="https://picsum.photos/200" width="80" height="60" alt={"cannot load"}/>
-              { /*</Col>*/ }
-              <Col sm="10">
-                <span className="font-lg" onClick={ () => this.props.onClick( this.state.items[ i ][ 'post_id' ] ) }>{ this.state.items[ i ][ 'post_title' ] }<br/></span>
-                <a className="text-black-50 font-xs">
-                  <strong>#{ this.state.items[ i ][ 'clique_name' ] }</strong>
-                </a><br/>
-                <span className="font-xs">Posted by <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.items[i][ 'username' ]);
-                  localStorage.setItem("visiting_profile",this.state.items[i][ 'username' ])}}>@{ this.state.items[ i ][ 'username' ] }</a></span>
-                <span className="font-xs">  <TimeAgo date={ this.state.items[ i ][ 'date_created' ] }/></span>
-              </Col>
-            </Row>
-          </Col>
-        </ListGroupItem>
-      );
-    }
-    return data;
   }
 
   renderTitle() {
@@ -75,28 +21,32 @@ class Feeds extends Component {
         <Container>
           <Row>
             <Col>
-              <h1>#{this.props.clique_name}</h1>
+              <h1>#{ this.props.clique_name }</h1>
             </Col>
           </Row>
-          <Row><Col>
-            <p onClick={this.subscribe}><Button>Subscribe</Button></p>
-          </Col></Row>
-          <Row><Col>
-            <p><Button>Unsubscribe</Button></p>
-          </Col></Row>
+          <Row>
+            <Col>
+              <p onClick={ this.subscribe }><Button>Subscribe</Button></p>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <p><Button>Unsubscribe</Button></p>
+            </Col>
+          </Row>
         </Container>
       </Card>
 
     );
   }
 
-  subscribe(){
-    console.log(localStorage.getItem('user_id') + " IS NOW SUBSCRIBED TO " + this.props.clique_name);
-    axios.post( `http://project-clique.herokuapp.com/index.php/api/subscribed_clique_relation/`,
-    {
-      clique_name: this.props.clique_name,
-      user_id: localStorage.getItem('user_id')
-    })
+  subscribe() {
+    console.log( localStorage.getItem( 'user_id' ) + " IS NOW SUBSCRIBED TO " + this.props.clique_name );
+    API.post( `subscribed_clique_relation/`,
+      {
+        clique_name: this.props.clique_name,
+        user_id: localStorage.getItem( 'user_id' )
+      } )
       .then( res => {
 
       } )
@@ -111,7 +61,12 @@ class Feeds extends Component {
         <div className="animated fadeIn">
           { this.renderTitle() }
           <ListGroup>
-            { this.renderItem() }
+            <PostList data="clique"
+                      param={ this.props.clique_name }
+                      onProfileClick={ this.props.onProfileClick }
+                      onCliqueClick={ this.props.onCliqueClick }
+                      onPostClick={ this.props.onPostClick }
+            />
           </ListGroup>
         </div>
       </Col>

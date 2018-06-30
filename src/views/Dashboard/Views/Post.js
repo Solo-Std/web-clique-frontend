@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {
   Col, Container, ListGroup, ListGroupItem, Row
 } from 'reactstrap';
-import axios from "axios/index";
+import API from "../../../api";
 import TimeAgo from 'react-timeago';
 import TextEditor from "./Components/TextEditor";
 import { Ripple } from "rmwc/Ripple";
+import ProfileLink from "../Links/ProfileLink";
 
 class Post extends Component {
   constructor( props ) {
@@ -46,7 +47,7 @@ class Post extends Component {
   }
 
   postComment( content ) {
-    return axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/insert`,
+    return API.post( `comment_master/insert`,
       {
         comment: content,
         username: localStorage.getItem("username"),
@@ -54,7 +55,7 @@ class Post extends Component {
       } )
       .then( res => {
         if ( res.data === "SUCCESS" ) {
-          axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/`,{
+          API.post( `comment_master/`,{
             id:this.props.id
           } )
             .then( response => {
@@ -73,7 +74,7 @@ class Post extends Component {
   }
 
   postReply( content ) {
-    return axios.post( `http://project-clique.herokuapp.com/index.php/api/reply_master/insert`,
+    return API.post( `reply_master/insert`,
       {
         reply: content,
         username: localStorage.getItem("username"),
@@ -81,7 +82,7 @@ class Post extends Component {
       } )
       .then( res => {
         if ( res.data === "SUCCESS" ) {
-          axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/`,{
+          API.post( `comment_master/`,{
             id: this.props.id
           })
             .then( response => {
@@ -100,7 +101,7 @@ class Post extends Component {
   }
 
   componentWillMount() {
-    axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/`,{
+    API.post( `comment_master/`,{
       id: this.props.id
     } )
       .then( response => {
@@ -108,7 +109,7 @@ class Post extends Component {
         response.data.map( ( content, index ) => data[ index ] = content );
         this.setState( { comments: data } );
       } );
-    axios.post( `http://project-clique.herokuapp.com/index.php/api/post_master/`,{
+    API.post( `post_master/`,{
       id: this.props.id
     })
       .then( response => {
@@ -126,15 +127,8 @@ class Post extends Component {
               <Col xs={ "12" }>
                 <Row>
                   <Col sm="12">
-                    <span className="font-xs">posted by
-                      <a className="text-info" onClick={ () => {
-                        this.props.onProfileClick(comment[ 'username' ]);
-                        localStorage.setItem("visiting_profile",comment[ 'username' ])}
-                      }>
-                        @{ comment[ 'username' ] }</a>
-                    </span>
-                    <span className="font-xs">&nbsp;
-                      <TimeAgo date={ comment[ 'date_created' ] }/></span>
+                    <ProfileLink onClick={ this.props.onProfileClick }
+                                 value={ comment }/>
                   </Col>
                 </Row>
                 <Row>
@@ -160,9 +154,6 @@ class Post extends Component {
           </div>
         );
     });
-    for ( let i = 0; i < this.state.comments.length; i++ ) {
-
-    }
     return data;
   }
 
@@ -217,13 +208,9 @@ class Post extends Component {
               <a className="text-black-50 font-xs">
                 <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
               </a><br/>
-              <span className="font-xs">&nbsp;Posted by
-                <a className="text-info" onClick={ () => { this.props.onProfileClick(this.state.posts[ 'username' ]);
-                  localStorage.setItem("visiting_profile",this.state.posts[ 'username' ]) } }>@{ this.state.posts[ 'username' ] }</a>
-              </span>
-              <span className="font-xs">&nbsp;
-                <TimeAgo date={ this.state.posts[ 'date_created' ] }/>
-              </span>
+              &nbsp;
+              <ProfileLink onClick={ this.props.onProfileClick }
+                           value={ this.state.posts }/>
             </Row>
             <Row>
               <span className="font-lg">{ this.state.posts[ 'post_title' ] }<br/></span>
