@@ -5,6 +5,7 @@ Clique Project is a university final project for Web Programming course. The mai
  - Owen Yuwono ([owenyuwono@gmail.com](mailto:owenyuwono@gmail.com))
  - Heri Adinegoro Soeparno ([herisoeparno@gmail.com](mailto:herisoeparno@gmail.com))
  - Adjie Wahyu Wicaksono ([adjie.wahyuw@gmail.com](mailto:adjie.wahyuw@gmail.com))
+ - Silvin ([silvin@student.umn.ac.id](mailto:silvin@student.umn.ac.id))
  
  
 ## To-Do List
