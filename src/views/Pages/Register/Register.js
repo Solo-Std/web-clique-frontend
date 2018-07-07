@@ -40,13 +40,13 @@ class Register extends React.Component {
     this.create = this.create.bind( this );
     this.setValid = this.setValid.bind( this );
     this.setValue = this.setValue.bind( this );
-    // this.sendMail = this.sendMail.bind(this);
+    this.sendMail = this.sendMail.bind(this);
   }
 
-  // sendMail()
-  // {
-  //   axios.get('http://project-clique.herokuapp.com/index.php/api/user_master/sendmail/');
-  // }
+  sendMail()
+  {
+    axios.get('http://project-clique.herokuapp.com/index.php/api/user_master/sendmail/'+localStorage.getItem("email"));
+  }
 
   setValid( state, value ) {
     let _state = state;
@@ -75,6 +75,7 @@ class Register extends React.Component {
         .then( res => {
           localStorage.setItem("session_token",res.data['__ci_last_regenerate']);
           localStorage.setItem("username",res.data['username']);
+          localStorage.setItem("email",this.state.email);
           this.setState( { submit: true } );
         } )
         .catch( error => {
@@ -250,9 +251,9 @@ class Register extends React.Component {
                              icon="fa fa-lock"/>
 
                   <Button color="success" onClick={()=>{this.create;
-                  // this.sendMail();
+                   this.sendMail();
                     }  } block>Create Account</Button>
-                  <Button color="link" onClick={ this.create } block>Sign in</Button>
+                  <Button color="link" onClick={ ()=>{this.create;this.sendMail();} } block>Sign in</Button>
                 </CardBody>
                 <CardFooter className="p-4">
                   <Row>
