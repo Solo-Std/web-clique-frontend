@@ -45,9 +45,10 @@ class Register extends React.Component {
 
   sendMail()
   {
-    let trimmedMail = this.state.mail.replace("@gmail.com","");
-    API.post('/user_master/sendmail/'+trimmedMail);
-    console.log("email to send to: "+trimmedMail);
+    var mail = this.state.email.toString();
+    var replacedMail = mail.replace("@gmail.com","");
+    API.post('/user_master/sendmail/'+replacedMail);
+    console.log("email to send to: "+replacedMail);
   }
 
   setValid( state, value ) {
