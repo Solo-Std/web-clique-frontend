@@ -4,6 +4,9 @@ import Post from "./Views/Post";
 import Profile from "./Views/Profile/Profile";
 import CreatePost from "./Views/CreatePost";
 import Clique from "./Views/Clique";
+import EditPassword from "./Views/EditPassword";
+// import IconLabelButtons from "./Views/Upload";
+
 
 export const viewState = {
   HOME: 1,
@@ -11,7 +14,8 @@ export const viewState = {
   PROFILE: 3,
   CREATE_POST: 4,
   CLIQUE: 5,
-  CREATE_CLIQUE: 6
+  CREATE_CLIQUE: 6,
+  EDIT_PASSWORD: 7
 };
 
 class Dashboard extends Component {
@@ -66,6 +70,8 @@ class Dashboard extends Component {
                        onCliqueClick={ d => this.setState( { state: viewState.CLIQUE, clique_name: d } ) }
                        onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }
         />;
+      case viewState.EDIT_PASSWORD:
+        return <EditPassword />
       default:
         return <Feeds/>;
     }

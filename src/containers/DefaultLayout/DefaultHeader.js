@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.png'
 import {Redirect} from "react-router-dom";
+import './DefaultLayout.css';
 const propTypes = {
   children: PropTypes.node,
 };
@@ -37,15 +38,18 @@ class DefaultHeader extends Component {
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="ml-auto" navbar>
-          <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-bell"/><Badge pill color="danger">5</Badge></NavLink>
-          </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-list"/></NavLink>
-          </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-location-pin"/></NavLink>
-          </NavItem>
+          <div className="row">
+            <div className="col-sm-6 notification">
+              <NavItem className="d-md-down-none">
+                <NavLink href="#"><i className="icon-bell"/><Badge pill color="danger">100</Badge></NavLink>
+              </NavItem>
+            </div>
+
+            <div className="displayName col-sm-6">{localStorage.getItem('username')}</div>
+
+
+          </div>
+
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
               <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
