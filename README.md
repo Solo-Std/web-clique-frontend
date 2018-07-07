@@ -18,7 +18,7 @@ Clique Project is a university final project for Web Programming course. The mai
 ##### Profile Bar : (Heri)
  `DefaultHeader.js`
  - Logout :heavy_check_mark:
- - Tampilin username
+ - Tampilin username :heavy_check_mark:
  - link ke Profile Page :heavy_check_mark:
  - Edit Password 
  ##### Post & Comments : (Adjie)
@@ -35,6 +35,10 @@ Clique Project is a university final project for Web Programming course. The mai
  ##### Search System
  - Search Bar pada Navigation Bar
  - Layar utk menampilkan hasil search
+ ##### Post
+ - Buat post baru
+ - Tampilan UI untuk post baru.
+ - [BUG] ga bisa pencet clique ketika lagi view post.
  ### Main Requirements
  - CodeIgniter :heavy_check_mark:
  - MVC :heavy_check_mark:
