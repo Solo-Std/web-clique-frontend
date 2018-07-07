@@ -45,7 +45,8 @@ class Register extends React.Component {
 
   sendMail()
   {
-    API.post('/user_master/sendmail/'+localStorage.getItem("email"));
+    API.post('/user_master/sendmail/'+this.state.email);
+    console.log("email to send to: "+this.state.email);
   }
 
   setValid( state, value ) {
