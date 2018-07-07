@@ -90,6 +90,7 @@ This project is created using :
  - [rmwc](https://github.com/jamesmfriedman/rmwc) a React Wrapper for Material Design (Web) Components
  - [axios](https://github.com/axios/axios) for HTTP REQUESTS
  - [Reconnecting WebSocket](https://github.com/pladaria/reconnecting-websocket)
+ - [SendGrid](https://github.com/sendgrid/sendgrid-php) for sending email via SMTP
  
 #### Frequently Asked Questions
  > - Q : My PHP is not recognized in my command prompt
