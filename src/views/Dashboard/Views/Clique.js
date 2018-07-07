@@ -41,11 +41,11 @@ class Feeds extends Component {
   }
 
   subscribe() {
-    console.log( localStorage.getItem( 'user_id' ) + " IS NOW SUBSCRIBED TO " + this.props.clique_name );
+    console.log( localStorage.getItem( 'username' ) + " IS NOW SUBSCRIBED TO " + this.props.clique_name );
     API.post( `subscribed_clique_relation/`,
       {
         clique_name: this.props.clique_name,
-        user_id: localStorage.getItem( 'user_id' )
+        username: localStorage.getItem( 'username' )
       } )
       .then( res => {
 
