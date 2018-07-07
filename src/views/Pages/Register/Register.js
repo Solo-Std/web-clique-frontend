@@ -43,10 +43,10 @@ class Register extends React.Component {
     this.sendMail = this.sendMail.bind(this);
   }
 
-  sendMail()
-  {
-    axios.get('http://project-clique.herokuapp.com/index.php/api/user_master/sendEmail/mxtmashu2@gmail.com');
-  }
+  // sendMail()
+  // {
+  //   axios.get('http://project-clique.herokuapp.com/index.php/api/user_master/sendmail/');
+  // }
 
   setValid( state, value ) {
     let _state = state;
@@ -250,7 +250,8 @@ class Register extends React.Component {
                              icon="fa fa-lock"/>
 
                   <Button color="success" onClick={()=>{this.create;
-                  this.sendMail();}  } block>Create Account</Button>
+                  // this.sendMail();
+                    }  } block>Create Account</Button>
                   <Button color="link" onClick={ this.create } block>Sign in</Button>
                 </CardBody>
                 <CardFooter className="p-4">
