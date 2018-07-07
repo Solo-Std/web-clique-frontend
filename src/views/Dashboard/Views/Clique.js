@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import axios from "axios/index";
 import TimeAgo from 'react-timeago';
+import "./Clique.css";
 import { Button } from "rmwc/Button/index";
 
 class Feeds extends Component {
@@ -12,18 +13,19 @@ class Feeds extends Component {
     super( props );
 
     this.state = {
-      items: []
+      items: [],
+      sub: []
     };
 
     this.renderItem = this.renderItem.bind( this );
     this.renderTitle = this.renderTitle.bind( this );
     this.subscribe = this.subscribe.bind( this );
+    this.checkSub = this.checkSub.bind( this );
   }
 
   componentDidUpdate() {
     axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
       .then( response => {
-        console.log( this.props.clique_name );
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );
         this.setState( { items: data } );
@@ -34,7 +36,6 @@ class Feeds extends Component {
   {
     axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/get_clique_post/` + this.props.clique_name )
       .then( response => {
-        console.log( this.props.clique_name );
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );
         this.setState( { items: data } );
@@ -43,7 +44,6 @@ class Feeds extends Component {
 
   renderItem() {
     let data = [];
-    console.log( this.state.items );
     for ( let i = 0; i < this.state.items.length; i++ ) {
       data.push(
         <ListGroupItem>
@@ -79,15 +79,44 @@ class Feeds extends Component {
             </Col>
           </Row>
           <Row><Col>
-            <p onClick={this.subscribe}><Button>Subscribe</Button></p>
-          </Col></Row>
-          <Row><Col>
-            <p><Button>Unsubscribe</Button></p>
+            {this.renderSubButton()}
           </Col></Row>
         </Container>
       </Card>
 
     );
+  }
+
+  checkSub(){
+    axios.get( `http://project-clique.herokuapp.com/index.php/api/subscribed_clique_relation/checksubscription/` + localStorage.getItem('user_id') + '/' + this.props.clique_name )
+      .then( response => {
+        let data = [];
+        response.data.map( ( content, index ) => data[ index ] = content );
+        this.setState( { sub: data } );
+      } );
+  }
+
+  renderSubButton(){
+    let data = [];
+
+    this.checkSub();
+
+    if(!this.state.sub){
+      data.push(
+        <Row><Col>
+          <p onClick={this.subscribe}><Button>Subscribe</Button></p>
+        </Col></Row>
+      );
+    }
+    else{
+      data.push(
+        <Row><Col>
+          <p><Button>Unsubscribe</Button></p>
+        </Col></Row>
+      );
+    }
+
+    return data;
   }
 
   subscribe(){
