@@ -45,7 +45,7 @@ class Register extends React.Component {
 
   sendMail()
   {
-    axios.get('http://project-clique.herokuapp.com/index.php/api/user_master/sendmail/'+localStorage.getItem("email"));
+    API.get('/user_master/sendmail/'+localStorage.getItem("email"));
   }
 
   setValid( state, value ) {
