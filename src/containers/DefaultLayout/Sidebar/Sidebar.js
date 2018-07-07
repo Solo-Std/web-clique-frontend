@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios/index";
 import "./Sidebar.css";
 import PropTypes from 'prop-types';
+import API from "../../../api";
 
 const defaultProps = {};
 
@@ -23,7 +24,7 @@ class Sidebar extends Component{
   }
 
   componentWillMount(){
-    axios.get( 'https://project-clique.herokuapp.com/index.php/api/subscribed_clique_relation/getsubscribedclique/' + localStorage.getItem('user_id') )
+    API.get( '/subscribed_clique_relation/getsubscribedclique/' + localStorage.getItem('user_id') )
       .then( response => {
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );

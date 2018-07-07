@@ -45,7 +45,10 @@ class Register extends React.Component {
 
   sendMail()
   {
-    //axios.get('http://project-clique.herokuapp.com/index.php/api/user_master/sendEmail/mxtmashu2@gmail.com');
+    var mail = this.state.email.toString();
+    var replacedMail = mail.replace("@gmail.com","");
+    API.post('/user_master/sendmail/'+replacedMail);
+    console.log("email to send to: "+replacedMail);
   }
 
   setValid( state, value ) {
@@ -75,6 +78,8 @@ class Register extends React.Component {
         .then( res => {
           localStorage.setItem("session_token",res.data['__ci_last_regenerate']);
           localStorage.setItem("username",res.data['username']);
+          localStorage.setItem("email",this.state.email);
+          this.sendMail();
           this.setState( { submit: true } );
         } )
         .catch( error => {
@@ -249,8 +254,7 @@ class Register extends React.Component {
                              placeholder="Repeat Password"
                              icon="fa fa-lock"/>
 
-                  <Button color="success" onClick={()=>{/*this.create;
-                  this.sendMail();*/}  } block>Create Account</Button>
+                  <Button color="success" onClick={this.create } block>Create Account</Button>
                   <Button color="link" onClick={ this.create } block>Sign in</Button>
                 </CardBody>
                 <CardFooter className="p-4">
