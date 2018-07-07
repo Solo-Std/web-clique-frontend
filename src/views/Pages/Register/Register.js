@@ -40,7 +40,7 @@ class Register extends React.Component {
     this.create = this.create.bind( this );
     this.setValid = this.setValid.bind( this );
     this.setValue = this.setValue.bind( this );
-    this.sendMail = this.sendMail.bind(this);
+    // this.sendMail = this.sendMail.bind(this);
   }
 
   // sendMail()
