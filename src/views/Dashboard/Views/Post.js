@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {
   Col, Container, ListGroup, ListGroupItem, Row
 } from 'reactstrap';
-import axios from "axios/index";
+import API from "../../../api";
 import TimeAgo from 'react-timeago';
 import TextEditor from "./Components/TextEditor";
 import { Ripple } from "rmwc/Ripple";
+import ProfileLink from "../Links/ProfileLink";
 
 class Post extends Component {
   constructor( props ) {
@@ -46,15 +47,17 @@ class Post extends Component {
   }
 
   postComment( content ) {
-    return axios.post( `http://project-clique.herokuapp.com/index.php/api/comment_master/insert`,
+    return API.post( `comment_master/insert`,
       {
         comment: content,
-        user_id: 1,
+        username: localStorage.getItem("username"),
         post_id: this.props.id
       } )
       .then( res => {
         if ( res.data === "SUCCESS" ) {
-          axios.get( `http://project-clique.herokuapp.com/index.php/api/comment_master/` + this.props.id )
+          API.post( `comment_master/`,{
+            id:this.props.id
+          } )
             .then( response => {
               let data = [];
               response.data.map( ( content, index ) => data[ index ] = content );
@@ -71,15 +74,17 @@ class Post extends Component {
   }
 
   postReply( content ) {
-    return axios.post( `http://project-clique.herokuapp.com/index.php/api/reply_master/insert`,
+    return API.post( `reply_master/insert`,
       {
         reply: content,
-        user_id: 1,
+        username: localStorage.getItem("username"),
         comment_id: this.state.editor
       } )
       .then( res => {
         if ( res.data === "SUCCESS" ) {
-          axios.get( `http://project-clique.herokuapp.com/index.php/api/comment_master/` + this.props.id )
+          API.post( `comment_master/`,{
+            id: this.props.id
+          })
             .then( response => {
               let data = [];
               response.data.map( ( content, index ) => data[ index ] = content );
@@ -96,14 +101,17 @@ class Post extends Component {
   }
 
   componentWillMount() {
-    axios.get( `http://project-clique.herokuapp.com/index.php/api/comment_master/` + this.props.id )
+    API.post( `comment_master/`,{
+      id: this.props.id
+    } )
       .then( response => {
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );
         this.setState( { comments: data } );
-        console.log( this.state.comments );
       } );
-    axios.get( `http://project-clique.herokuapp.com/index.php/api/post_master/` + this.props.id )
+    API.post( `post_master/`,{
+      id: this.props.id
+    })
       .then( response => {
         this.setState( { posts: response.data } );
       } );
@@ -111,50 +119,49 @@ class Post extends Component {
 
   renderItem() {
     let data = [];
-    for ( let i = 0; i < this.state.comments.length; i++ ) {
-      if ( this.state.comments[ i ].length !== 0 )
+    this.state.comments.forEach((comment,idx)=>{
+      if ( comment.length !== 0 )
         data.push(
-          <div>
-            <ListGroupItem tag="a" action>
+          <div key={idx}>
+            <ListGroupItem action>
               <Col xs={ "12" }>
                 <Row>
                   <Col sm="12">
-                    <span className="font-xs">posted by
-                      <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.comments[ i ][ 'username' ]);
-                        localStorage.setItem("visiting_profile",this.state.comments[ i ][ 'username' ])}}>@{ this.state.comments[ i ][ 'username' ] }</a></span>
-                    <span className="font-xs">&nbsp;<TimeAgo
-                      date={ this.state.comments[ i ][ 'date_created' ] }/></span>
+                    <ProfileLink onClick={ this.props.onProfileClick }
+                                 value={ comment }/>
                   </Col>
                 </Row>
                 <Row>
                   <Col sm={ "12" }>
-                    <div dangerouslySetInnerHTML={ { __html: this.state.comments[ i ][ 'comment' ] } }/>
+                    <div dangerouslySetInnerHTML={ { __html: comment[ 'comment' ] } }/>
                   </Col>
                 </Row>
                 <Row>
                   <Col sm={ "12" }>
-                    <a className="text-black-50 font-sm" onClick={ () => this.setState( { editor: this.state.comments[ i ][ 'comment_id' ] } ) }><i
-                      className="material-icons font-sm">mode_comment</i> { this.getRepliesCount( i ) } </a>
+                    <a className="text-black-50 font-sm" onClick={ () => this.setState( { editor: comment[ 'comment_id' ] } ) }>
+                      <i className="material-icons font-sm">mode_comment</i>
+                      { this.getRepliesCount( idx ) }
+                    </a>
                     &nbsp;
-                    <a className="text-black-50 font-sm" href={ "#" }><i
+                    <a className="text-black-50 font-sm"><i
                       className="material-icons font-sm">thumb_up</i> Like</a>
                   </Col>
                 </Row>
               </Col>
-              { this.renderTextEditor( this.state.editor === this.state.comments[ i ][ 'comment_id' ] ) }
-              { this.renderReplies( i, this.state.comments[ i ][ 'comment_id' ] ) }
+              { this.renderTextEditor( this.state.editor === comment[ 'comment_id' ] ) }
+              { this.renderReplies( idx, comment[ 'comment_id' ] ) }
             </ListGroupItem>
           </div>
         );
-    }
+    });
     return data;
   }
 
   renderReplies( index, id ) {
     let data = [];
-    for ( let i = 0; i < this.state.comments[ index ][ 'replies' ].length; i++ ) {
+    this.state.comments[index]['replies'].forEach((reply,idx)=>{
       data.push(
-        <Col sm={ "12" }>
+        <Col sm={ "12" } key={idx}>
           <div className="callout">
             <small className="text-muted">
               <Ripple unbounded>
@@ -164,19 +171,19 @@ class Post extends Component {
                   </span>
               </Ripple>
               &nbsp;
-              <a className="text-info" onClick={ () => {this.props.onProfileClick(this.state.comments[ index ][ 'replies' ][ i ][ 'username' ]);
-                localStorage.setItem("visiting_profile",this.state.comments[ index ][ 'replies' ][ i ][ 'username' ])}}>@{ this.state.comments[ index ][ 'replies' ][ i ][ 'username' ] }</a>
+              <a className="text-info" onClick={ () => {this.props.onProfileClick(reply[ 'username' ]);
+                localStorage.setItem("visiting_profile",reply[ 'username' ])}}>@{ reply[ 'username' ] }</a>
               &nbsp;
-              <TimeAgo date={ this.state.comments[ index ][ 'replies' ][ i ][ 'date_created' ] }/>
+              <TimeAgo date={ reply[ 'date_created' ] }/>
             </small>
             <br/>
             <span>
-                <div dangerouslySetInnerHTML={ { __html: this.state.comments[ index ][ 'replies' ][ i ][ 'reply' ] } }/>
+                <div dangerouslySetInnerHTML={ { __html: reply[ 'reply' ] } }/>
               </span>
           </div>
         </Col>
       );
-    }
+    });
     return data;
   }
 
@@ -198,16 +205,12 @@ class Post extends Component {
         <ListGroupItem>
           <Col xs={ "12" }>
             <Row>
-              <a className="text-black-50 font-xs" href="#">
+              <a className="text-black-50 font-xs">
                 <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
               </a><br/>
-              <span className="font-xs">&nbsp;Posted by
-                <a className="text-info" onClick={ () => { this.props.onProfileClick(this.state.posts[ 'username' ]);
-                  localStorage.setItem("visiting_profile",this.state.posts[ 'username' ]) } }>@{ this.state.posts[ 'username' ] }</a>
-              </span>
-              <span className="font-xs">&nbsp;
-                <TimeAgo date={ this.state.posts[ 'date_created' ] }/>
-              </span>
+              &nbsp;
+              <ProfileLink onClick={ this.props.onProfileClick }
+                           value={ this.state.posts }/>
             </Row>
             <Row>
               <span className="font-lg">{ this.state.posts[ 'post_title' ] }<br/></span>

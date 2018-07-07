@@ -7,7 +7,7 @@ import {
   Container,
   Row
 } from 'reactstrap';
-import axios from 'axios';
+import API from "../../../api";
 import React from 'react';
 import FacebookLoginButton from "./ThirdPartyLogin/FacebookLoginButton";
 import GoogleLoginButton from "./ThirdPartyLogin/GoogleLoginButton";
@@ -66,7 +66,7 @@ class Register extends React.Component {
       this.state.username.valid === validState.VALID &&
       this.state.email.valid === validState.VALID ) {
       evt.preventDefault();
-      return axios.post( `http://project-clique.herokuapp.com/index.php/api/user_master/`,
+      return API.post( `user_master/`,
         {
           username: this.state.username.value,
           password: this.state.password.value,
@@ -154,7 +154,7 @@ class Register extends React.Component {
                                  this.setValid( this.state.username, validState.EMPTY_STRING );
                                else {
                                  this.setValid( this.state.username, validState.VALID );
-                                 axios.post( 'http://project-clique.herokuapp.com/index.php/api/user_master/check_username',
+                                 API.post( 'user_master/check_username',
                                    { username: this.state.username.value } )
                                    .then( res => {
                                      if ( res.data === "SUCCESS" )
@@ -188,7 +188,7 @@ class Register extends React.Component {
                                  this.setValid( this.state.email, validState.INVALID_FORMAT );
                                else {
                                  this.setValid( this.state.email, validState.VALID );
-                                 axios.post( `http://project-clique.herokuapp.com/index.php/api/user_master/check_email`
+                                 API.post( `user_master/check_email`
                                    , { email: this.state.email.value } )
                                    .then( res => {
                                      if ( res.data === "SUCCESS" ) {

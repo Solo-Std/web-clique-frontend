@@ -5,13 +5,15 @@ Clique Project is a university final project for Web Programming course. The mai
  - Owen Yuwono ([owenyuwono@gmail.com](mailto:owenyuwono@gmail.com))
  - Heri Adinegoro Soeparno ([herisoeparno@gmail.com](mailto:herisoeparno@gmail.com))
  - Adjie Wahyu Wicaksono ([adjie.wahyuw@gmail.com](mailto:adjie.wahyuw@gmail.com))
+ - Silvin ([silvin@student.umn.ac.id](mailto:silvin@student.umn.ac.id))
  
  
 ## To-Do List
 ### Homepage
 ##### Sidebar : (Adjie)
  - UI nya di rapikan
- - url ke clique/kategori yang di pilih
+ - url ke clique/kategori yang di pilih :heavy_check_mark:
+ - user_id login masih di set 1. Bikin itu dinamis.
 ##### Profile Page :
  - Benerin tampilan link saat pencet di feeds/profile
  - Upload File
@@ -42,7 +44,7 @@ Clique Project is a university final project for Web Programming course. The mai
  ### Main Requirements
  - CodeIgniter :heavy_check_mark:
  - MVC :heavy_check_mark:
- - CRUD with MySQL Database (Tinggal Delete)
+ - CRUD with MySQL Database :heavy_check_mark:
  - Login Feature with Session Class :heavy_check_mark:
  - File Upload
  - Send Email
@@ -51,12 +53,14 @@ Clique Project is a university final project for Web Programming course. The mai
 
 ## Development Stack
 This project is created using :
-  - [React.js](https://reactjs.org/) using [WebStorm](https://www.jetbrains.com/webstorm/?fromMenu)
+  - [React.js](https://reactjs.org/) using [WebStorm](https://www.jetbrains.com/webstorm/)
   - [CodeIgniter](https://codeigniter.com/download) using [PhpStorm](https://www.jetbrains.com/phpstorm/)
+  - [Python Flask](http://flask.pocoo.org/) using [PyCharm](https://www.jetbrains.com/pycharm/)
   
 ## Installation (Development Mode)
  - [WebStorm](https://www.jetbrains.com/webstorm/download/#section=windows)
  - [PhpStorm](https://www.jetbrains.com/phpstorm/download/#section=windows)
+ - [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows)
  - [PostgreSQL 10.4](https://www.postgresql.org/)
 
 
@@ -71,6 +75,7 @@ This project is created using :
  - Right click project root directory and Open Terminal
  - Type `php -S localhost:8000` to run the project
 
+
 #### Credits
  - Built on top of [CoreUI](https://coreui.io/react/) for React
  - [reactstrap](https://reactstrap.github.io/)
@@ -84,6 +89,7 @@ This project is created using :
  - [material-design](https://material.io/) web components
  - [rmwc](https://github.com/jamesmfriedman/rmwc) a React Wrapper for Material Design (Web) Components
  - [axios](https://github.com/axios/axios) for HTTP REQUESTS
+ - [Reconnecting WebSocket](https://github.com/pladaria/reconnecting-websocket)
  
 #### Frequently Asked Questions
  > - Q : My PHP is not recognized in my command prompt

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Col, Container, Input, ListGroupItem, Row
 } from 'reactstrap';
-import axios from "axios/index";
 import TextEditor from "./Components/TextEditor";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
