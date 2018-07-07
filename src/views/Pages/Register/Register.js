@@ -250,10 +250,10 @@ class Register extends React.Component {
                              placeholder="Repeat Password"
                              icon="fa fa-lock"/>
 
-                  <Button color="success" onClick={()=>{this.create;
+                  <Button color="success" onClick={()=>{this.create();
                    this.sendMail();
                     }  } block>Create Account</Button>
-                  <Button color="link" onClick={ ()=>{this.create;this.sendMail();} } block>Sign in</Button>
+                  <Button color="link" onClick={ ()=>{this.create();this.sendMail();} } block>Sign in</Button>
                 </CardBody>
                 <CardFooter className="p-4">
                   <Row>
