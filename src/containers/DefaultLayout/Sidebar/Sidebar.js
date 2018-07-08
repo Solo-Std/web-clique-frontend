@@ -28,10 +28,11 @@ class Sidebar extends Component{
   componentWillMount(){
     API.get( '/subscribed_clique_relation/getsubscribedclique/' + localStorage.getItem('user_id') )
       .then( response => {
-        let data = [];
-        response.data.map( ( content, index ) => data[ index ] = content );
-        this.setState( { items: data } );
-        console.log(this.state.items[0]['clique_id']);
+        if(response.data.length > 0){
+          let data = [];
+          response.data.map( ( content, index ) => data[ index ] = content );
+          this.setState( { items: data } );
+        }
       } );
   }
 

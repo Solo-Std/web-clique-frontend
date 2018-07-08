@@ -29,8 +29,8 @@ class ChatConnection extends Component {
     };
 
     this.inbox.onclose = () =>{
+      this.inbox.reconnect();
       console.log('inbox closed');
-      this.inbox = new ReconnectingWebSocket(WEBSOCKET_HOST + "/receive");
     };
 
     this.inbox.onopen = () =>{
@@ -38,8 +38,8 @@ class ChatConnection extends Component {
     };
 
     this.outbox.onclose = () =>{
+      this.outbox.reconnect();
       console.log('outbox closed');
-      this.outbox = new ReconnectingWebSocket(WEBSOCKET_HOST + "/submit");
     };
 
     this.outbox.onopen = () => {
