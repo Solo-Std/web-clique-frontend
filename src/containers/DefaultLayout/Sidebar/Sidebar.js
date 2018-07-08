@@ -3,6 +3,8 @@ import axios from "axios/index";
 import "./Sidebar.css";
 import PropTypes from 'prop-types';
 import API from "../../../api";
+import Callout from "./Callout";
+import Glyphicon from "../../../../node_modules/react-bootstrap/es/Glyphicon.js";
 
 const defaultProps = {};
 
@@ -36,9 +38,9 @@ class Sidebar extends Component{
   render(){
     return(
       <ul className="mdc-list sidebar-scroll">
-        <li className={"mdc-list-item sidebar-container sidebar-text"}
+        <li className={"mdc-list-item sidebar-containerALL sidebar-text "}
           onClick={ ()=>{this.props.onSidebarAllClick();} }
-        >All</li>
+        >All </li>
         { this.renderClique() }
       </ul>
     );
@@ -47,14 +49,17 @@ class Sidebar extends Component{
   renderClique(){
     let data = [];
     this.state.items.forEach((item, idx)=> {
-      data.push(
-        <li key={idx} className="mdc-list-item sidebar-container sidebar-text"
-            onClick={ () => {
-              this.props.onSidebarCliqueClick( item[ 'title' ] );
-              localStorage.setItem( "visiting_clique", item[ 'title' ] );
-            } }
-        >{ item[ 'title' ] }</li>
-      )
+
+        data.push(
+          <li key={idx} className="mdc-list-item sidebar-container sidebar-text glyphicon glyphicon-star"
+              onClick={ () => {
+                this.props.onSidebarCliqueClick( item[ 'title' ] );
+                localStorage.setItem( "visiting_clique", item[ 'title' ] );
+              } }
+          >{ item[ 'title' ] }</li>
+        )
+
+
     });
 
     return data;

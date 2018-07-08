@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 .sidebar-container{
   background-color: #21b5b5;
+  margin-top: 10px;
+  font-family: Roboto;
 }
+
+.sidebar-containerALL{
+  background-color: #ffdb2b;
+  margin-top: 10px;
+  font-family: Roboto;
+}
+
 
 #c1{
   height: 100%;
@@ -10,11 +21,13 @@
 }
 
 .sidebar-scroll {
-//width: 13.3%;//BRUTE FORCE
-position: fixed;
-  overflow-y: scroll;//SCROLLBAR IS STILL VIEWABLE
-top: 45px; //FIRST ITEM IS BRUTE FORCED TO BE VIEWABLE
-bottom: 0;
+  width: 13.3%;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  top: 45px;
+  bottom: 0px;
+  z-index: 1;
 }
 
 .sidebar-text{
