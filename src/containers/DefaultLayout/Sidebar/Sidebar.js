@@ -47,7 +47,6 @@ class Sidebar extends Component{
   renderClique(){
     let data = [];
     this.state.items.forEach((item, idx)=> {
-
         data.push(
           <li key={idx} className="mdc-list-item sidebar-container sidebar-text glyphicon glyphicon-star"
               onClick={ () => {
@@ -56,10 +55,7 @@ class Sidebar extends Component{
               } }
           >{ item[ 'title' ] }</li>
         )
-
-
     });
-
     return data;
   }
 

@@ -125,7 +125,12 @@ class Profile extends Component {
     } ).then( res => {
       if ( res.data !== "FAILED" ) {
         this.setState( { image: res.data[ 'image_ext' ] + ',' + res.data[ 'image' ] } );
-        this.setState( { userState: userState.CURRENT } );
+        if(localStorage.getItem("username")===localStorage.getItem("visiting_profile")){
+          this.setState({userState:userState.CURRENT})
+        }
+        else{
+          this.is_friend();
+        }
       }
       else this.setState( { image: imgPlaceholder } );
     } );
@@ -136,7 +141,7 @@ class Profile extends Component {
       case userState.LOADING:
         return (
           <Button disabled active={ false }>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Loading...
           </Button>
         );
       case userState.CURRENT:
