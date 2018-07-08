@@ -4,6 +4,11 @@ import CliqueLink from "../Links/CliqueLink";
 import PostLink from "../Links/PostLink";
 import ProfileLink from "../Links/ProfileLink";
 import API from "../../../api";
+<<<<<<< HEAD
+=======
+import Skeleton from
+
+>>>>>>> parent of 29c2588... added skeleton loader
 
 class PostList extends Component{
   constructor(props){
