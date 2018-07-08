@@ -23,7 +23,8 @@ class DefaultLayout extends Component {
       profile: false,
       sidebar: false,
       all: false,
-      visiting_clique: 'gaming'
+      visiting_clique: 'gaming',
+      sidebarCtr:0
     };
     this.onSidebarCliqueClick = this.onSidebarCliqueClick.bind( this );
     this.onClick = this.onClick.bind( this );
@@ -58,10 +59,11 @@ class DefaultLayout extends Component {
   }
 
   onSidebarCliqueClick() {
-    this.setState( { sidebar: !this.state.sidebar } );
+    this.setState( { sidebar: true } );
     this.setState( { all: false } );
     this.setState( { visiting_clique: localStorage.getItem( "visiting_clique" ) } );
     console.log( 'Clicked Clique: ' + localStorage.getItem( "visiting_clique" ) );
+    this.setState({sidebarCtr:this.state.sidebarCtr+1});
   }
 
   onSidebarAllClick() {
@@ -114,7 +116,8 @@ class DefaultLayout extends Component {
             <Dashboard clique_name={ localStorage.getItem( "visiting_clique" ) }
                        all={ this.state.all }
                        profile={ this.state.profile }
-                       sidebar={ this.state.sidebar }/>
+                       sidebar={ this.state.sidebar }
+                      sidebarCtr={this.state.sidebarCtr}/>
           </main>
         </div>
       </div>
