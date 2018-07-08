@@ -28,6 +28,7 @@ class DefaultLayout extends Component {
     this.onSidebarCliqueClick = this.onSidebarCliqueClick.bind( this );
     this.onClick = this.onClick.bind( this );
     this.logout = this.logout.bind( this );
+    this.mainMenuRedirect = this.mainMenuRedirect.bind(this);
   }
 
   componentWillMount() {
@@ -72,6 +73,13 @@ class DefaultLayout extends Component {
     localStorage.setItem( 'session_token', '' );
   }
 
+  mainMenuRedirect()
+  {
+    window.location.reload();
+    console.log("main menu called!");
+  //  main menu stuff here
+  }
+
   render() {
     if ( this.state.valid_session === false ) {
       return <Redirect to='/login'/>;
@@ -86,7 +94,11 @@ class DefaultLayout extends Component {
             } }
             logout={ () => {
               this.logout();
-            } }/>
+            } }
+            mainMenuRedirect={
+              ()=>{this.mainMenuRedirect();}
+            }
+          />
         </AppHeader>
         <div className="app-body">
           <AppSidebar float="true" display="lg">

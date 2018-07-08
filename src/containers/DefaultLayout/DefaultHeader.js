@@ -17,7 +17,8 @@ class DefaultHeader extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      redirect:false
+      redirect:false,
+      redirectToMainMenu:false
     };
   }
 
@@ -29,12 +30,21 @@ class DefaultHeader extends Component {
     if(redirect)
       return <Redirect to='/login'></Redirect>;
 
+    const {redirectToMainmenu} = this.state;
+    if(redirectToMainmenu) return <Redirect to='/#'/>
+
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
           full={{ src: logo, width: 175, height: 175, alt: 'CoreUI Logo' }}
-        />
+          onClick={ () => {
+            // this.setState({redirectToMainMenu:true})
+            this.props.mainMenuRedirect();
+          }}href="#"
+        >
+
+        </AppNavbarBrand>
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="ml-auto" navbar>

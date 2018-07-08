@@ -69,13 +69,17 @@ class PostList extends Component{
     else if(this.state.items.length ==0){
       data.push
       (
-        <Col xs={ "12" }>
-          <Row>
-            <Col sm="10">
-              <p>You have no posts yet :(</p>
-            </Col>
-          </Row>
-        </Col>
+
+        <ListGroupItem>
+          <Col xs={ "12" }>
+            <Row>
+              <Col sm="10">
+                <p>
+                  You have no posts yet :(</p>
+              </Col>
+            </Row>
+          </Col>
+        </ListGroupItem>
       )
       return data;
     }
