@@ -2,28 +2,29 @@
 
 .sidebar-container{
   background-color: #21b5b5;
-  margin-top: 10px;
+  /*position: static;*/
+  /*display: grid;*/
+  /*margin-top: 5px;*/
+  /*padding-top: 5px;*/
   font-family: Roboto;
 }
 
 .sidebar-containerALL{
   background-color: #ffdb2b;
-  margin-top: 10px;
+  /*position: static;*/
+  /*display: grid;*/
+  /*margin-top: 5px;*/
+  /*padding-top: 5px;*/
   font-family: Roboto;
-}
-
-
-#c1{
-  height: 100%;
-  width: 100%;
-  border: 1px solid green;
-  overflow: hidden;
 }
 
 .sidebar-scroll {
   width: 200px;
   position: fixed;
-  display: grid;
+  display: inline-grid;
+  grid-template-columns: 200px ;
+  /*grid-template-rows: 200px;*/
+  
   overflow-y: scroll;
   overflow-x: hidden;
   top: 45px;
