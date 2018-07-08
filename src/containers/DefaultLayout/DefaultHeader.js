@@ -41,7 +41,7 @@ class DefaultHeader extends Component {
           <div className="row">
             <div className="col-sm-6 notification">
               <NavItem className="d-md-down-none">
-                {/*<NavLink href="#"><i className="icon-bell"/><Badge pill color="danger">100</Badge></NavLink>*/}
+                <NavLink href="#"><i className="icon-bell"/><Badge pill color="danger">100</Badge></NavLink>
               </NavItem>
             </div>
 

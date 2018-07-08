@@ -42,43 +42,26 @@ class PostList extends Component{
 
   render() {
     let data = [];
-    if(this.state.items.length>0)
-    {
-      this.state.items.forEach( ( item, idx ) => {
-        data.push(
-          <ListGroupItem key={ idx }>
-            <Col xs={ "12" }>
-              <Row>
-                <img src="https://picsum.photos/200" width="80" height="60" alt={ "cannot load" }/>
-                <Col sm="10">
-                  <PostLink onClick={ this.props.onPostClick }
+    this.state.items.forEach( ( item, idx ) => {
+      data.push(
+        <ListGroupItem key={ idx }>
+          <Col xs={ "12" }>
+            <Row>
+              <img src="https://picsum.photos/200" width="80" height="60" alt={ "cannot load" }/>
+              <Col sm="10">
+                <PostLink onClick={ this.props.onPostClick }
+                          value={ item }/>
+                <CliqueLink onClick={ this.props.onCliqueClick }
                             value={ item }/>
-                  <CliqueLink onClick={ this.props.onCliqueClick }
-                              value={ item }/>
-                  <ProfileLink onClick={ this.props.onProfileClick }
-                               value={ item }/>
-                </Col>
-              </Row>
-            </Col>
-          </ListGroupItem>
-        );
-      } );
-      return data;
-    }
-
-    else if(this.state.items.length ==0){
-      data.push
-      (
-        <Col xs={ "12" }>
-          <Row>
-            <Col sm="10">
-              <p>You have no posts yet :(</p>
-            </Col>
-          </Row>
-        </Col>
-      )
-      return data;
-    }
+                <ProfileLink onClick={ this.props.onProfileClick }
+                             value={ item }/>
+              </Col>
+            </Row>
+          </Col>
+        </ListGroupItem>
+      );
+    } );
+    return data;
   }
 }
 
