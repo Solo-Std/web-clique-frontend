@@ -5,10 +5,10 @@ import {
 } from 'reactstrap';
 import API from "../../../../api";
 import './Profile.css';
-import IconLabelButtons from "../Upload.js";
 import { Image } from "react-bootstrap";
 import Callout from "./Callout";
 import PostList from "../../Lists/PostList";
+import axios from "axios";
 
 const userState = {
   LOADING: 1,
@@ -34,45 +34,45 @@ class Profile extends Component {
   }
 
   async unfriend() {
-    try{
+    try {
       this.setState( { userState: userState.LOADING } );
-      await API.post( 'user_friends_relation/unfriend',{
-        visitor:localStorage.getItem( "username" ),
-        visited:localStorage.getItem( "visiting_profile" )
+      await API.post( 'user_friends_relation/unfriend', {
+        visitor: localStorage.getItem( "username" ),
+        visited: localStorage.getItem( "visiting_profile" )
       } );
       this.is_friend();
     }
     catch ( e ) {
-      console.warn(e);
+      console.warn( e );
     }
   }
 
   async add_friend() {
-    try{
+    try {
       this.setState( { userState: userState.LOADING } );
-      await API.post( 'user_friends_relation/add_friend',{
-        visitor:localStorage.getItem( "username" ),
-        visited:localStorage.getItem( "visiting_profile" )
+      await API.post( 'user_friends_relation/add_friend', {
+        visitor: localStorage.getItem( "username" ),
+        visited: localStorage.getItem( "visiting_profile" )
       } );
       this.is_friend();
-    }catch ( e ) {
-      console.warn(e);
+    } catch ( e ) {
+      console.warn( e );
     }
   }
 
   async is_friend() {
-    try{
-      const response = await API.post( 'user_friends_relation/is_friend',{
-        visitor:localStorage.getItem( "username" ),
-        visited:localStorage.getItem( "visiting_profile" )
-      });
+    try {
+      const response = await API.post( 'user_friends_relation/is_friend', {
+        visitor: localStorage.getItem( "username" ),
+        visited: localStorage.getItem( "visiting_profile" )
+      } );
       if ( response.data === "SUCCESS" )
         this.setState( { userState: userState.FRIEND } );
       else if ( response.data === "FAILED" )
         this.setState( { userState: userState.NON_FRIEND } );
     }
     catch ( e ) {
-      console.warn(e);
+      console.warn( e );
     }
   }
 
@@ -94,16 +94,33 @@ class Profile extends Component {
         Profile</h1></div> );
   }
 
+  uploadFile() {
+    console.log( document.getElementById( "img" ).files[ 0 ] );
+    return axios.post( 'https://project-clique.s3-website-ap-southeast-1.amazonaws.com', {
+      file: document.getElementById( "img" ).files[ 0 ]
+    } ).then( res => {
+      console.log( res );
+      console.log( res.data );
+    } ).catch(err=>{
+      console.warn(err);
+    });
+  }
+
   showUploadButton() {
     switch ( this.state.userState ) {
       case userState.LOADING:
         return (
-         <Button disabled active={false}>
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         </Button>
+          <Button disabled active={ false }>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </Button>
         );
       case userState.CURRENT:
-        return <IconLabelButtons/>;
+        return (
+          <div className="mdc-form-field">
+            <input className="mdc mdc-button" type="file" id="img" name="Upload"
+                   onChange={ this.uploadFile.bind( this ) }/>
+          </div>
+        );
       case userState.FRIEND:
         return <Button onClick={ this.unfriend }>Unfriend</Button>;
       case userState.NON_FRIEND:
@@ -119,9 +136,9 @@ class Profile extends Component {
         <div className="card-body">
           <Row>
             <Col xs="3" md="1">
-              <Image alt={"cannot load"} src="https://picsum.photos/100" circle responsive/>
+              <Image alt={ "cannot load" } src="https://picsum.photos/100" circle responsive/>
             </Col>
-            <Col xs="9" md="11" >
+            <Col xs="9" md="11">
               { this.renderName() }
               { this.showUploadButton() }
             </Col>
@@ -143,7 +160,7 @@ class Profile extends Component {
             <div className="animated fadeIn">
               <ListGroup>
                 <PostList data="profile"
-                          param={localStorage.getItem("visiting_profile")}
+                          param={ localStorage.getItem( "visiting_profile" ) }
                           onProfileClick={ this.props.onProfileClick }
                           onCliqueClick={ this.props.onCliqueClick }
                           onPostClick={ this.props.onPostClick }
