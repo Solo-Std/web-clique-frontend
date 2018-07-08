@@ -2,19 +2,19 @@
 
 .sidebar-container{
   background-color: #21b5b5;
-  /*position: static;*/
-  /*display: grid;*/
-  /*margin-top: 5px;*/
-  /*padding-top: 5px;*/
+  grid-column-start:  auto;
+  grid-column-end: auto;
+  grid-row-start: auto;
+  grid-row-end: auto;
   font-family: Roboto;
 }
 
 .sidebar-containerALL{
   background-color: #ffdb2b;
-  /*position: static;*/
-  /*display: grid;*/
-  /*margin-top: 5px;*/
-  /*padding-top: 5px;*/
+  grid-column-start:  auto;
+  grid-column-end: auto;
+  grid-row-start: auto;
+  grid-row-end: auto;
   font-family: Roboto;
 }
 
@@ -22,9 +22,8 @@
   width: 200px;
   position: fixed;
   display: inline-grid;
-  grid-template-columns: 200px ;
-  /*grid-template-rows: 200px;*/
-  
+  grid-template-columns: auto ;
+  grid-template-rows: auto;
   overflow-y: scroll;
   overflow-x: hidden;
   top: 45px;
