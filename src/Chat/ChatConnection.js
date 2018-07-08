@@ -17,11 +17,13 @@ class ChatConnection extends Component {
 
     this.inbox.onmessage = (message) =>{
       let _data = JSON.parse(message.data);
+      let _text = _data['author'] + "\n" + _data.data.text;
+      console.log(_data);
       this.setState({
         messageList: [...this.state.messageList, {
           author: _data['author']===localStorage.getItem("username")?"me":"them",
           type: 'text',
-          data: { _data }
+          data: { text:_text }
         }]
       });
     };
