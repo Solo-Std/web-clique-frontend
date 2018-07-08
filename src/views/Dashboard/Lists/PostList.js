@@ -4,6 +4,8 @@ import CliqueLink from "../Links/CliqueLink";
 import PostLink from "../Links/PostLink";
 import ProfileLink from "../Links/ProfileLink";
 import API from "../../../api";
+import Skeleton from
+
 
 class PostList extends Component{
   constructor(props){
