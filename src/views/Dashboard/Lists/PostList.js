@@ -26,7 +26,7 @@ class PostList extends Component{
     else if(this.props.data === "profile")
       response = await API.get( `post_master/fetch_user_posts/` + this.props.param );
     else if(this.props.data === "clique")
-      response = await API.get( `post_master/get_clique_post/` + this.props.param );
+      response = await API.get( `post_master/get_clique_post/` + localStorage.getItem('visiting_clique') );
 
     let data = [];
     response.data.map( ( content, index ) => data[ index ] = content );
@@ -38,7 +38,7 @@ class PostList extends Component{
   }
 
   componentDidUpdate(){
-    if(this.props.data === "clique"){
+    if(this.props.data === "clique" && this.props.param !== localStorage.getItem('visiting_clique')){
       this.load();
     }
   }
