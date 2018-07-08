@@ -4,20 +4,29 @@ import CliqueLink from "../Links/CliqueLink";
 import PostLink from "../Links/PostLink";
 import ProfileLink from "../Links/ProfileLink";
 import API from "../../../api";
+import Skeleton from 'react-skeleton-loader';
 
 class PostList extends Component{
   constructor(props){
     super(props);
 
     this.state = {
-      items: []
+      items: [],
+      loading:false,
+      loadingImage:false
     };
 
     this.load = this.load.bind(this);
   }
 
+
+
   async load(){
     let response;
+
+
+    this.setState({loading:true});
+
     if(this.props.data === "all")
       response = await API.get( `post_master/` );
     else if(this.props.data === "profile")
@@ -28,6 +37,8 @@ class PostList extends Component{
     let data = [];
     response.data.map( ( content, index ) => data[ index ] = content );
     this.setState( { items: data } );
+
+    this.setState({loading:false});
   }
 
   componentWillMount() {
@@ -41,6 +52,11 @@ class PostList extends Component{
   }
 
   render() {
+    const {loading} = this.state;
+    if(loading)
+    {return <Skeleton width="150%"/>;}
+
+
     let data = [];
     if(this.state.items.length>0)
     {
@@ -62,7 +78,8 @@ class PostList extends Component{
             </Col>
           </ListGroupItem>
         );
-      } );
+      } )
+
       return data;
     }
 
