@@ -31,6 +31,7 @@ class Profile extends Component {
     this.unfriend = this.unfriend.bind( this );
     this.add_friend = this.add_friend.bind( this );
     this.showUploadButton = this.showUploadButton.bind( this );
+    this.loadImage = this.loadImage.bind( this );
   }
 
   async unfriend() {
@@ -77,6 +78,7 @@ class Profile extends Component {
   }
 
   componentWillMount() {
+    this.loadImage();
     if ( localStorage.getItem( 'username' ) === localStorage.getItem( 'visiting_profile' ) )
       this.setState( { userState: userState.CURRENT } );
     else {
@@ -101,23 +103,26 @@ class Profile extends Component {
       reader.readAsDataURL( file );
     }
 
-    reader.onloadend = ()=>{
-      let imgData = reader.result.split(',');
+    reader.onloadend = () => {
+      let imgData = reader.result.split( ',' );
       let base64 = imgData.pop();
       let imgExt = imgData.pop();
-      console.log(imgExt);
-      let response = API.post( 'user_master/upload_image', {
-        file:  base64,
+      API.post( 'user_master/upload_image', {
+        file: base64,
         file_ext: imgExt,
         username: localStorage.getItem( "username" )
-      } ).then(res=>{
-        API.post('user_master/get_image',{
-          username: localStorage.getItem("username")
-        }).then(res=>{
-          this.setState({image:res.data['image_ext']+','+res.data['image']});
-        })
-      });
-    }
+      } ).then(this.loadImage);
+    };
+  }
+
+  loadImage( res ) {
+    API.post( 'user_master/get_image', {
+      username: localStorage.getItem( "visiting_profile" )
+    } ).then( res => {
+      if(res.data!=="FAILURE"){
+        this.setState( { image: res.data[ 'image_ext' ] + ',' + res.data[ 'image' ] } );
+      }
+    } );
   }
 
   showUploadButton() {

@@ -31,7 +31,9 @@ class DefaultHeader extends Component {
     API.post('user_master/get_image',{
       username: localStorage.getItem("username")
     }).then(res=>{
-      this.setState({image:res.data['image_ext']+','+res.data['image']});
+      if(res.data!=="FAILURE"){
+        this.setState( { image: res.data[ 'image_ext' ] + ',' + res.data[ 'image' ] } );
+      }
     })
   }
 
