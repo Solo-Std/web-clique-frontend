@@ -18,15 +18,21 @@ export const viewState = {
   EDIT_PASSWORD: 7
 };
 
-class Dashboard extends Component {
+class Dashboard extends React.PureComponent {
   constructor( props ) {
     super( props );
     this.state = {
       state: viewState.HOME,
       post_id: 0,
       username: localStorage.getItem( 'username' ),
-      clique_name: props.clique_name
+      clique_name: props.clique_name,
+      sidebarCtr:0
     };
+  }
+
+  componentWillReceiveProps(nextProps)
+  {
+
   }
 
   render() {
@@ -42,11 +48,15 @@ class Dashboard extends Component {
       this.setState( { state: viewState.CLIQUE } );
     }
 
-    else if ( this.props.sidebar && this.state.state === viewState.CLIQUE ) {
-      return <Clique clique_name={ localStorage.getItem( "visiting_clique" ) }
-                     onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
-                     onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }
-      />;
+    else if ( this.props.sidebar && this.state.state === viewState.CLIQUE
+       && this.props.sidebarCtr>this.state.sidebarCtr
+    ) {
+       this.setState({clique_name:localStorage.getItem('visiting_clique')});
+       this.setState({sidebarCtr:this.state.sidebarCtr+1});
+      //  return <Clique clique_name={ localStorage.getItem( "visiting_clique" ) }
+      //                 onClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
+      //                 onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }
+      //  />;
     }
 
     switch ( this.state.state ) {
