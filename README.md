@@ -6,50 +6,6 @@ Clique Project is a university final project for Web Programming course. The mai
  - Heri Adinegoro Soeparno ([herisoeparno@gmail.com](mailto:herisoeparno@gmail.com))
  - Adjie Wahyu Wicaksono ([adjie.wahyuw@gmail.com](mailto:adjie.wahyuw@gmail.com))
  - Silvin ([silvin@student.umn.ac.id](mailto:silvin@student.umn.ac.id))
- 
- 
-## To-Do List
-### Homepage
-##### Sidebar : (Adjie)
- - UI nya di rapikan
- - url ke clique/kategori yang di pilih :heavy_check_mark:
- - user_id login masih di set 1. Bikin itu dinamis.
-##### Profile Page :
- - Benerin tampilan link saat pencet di feeds/profile
- - Upload File
-##### Profile Bar : (Heri)
- `DefaultHeader.js`
- - Logout :heavy_check_mark:
- - Tampilin username :heavy_check_mark:
- - link ke Profile Page :heavy_check_mark:
- - Edit Password 
- ##### Post & Comments : (Adjie)
- - Upvote, Likes
- - Delete Post / Comment
- ##### Notification :
- - UI dibenerin = popup list notif
- ##### Chat System :
- - Friend List
- ##### Friend Relationship System : (Owen)
- - Add Friend, Unfriend
- ##### Login:
- - Invalid login prompt/pop-up 
- ##### Search System
- - Search Bar pada Navigation Bar
- - Layar utk menampilkan hasil search
- ##### Post
- - Buat post baru
- - Tampilan UI untuk post baru.
- - [BUG] ga bisa pencet clique ketika lagi view post.
- ### Main Requirements
- - CodeIgniter :heavy_check_mark:
- - MVC :heavy_check_mark:
- - CRUD with MySQL Database :heavy_check_mark:
- - Login Feature with Session Class :heavy_check_mark:
- - File Upload
- - Send Email
- - XSS & SQL Injection Prevention :heavy_check_mark:
- - Well-designed UI/UX :heavy_check_mark:
 
 ## Development Stack
 This project is created using :
@@ -57,6 +13,15 @@ This project is created using :
   - [CodeIgniter](https://codeigniter.com/download) using [PhpStorm](https://www.jetbrains.com/phpstorm/)
   - [Python Flask](http://flask.pocoo.org/) using [PyCharm](https://www.jetbrains.com/pycharm/)
   
+Deployed using [Heroku](https://heroku.com)
+  - Front-End Link -> [frontend-clique.herokuapp.com](https://frontend-clique.herokuapp.com)
+  - Back-End Link -> [project-clique.herokuapp.com](https://project-clique.herokuapp.com)
+  - Websocket Server Link -> [websocket-clique.herokuapp.com](wss://websocket-clique.herokuapp.com)
+  
+## Features
+  -  
+ 
+ 
 ## Installation (Development Mode)
  - [WebStorm](https://www.jetbrains.com/webstorm/download/#section=windows)
  - [PhpStorm](https://www.jetbrains.com/phpstorm/download/#section=windows)
@@ -91,6 +56,7 @@ This project is created using :
  - [axios](https://github.com/axios/axios) for HTTP REQUESTS
  - [Reconnecting WebSocket](https://github.com/pladaria/reconnecting-websocket)
  - [SendGrid](https://github.com/sendgrid/sendgrid-php) for sending email via SMTP
+ - [react-chat-window](https://www.npmjs.com/package/react-chat-window) for Live Chat UI
  
 #### Frequently Asked Questions
  > - Q : My PHP is not recognized in my command prompt
