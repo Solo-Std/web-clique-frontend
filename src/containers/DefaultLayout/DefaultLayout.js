@@ -11,6 +11,7 @@ import axios from "axios/index";
 import Dashboard from "../../views/Dashboard";
 import './DefaultLayout.css';
 import ChatConnection from "../../Chat/ChatConnection";
+import API from '../../api';
 
 
 
@@ -34,7 +35,7 @@ class DefaultLayout extends Component {
       localStorage.getItem( "username" ) === null ) {
       this.setState( { valid_session: false } );
     }
-    else return axios.post( `http://project-clique.herokuapp.com/index.php/api/user_master/check_session`,
+    else return API.post( `user_master/check_session`,
       {
         session_token: localStorage.getItem( "session_token" ),
         username: localStorage.getItem( "username" )

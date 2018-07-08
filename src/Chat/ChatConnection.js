@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Input } from "reactstrap";
 import ReconnectingWebSocket from 'reconnecting-websocket';
-import Launcher from 'react-chat-window';
+import {Launcher} from 'react-chat-window';
 
 const WEBSOCKET_HOST = 'wss://websocket-clique.herokuapp.com';
 
