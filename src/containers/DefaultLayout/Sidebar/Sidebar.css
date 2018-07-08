@@ -20,7 +20,7 @@
 
 .sidebar-scroll {
   width: 200px;
-  position: fixed;
+  /*position: fixed;*/
   display: inline-grid;
   grid-template-columns: auto ;
   grid-template-rows: auto;
