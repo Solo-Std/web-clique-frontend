@@ -6,10 +6,11 @@ import TextEditor from "./Components/TextEditor";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { Card } from "reactstrap";
+import API from "../../../api";
 
 const options = [
   // ...
-  { value: 'Stanford University', label: 'Stanford' },
+  { value: 'gaming', label: 'gaming', postTitle: 'title'},
   // ...
 ];
 
@@ -18,11 +19,60 @@ class CreatePost extends Component {
   constructor( props ) {
     super( props );
 
-    this.post = this.post.bind( this );
+    this.title = "";
+
+    this.submitPost = this.submitPost.bind( this );
+    this.setPostTitle = this.setPostTitle.bind(this);
   }
 
-  post() {
+  setPostTitle(content){
+    this.title = content.target.value;
+    console.log(this.title);
+  }
 
+  submitPost( content ){
+    console.log("Clique: " + localStorage.getItem("visiting_clique"));
+    console.log("User: " + localStorage.getItem("username"));
+    console.log("Post Title: " + this.title);
+    console.log("Post Content: " + content);
+
+    API.post( `post_master/insert`,
+      {
+        content: content,
+        username: localStorage.getItem("username"),
+        title: this.title,
+        clique_name: localStorage.getItem("visiting_clique"),
+      } )
+      .then( res => {
+
+      } )
+      .catch( error => {
+        console.log( error );
+      } );
+    // return API.post( `comment_master/insert`,
+    //   {
+    //     comment: content,
+    //     username: localStorage.getItem("username"),
+    //     post_id: this.props.id
+    //   } )
+    //   .then( res => {
+    //     if ( res.data === "SUCCESS" ) {
+    //       API.post( `comment_master/`,{
+    //         id:this.props.id
+    //       } )
+    //         .then( response => {
+    //           let data = [];
+    //           response.data.map( ( content, index ) => data[ index ] = content );
+    //           this.setState( { comments: data } );
+    //         } );
+    //     }
+    //     else if ( res.data === "FAILED" ) {
+    //
+    //     }
+    //   } )
+    //   .catch( error => {
+    //     console.log( error );
+    //   } );
   }
 
   componentWillMount() {
@@ -33,7 +83,7 @@ class CreatePost extends Component {
     return (
       <ListGroupItem>
         <Container>
-          <TextEditor onSubmit={ this.post }/>
+          <TextEditor onSubmit={ this.submitPost }/>
         </Container>
       </ListGroupItem>
     );
@@ -62,7 +112,8 @@ class CreatePost extends Component {
           <Row>
             <Col>
               <Input type="text"
-                     placeholder="Title"/>
+                     placeholder="Title"
+                      onChange={this.setPostTitle}/>
             </Col>
           </Row>
           <Row>

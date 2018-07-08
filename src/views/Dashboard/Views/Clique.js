@@ -13,6 +13,7 @@ class Feeds extends Component {
 
     this.renderTitle = this.renderTitle.bind( this );
     this.subscribe = this.subscribe.bind( this );
+    this.unsubscribe = this.unsubscribe.bind( this );
   }
 
   renderTitle() {
@@ -28,16 +29,23 @@ class Feeds extends Component {
             <Col>
               <p onClick={ this.subscribe }><Button>Subscribe</Button></p>
             </Col>
+            <Col>
+              <p onClick={ ()=>this.props.onCreatePostClick(this.props.clique_name) }><Button>Create Post</Button></p>
+            </Col>
           </Row>
           <Row>
             <Col>
-              <p><Button>Unsubscribe</Button></p>
+              <p onClick={ this.unsubscribe }><Button>Unsubscribe</Button></p>
             </Col>
           </Row>
         </Container>
       </Card>
 
     );
+  }
+
+  createPost(){
+    console.log("GOING TO CREATE POST");
   }
 
   subscribe() {
@@ -53,6 +61,21 @@ class Feeds extends Component {
       .catch( error => {
         console.log( error );
       } );
+  }
+
+  unsubscribe() {
+    /*console.log( localStorage.getItem( 'username' ) + " IS NOW UNSUBSCRIBED FROM " + this.props.clique_name );
+    API.get( `subscribed_clique_relation/`,
+      {
+        clique_name: this.props.clique_name,
+        username: localStorage.getItem( 'username' )
+      } )
+      .then( res => {
+
+      } )
+      .catch( error => {
+        console.log( error );
+      } );*/
   }
 
   render() {
