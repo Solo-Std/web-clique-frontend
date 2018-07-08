@@ -95,18 +95,7 @@ class CreatePost extends Component {
         <Container fluid>
           <Row>
             <Col>
-              <h2>Create a post</h2>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={ "4" }>
-              <Select
-                placeholder="Select a Clique"
-                name="Clique"
-                value="one"
-                options={ options }
-                onChange={ val => console.log( val ) }
-              />
+              <h2>Create a #{localStorage.getItem("visiting_clique")} post</h2>
             </Col>
           </Row>
           <Row>
