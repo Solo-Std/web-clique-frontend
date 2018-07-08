@@ -91,6 +91,7 @@ This project is created using :
  - [axios](https://github.com/axios/axios) for HTTP REQUESTS
  - [Reconnecting WebSocket](https://github.com/pladaria/reconnecting-websocket)
  - [SendGrid](https://github.com/sendgrid/sendgrid-php) for sending email via SMTP
+ - [Skeleton Loader](https://www.npmjs.com/package/react-skeleton-loader) Skeleton Loader
  
 #### Frequently Asked Questions
  > - Q : My PHP is not recognized in my command prompt

@@ -9,6 +9,7 @@ import IconLabelButtons from "../Upload.js";
 import { Image } from "react-bootstrap";
 import Callout from "./Callout";
 import PostList from "../../Lists/PostList";
+import Skeleton from 'react-skeleton-loader';
 
 const userState = {
   LOADING: 1,
@@ -16,6 +17,15 @@ const userState = {
   FRIEND: 3,
   NON_FRIEND: 4
 };
+
+const Page = (props) => {
+  return(
+    <div>
+      <h1>props.title | <Skeleton /></h1>
+      <p>props.body | <Skeleton count={5} /></p>
+    </div>
+  )
+}
 
 class Profile extends Component {
   constructor( props ) {
@@ -143,6 +153,7 @@ class Profile extends Component {
             <div className="animated fadeIn">
               <ListGroup>
                 <PostList data="profile"
+
                           param={localStorage.getItem("visiting_profile")}
                           onProfileClick={ this.props.onProfileClick }
                           onCliqueClick={ this.props.onCliqueClick }
