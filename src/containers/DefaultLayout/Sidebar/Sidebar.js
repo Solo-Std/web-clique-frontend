@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import axios from "axios/index";
 import "./Sidebar.css";
 import PropTypes from 'prop-types';
 import API from "../../../api";
-import Callout from "./Callout";
-import Glyphicon from "../../../../node_modules/react-bootstrap/es/Glyphicon.js";
 
 const defaultProps = {};
 

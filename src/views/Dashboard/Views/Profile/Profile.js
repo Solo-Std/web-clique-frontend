@@ -98,6 +98,7 @@ class Profile extends Component {
   }
 
   uploadFile() {
+    this.setState( { userState: userState.LOADING } );
     let file = document.getElementById( "img" ).files[ 0 ];
     let reader = new FileReader();
     if ( file ) {
@@ -112,7 +113,9 @@ class Profile extends Component {
         file: base64,
         file_ext: imgExt,
         username: localStorage.getItem( "username" )
-      } ).then(this.loadImage);
+      } ).then( res => {
+        this.loadImage( res );
+      } );
     };
   }
 
@@ -120,10 +123,11 @@ class Profile extends Component {
     API.post( 'user_master/get_image', {
       username: localStorage.getItem( "visiting_profile" )
     } ).then( res => {
-      if(res.data!=="FAILED"){
+      if ( res.data !== "FAILED" ) {
         this.setState( { image: res.data[ 'image_ext' ] + ',' + res.data[ 'image' ] } );
+        this.setState( { userState: userState.CURRENT } );
       }
-      else this.setState({image: imgPlaceholder})
+      else this.setState( { image: imgPlaceholder } );
     } );
   }
 

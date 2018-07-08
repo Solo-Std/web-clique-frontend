@@ -3,16 +3,9 @@ import {
   Col, Container, Input, ListGroupItem, Row
 } from 'reactstrap';
 import TextEditor from "./Components/TextEditor";
-import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { Card } from "reactstrap";
 import API from "../../../api";
-
-const options = [
-  // ...
-  { value: 'gaming', label: 'gaming', postTitle: 'title'},
-  // ...
-];
 
 class CreatePost extends Component {
 

@@ -7,7 +7,6 @@ import {
   AppSidebar
 } from '@coreui/react';
 import DefaultHeader from './DefaultHeader';
-import axios from "axios/index";
 import Dashboard from "../../views/Dashboard";
 import './DefaultLayout.css';
 import ChatConnection from "../../Chat/ChatConnection";

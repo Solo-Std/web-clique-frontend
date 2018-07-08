@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   Col,
   Container,
   Input,
@@ -43,7 +42,7 @@ class EditPassword extends React.Component {
   {
     console.log("Password Checker = " + this.state.password_checker['password'] + ' ' + localStorage.getItem("username"));
 
-    if(this.state.new_password ==  this.state.re_password )
+    if(this.state.new_password ===  this.state.re_password )
     return(
       <div>
         <p>Password baru sama!</p>

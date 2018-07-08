@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Feeds from './Views/Feeds';
 import Post from "./Views/Post";
 import Profile from "./Views/Profile/Profile";
@@ -18,7 +18,7 @@ export const viewState = {
   EDIT_PASSWORD: 7
 };
 
-class Dashboard extends React.PureComponent {
+class Dashboard extends PureComponent {
   constructor( props ) {
     super( props );
     this.state = {

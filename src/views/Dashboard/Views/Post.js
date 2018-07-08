@@ -7,6 +7,7 @@ import TimeAgo from 'react-timeago';
 import TextEditor from "./Components/TextEditor";
 import { Ripple } from "rmwc/Ripple";
 import ProfileLink from "../Links/ProfileLink";
+import CliqueLink from "../Links/CliqueLink";
 
 class Post extends Component {
   constructor( props ) {
@@ -205,9 +206,8 @@ class Post extends Component {
         <ListGroupItem>
           <Col xs={ "12" }>
             <Row>
-              <a className="text-black-50 font-xs">
-                <strong>#{ this.state.posts[ 'clique_name' ] }</strong>
-              </a><br/>
+              <CliqueLink onClick={ this.props.onCliqueClick }
+                           value={ this.state.posts }/>
               &nbsp;
               <ProfileLink onClick={ this.props.onProfileClick }
                            value={ this.state.posts }/>

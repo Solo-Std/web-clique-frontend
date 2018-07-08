@@ -21,8 +21,9 @@
 }
 
 .sidebar-scroll {
-  width: 13.3%;
+  width: 200px;
   position: fixed;
+  display: grid;
   overflow-y: scroll;
   overflow-x: hidden;
   top: 45px;
