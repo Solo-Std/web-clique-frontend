@@ -11,6 +11,8 @@ class Feeds extends Component {
   constructor( props ) {
     super( props );
 
+    this.subbed;
+
     this.renderTitle = this.renderTitle.bind( this );
     this.subscribe = this.subscribe.bind( this );
     this.unsubscribe = this.unsubscribe.bind( this );
@@ -26,16 +28,9 @@ class Feeds extends Component {
             </Col>
           </Row>
           <Row>
-            <Col>
-              <p onClick={ this.subscribe }><Button>Subscribe</Button></p>
-            </Col>
+            {this.renderSubButton()}
             <Col>
               <p onClick={ ()=>this.props.onCreatePostClick(this.props.clique_name) }><Button>Create Post</Button></p>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <p onClick={ this.unsubscribe }><Button>Unsubscribe</Button></p>
             </Col>
           </Row>
         </Container>
@@ -44,8 +39,33 @@ class Feeds extends Component {
     );
   }
 
-  createPost(){
-    console.log("GOING TO CREATE POST");
+  renderSubButton(){
+    let data = [];
+
+    API.get( `subscribed_clique_relation/checksubscription` + "/" + localStorage.getItem("username") + "/" + localStorage.getItem("visiting_clique"))
+      .then(response=>{
+        this.subbed = response.data;
+
+        console.log("Subbed-in: " + this.subbed);
+      });
+
+    console.log("Subbed-out: " + this.subbed);
+    if(this.subbed){
+      data.push(
+        <Col>
+          <p onClick={ this.subscribe }><Button>Subscribe</Button></p>
+        </Col>
+      );
+    }
+    else{
+      data.push(
+        <Col>
+          <p onClick={ this.unsubscribe }><Button>Unsubscribe</Button></p>
+        </Col>
+      );
+    }
+
+    return data;
   }
 
   subscribe() {
@@ -61,6 +81,10 @@ class Feeds extends Component {
       .catch( error => {
         console.log( error );
       } );
+  }
+
+  async load(){
+
   }
 
   unsubscribe() {
