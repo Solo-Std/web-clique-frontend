@@ -49,30 +49,6 @@ class CreatePost extends Component {
       .catch( error => {
         console.log( error );
       } );
-    // return API.post( `comment_master/insert`,
-    //   {
-    //     comment: content,
-    //     username: localStorage.getItem("username"),
-    //     post_id: this.props.id
-    //   } )
-    //   .then( res => {
-    //     if ( res.data === "SUCCESS" ) {
-    //       API.post( `comment_master/`,{
-    //         id:this.props.id
-    //       } )
-    //         .then( response => {
-    //           let data = [];
-    //           response.data.map( ( content, index ) => data[ index ] = content );
-    //           this.setState( { comments: data } );
-    //         } );
-    //     }
-    //     else if ( res.data === "FAILED" ) {
-    //
-    //     }
-    //   } )
-    //   .catch( error => {
-    //     console.log( error );
-    //   } );
   }
 
   componentWillMount() {

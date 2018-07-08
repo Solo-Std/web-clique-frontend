@@ -64,18 +64,18 @@ class Feeds extends Component {
   }
 
   unsubscribe() {
-    /*console.log( localStorage.getItem( 'username' ) + " IS NOW UNSUBSCRIBED FROM " + this.props.clique_name );
-    API.get( `subscribed_clique_relation/`,
+    console.log( localStorage.getItem( 'username' ) + " IS NOW UNSUBSCRIBED FROM " + this.props.clique_name );
+    API.post( `subscribed_clique_relation/unsubscribe`,
       {
-        clique_name: this.props.clique_name,
-        username: localStorage.getItem( 'username' )
+        username: localStorage.getItem("username"),
+        clique_name: localStorage.getItem("visiting_clique"),
       } )
       .then( res => {
 
       } )
       .catch( error => {
         console.log( error );
-      } );*/
+      } );
   }
 
   render() {
