@@ -26,7 +26,7 @@ class Sidebar extends Component{
   }
 
   componentWillMount(){
-    API.get( '/subscribed_clique_relation/getsubscribedclique/' + localStorage.getItem('user_id') )
+    API.get( '/subscribed_clique_relation/getsubscribedclique/' + localStorage.getItem('username') )
       .then( response => {
         let data = [];
         response.data.map( ( content, index ) => data[ index ] = content );

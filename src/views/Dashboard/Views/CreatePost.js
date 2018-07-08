@@ -59,7 +59,7 @@ class CreatePost extends Component {
     return (
       <ListGroupItem>
         <Container>
-          <TextEditor onSubmit={ this.submitPost }/>
+          <TextEditor required onSubmit={ this.submitPost }/>
         </Container>
       </ListGroupItem>
     );
@@ -78,6 +78,7 @@ class CreatePost extends Component {
             <Col>
               <Input type="text"
                      placeholder="Title"
+                     required
                       onChange={this.setPostTitle}/>
             </Col>
           </Row>
