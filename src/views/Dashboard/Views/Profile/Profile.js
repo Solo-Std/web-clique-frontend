@@ -8,7 +8,6 @@ import './Profile.css';
 import { Image } from "react-bootstrap";
 import Callout from "./Callout";
 import PostList from "../../Lists/PostList";
-import axios from "axios";
 
 const userState = {
   LOADING: 1,
@@ -23,7 +22,8 @@ class Profile extends Component {
 
     this.state = {
       name: [],
-      userState: userState.LOADING
+      userState: userState.LOADING,
+      image: "https://picsum.photos/100"
     };
 
     this.renderName = this.renderName.bind( this );
@@ -95,15 +95,29 @@ class Profile extends Component {
   }
 
   uploadFile() {
-    console.log( document.getElementById( "img" ).files[ 0 ] );
-    return axios.post( 'https://project-clique.s3-website-ap-southeast-1.amazonaws.com', {
-      file: document.getElementById( "img" ).files[ 0 ]
-    } ).then( res => {
-      console.log( res );
-      console.log( res.data );
-    } ).catch(err=>{
-      console.warn(err);
-    });
+    let file = document.getElementById( "img" ).files[ 0 ];
+    let reader = new FileReader();
+    if ( file ) {
+      reader.readAsDataURL( file );
+    }
+
+    reader.onloadend = ()=>{
+      let imgData = reader.result.split(',');
+      let base64 = imgData.pop();
+      let imgExt = imgData.pop();
+      console.log(imgExt);
+      let response = API.post( 'user_master/upload_image', {
+        file:  base64,
+        file_ext: imgExt,
+        username: localStorage.getItem( "username" )
+      } ).then(res=>{
+        API.post('user_master/get_image',{
+          username: localStorage.getItem("username")
+        }).then(res=>{
+          this.setState({image:res.data['image_ext']+','+res.data['image']});
+        })
+      });
+    }
   }
 
   showUploadButton() {
@@ -136,7 +150,7 @@ class Profile extends Component {
         <div className="card-body">
           <Row>
             <Col xs="3" md="1">
-              <Image alt={ "cannot load" } src="https://picsum.photos/100" circle responsive/>
+              <Image alt={ "cannot load" } src={ this.state.image } circle responsive/>
             </Col>
             <Col xs="9" md="11">
               { this.renderName() }

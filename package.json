@@ -20,6 +20,7 @@
     "@material-ui/icons": "^1.1.0",
     "@material/button": "^0.36.1",
     "@material/ripple": "^0.36.0",
+    "aws-sdk": "^2.270.1",
     "axios": "latest",
     "bootstrap": "^4.1.1",
     "chart.js": "^2.7.2",
