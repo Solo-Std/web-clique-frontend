@@ -69,6 +69,7 @@ class Dashboard extends Component {
                        onPostClick={ d => this.setState( { state: viewState.POST, post_id: d } ) }
                        onCliqueClick={ d => this.setState( { state: viewState.CLIQUE, clique_name: d } ) }
                        onProfileClick={ d => this.setState( { state: viewState.PROFILE, username: d } ) }
+                       onCreatePostClick={ d => this.setState({state: viewState.CREATE_POST, clique_name: d} ) }
         />;
       case viewState.EDIT_PASSWORD:
         return <EditPassword />
