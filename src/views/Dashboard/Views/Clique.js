@@ -83,10 +83,6 @@ class Feeds extends Component {
       } );
   }
 
-  async load(){
-
-  }
-
   unsubscribe() {
     console.log( localStorage.getItem( 'username' ) + " IS NOW UNSUBSCRIBED FROM " + this.props.clique_name );
     API.post( `subscribed_clique_relation/unsubscribe`,
