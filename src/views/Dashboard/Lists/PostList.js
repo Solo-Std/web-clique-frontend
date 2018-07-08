@@ -4,16 +4,13 @@ import CliqueLink from "../Links/CliqueLink";
 import PostLink from "../Links/PostLink";
 import ProfileLink from "../Links/ProfileLink";
 import API from "../../../api";
-import Skeleton from 'react-skeleton-loader';
-
 
 class PostList extends Component{
   constructor(props){
     super(props);
 
     this.state = {
-      items: [],
-      loading: true
+      items: []
     };
 
     this.load = this.load.bind(this);
@@ -21,7 +18,6 @@ class PostList extends Component{
 
   async load(){
     let response;
-    this.setState({loading:true});
     if(this.props.data === "all")
       response = await API.get( `post_master/` );
     else if(this.props.data === "profile")
@@ -32,56 +28,21 @@ class PostList extends Component{
     let data = [];
     response.data.map( ( content, index ) => data[ index ] = content );
     this.setState( { items: data } );
-
-
-    this.setState({loading:false});
-}
+  }
 
   componentWillMount() {
     this.load();
   }
 
-
   componentDidUpdate(){
     if(this.props.data === "clique"){
       this.load();
-
     }
-
   }
 
   render() {
     let data = [];
-
-    if(this.state.loading == true)
-    {
-      this.state.items.forEach( ( item, idx ) => {
-        data.push(
-          <ListGroupItem key={ idx }>
-            <Col xs={ "12" }>
-              <Row>
-                <Skeleton width="80px" height="60px"/>
-                {/*<img src="https://picsum.photos/200" width="80" height="60" alt={ "cannot load" }/>*/}
-                <Col sm="10">
-                  <PostLink onClick={ this.props.onPostClick }
-                            value={ item }
-                            loading={this.state.loading}/>
-                  <CliqueLink onClick={ this.props.onCliqueClick }
-                              value={ item }
-                              loading={this.state.loading}/>
-                  <ProfileLink onClick={ this.props.onProfileClick }
-                               value={ item }
-                               loading={this.state.loading}/>
-                </Col>
-              </Row>
-            </Col>
-          </ListGroupItem>
-        );
-      } );
-      return data;
-    }
-
-    else if(this.state.items.length>0)
+    if(this.state.items.length>0)
     {
       this.state.items.forEach( ( item, idx ) => {
         data.push(
@@ -91,14 +52,11 @@ class PostList extends Component{
                 <img src="https://picsum.photos/200" width="80" height="60" alt={ "cannot load" }/>
                 <Col sm="10">
                   <PostLink onClick={ this.props.onPostClick }
-                            value={ item }
-                            loading={this.state.loading}/>
+                            value={ item }/>
                   <CliqueLink onClick={ this.props.onCliqueClick }
-                              value={ item }
-                              loading={this.state.loading}/>
+                              value={ item }/>
                   <ProfileLink onClick={ this.props.onProfileClick }
-                               value={ item }
-                               loading={this.state.loading}/>
+                               value={ item }/>
                 </Col>
               </Row>
             </Col>
@@ -108,7 +66,7 @@ class PostList extends Component{
       return data;
     }
 
-    else if(this.state.items.length ==0 && this.state.loading == false){
+    else if(this.state.items.length ==0){
       data.push
       (
 
@@ -117,7 +75,7 @@ class PostList extends Component{
             <Row>
               <Col sm="10">
                 <p>
-                  There are no posts here</p>
+                  You have no posts yet :(</p>
               </Col>
             </Row>
           </Col>
