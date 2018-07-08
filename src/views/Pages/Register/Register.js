@@ -9,8 +9,8 @@ import {
 } from 'reactstrap';
 import API from "../../../api";
 import React from 'react';
-import FacebookLoginButton from "./ThirdPartyLogin/FacebookLoginButton";
-import GoogleLoginButton from "./ThirdPartyLogin/GoogleLoginButton";
+// import FacebookLoginButton from "./ThirdPartyLogin/FacebookLoginButton";
+// import GoogleLoginButton from "./ThirdPartyLogin/GoogleLoginButton";
 import TextField from "./TextField";
 import { Redirect } from "react-router-dom";
 
@@ -35,7 +35,8 @@ class Register extends React.Component {
       confirm_password: { value: '', valid: validState.NONE },
       email: { value: '', valid: validState.NONE },
       state: "OK",
-      submit: false
+      submit: false,
+      login: false
     };
     this.create = this.create.bind( this );
     this.setValid = this.setValid.bind( this );
@@ -128,6 +129,9 @@ class Register extends React.Component {
   render() {
     if ( this.state.submit ) {
       return <Redirect to="/dashboard"/>;
+    }
+    if(this.state.login){
+      return <Redirect to="/login"/>;
     }
     return (
       <div className="app flex-row align-items-center ">
@@ -255,18 +259,18 @@ class Register extends React.Component {
                              icon="fa fa-lock"/>
 
                   <Button color="success" onClick={this.create } block>Create Account</Button>
-                  <Button color="link" onClick={ this.create } block>Sign in</Button>
+                  <Button color="link" onClick={ ()=>this.setState({login:true}) } block>Sign in</Button>
                 </CardBody>
-                <CardFooter className="p-4">
-                  <Row>
-                    <Col xs="12" sm="6">
-                      <FacebookLoginButton/>
-                    </Col>
-                    <Col xs="12" sm="6">
-                      <GoogleLoginButton/>
-                    </Col>
-                  </Row>
-                </CardFooter>
+                {/*<CardFooter className="p-4">*/}
+                  {/*<Row>*/}
+                    {/*<Col xs="12" sm="6">*/}
+                      {/*<FacebookLoginButton/>*/}
+                    {/*</Col>*/}
+                    {/*<Col xs="12" sm="6">*/}
+                      {/*<GoogleLoginButton/>*/}
+                    {/*</Col>*/}
+                  {/*</Row>*/}
+                {/*</CardFooter>*/}
               </Card>
             </Col>
           </Row>

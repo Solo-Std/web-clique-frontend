@@ -25,7 +25,8 @@ class Login extends React.Component {
       password: '',
       user_id: '',
       visiting_profile: '',
-      submit: false
+      submit: false,
+      register: false
     };
     this.renderUsername = this.renderUsername.bind( this );
     this.responseFacebook = this.responseFacebook.bind( this );
@@ -134,6 +135,9 @@ class Login extends React.Component {
     if ( this.state.submit ) {
       return <Redirect to="/dashboard"/>;
     }
+    if(this.state.register){
+      return <Redirect to="/register"/>;
+    }
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -153,21 +157,21 @@ class Login extends React.Component {
                       <Button color="primary" onClick={ this.submit } className="px-4">Login</Button>
                     </Col>
                     <Col xs="6" className="text-right">
-                      <Button color="link" className="px-0">Forgot password?</Button>
+                      <Button color="link" className="px-0" onClick={()=>this.setState({register:true})}>Register</Button>
                     </Col>
                   </Row>
 
                 </CardBody>
-                <CardFooter className="p-4">
-                  <Row>
-                    { /*<Col xs="12" sm="6">*/ }
-                    { /*<FacebookLoginButton/>*/ }
-                    { /*</Col>*/ }
-                    { /*<Col xs="12" sm="6">*/ }
-                    { /*<GoogleLoginButton/>*/ }
-                    { /*</Col>*/ }
-                  </Row>
-                </CardFooter>
+                {/*<CardFooter className="p-4">*/}
+                  {/*<Row>*/}
+                    {/*<Col xs="12" sm="6">*/}
+                    {/*<FacebookLoginButton/>*/}
+                    {/*</Col>*/}
+                    {/*<Col xs="12" sm="6">*/}
+                    {/*<GoogleLoginButton/>*/}
+                    {/*</Col>*/}
+                  {/*</Row>*/}
+                {/*</CardFooter>*/}
               </Card>
             </Col>
           </Row>
