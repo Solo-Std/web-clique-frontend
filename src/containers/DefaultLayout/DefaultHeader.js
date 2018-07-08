@@ -3,9 +3,10 @@ import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLin
 import PropTypes from 'prop-types';
 
 import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/logo.png';
+import logo from "../../assets/img/brand/logo.png";
+import imgPlaceholder from "../../assets/img/profile-placeholder.jpg";
 import { Redirect } from "react-router-dom";
-import './DefaultLayout.css';
+import "./DefaultLayout.css";
 import API from "../../api";
 
 const propTypes = {
@@ -21,7 +22,7 @@ class DefaultHeader extends Component {
     this.state = {
       redirect: false,
       redirectToMainMenu: false,
-      image:'assets/img/avatars/6.jpg'
+      image:imgPlaceholder
     };
 
     this.loadImage = this.loadImage.bind(this);
@@ -31,9 +32,10 @@ class DefaultHeader extends Component {
     API.post('user_master/get_image',{
       username: localStorage.getItem("username")
     }).then(res=>{
-      if(res.data!=="FAILURE"){
+      if(res.data!=="FAILED"){
         this.setState( { image: res.data[ 'image_ext' ] + ',' + res.data[ 'image' ] } );
       }
+      else this.setState({image: imgPlaceholder})
     })
   }
 

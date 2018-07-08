@@ -8,6 +8,7 @@ import './Profile.css';
 import { Image } from "react-bootstrap";
 import Callout from "./Callout";
 import PostList from "../../Lists/PostList";
+import imgPlaceholder from '../../../../assets/img/profile-placeholder.jpg';
 
 const userState = {
   LOADING: 1,
@@ -23,7 +24,7 @@ class Profile extends Component {
     this.state = {
       name: [],
       userState: userState.LOADING,
-      image: "https://picsum.photos/100"
+      image: imgPlaceholder
     };
 
     this.renderName = this.renderName.bind( this );
@@ -119,9 +120,10 @@ class Profile extends Component {
     API.post( 'user_master/get_image', {
       username: localStorage.getItem( "visiting_profile" )
     } ).then( res => {
-      if(res.data!=="FAILURE"){
+      if(res.data!=="FAILED"){
         this.setState( { image: res.data[ 'image_ext' ] + ',' + res.data[ 'image' ] } );
       }
+      else this.setState({image: imgPlaceholder})
     } );
   }
 

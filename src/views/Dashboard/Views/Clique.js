@@ -30,7 +30,9 @@ class Feeds extends Component {
               <p onClick={ this.subscribe }><Button>Subscribe</Button></p>
             </Col>
             <Col>
-              <p onClick={ ()=>this.props.onCreatePostClick(this.props.clique_name) }><Button>Create Post</Button></p>
+              <p onClick={ ()=>this.props.onCreatePostClick(this.props.clique_name) }>
+                <Button>Create Post</Button>
+              </p>
             </Col>
           </Row>
           <Row>
