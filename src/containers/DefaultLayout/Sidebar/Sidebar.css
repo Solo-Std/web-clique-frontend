@@ -2,19 +2,27 @@
 
 .sidebar-container{
   background-color: #21b5b5;
+  position: relative;
   grid-column-start:  auto;
   grid-column-end: auto;
   grid-row-start: auto;
   grid-row-end: auto;
+
+  margin-top: 10px;
+
   font-family: Roboto;
 }
 
 .sidebar-containerALL{
   background-color: #ffdb2b;
+  position: relative;
   grid-column-start:  auto;
   grid-column-end: auto;
   grid-row-start: auto;
   grid-row-end: auto;
+
+  /*margin-top: 10px;*/
+
   font-family: Roboto;
 }
 
