@@ -11,11 +11,14 @@ class Feeds extends Component {
   constructor( props ) {
     super( props );
 
-    this.subbed;
+    this.state = {
+      subbed: false
+    };
 
     this.renderTitle = this.renderTitle.bind( this );
     this.subscribe = this.subscribe.bind( this );
     this.unsubscribe = this.unsubscribe.bind( this );
+    this.check_subscription = this.check_subscription.bind( this );
   }
 
   renderTitle() {
@@ -42,32 +45,31 @@ class Feeds extends Component {
   }
 
   renderSubButton(){
-    let data = [];
-
-    API.get( `subscribed_clique_relation/checksubscription` + "/" + localStorage.getItem("username") + "/" + localStorage.getItem("visiting_clique"))
-      .then(response=>{
-        this.subbed = response.data;
-
-        console.log("Subbed-in: " + this.subbed);
-      });
-
-    console.log("Subbed-out: " + this.subbed);
-    if(this.subbed){
-      data.push(
+    if(!this.state.subbed){
+      return(
         <Col>
           <p onClick={ this.subscribe }><Button>Subscribe</Button></p>
         </Col>
       );
     }
     else{
-      data.push(
+      return(
         <Col>
           <p onClick={ this.unsubscribe }><Button>Unsubscribe</Button></p>
         </Col>
       );
     }
+  }
 
-    return data;
+  componentWillMount(){
+    this.check_subscription();
+  }
+
+  check_subscription(){
+    API.get( `subscribed_clique_relation/checksubscription` + "/" + localStorage.getItem("username") + "/" + localStorage.getItem("visiting_clique"))
+      .then(response=>{
+        this.setState({subbed:response.data});
+      });
   }
 
   subscribe() {
@@ -78,7 +80,7 @@ class Feeds extends Component {
         username: localStorage.getItem( 'username' )
       } )
       .then( res => {
-
+        this.check_subscription();
       } )
       .catch( error => {
         console.log( error );
@@ -93,7 +95,7 @@ class Feeds extends Component {
         clique_name: localStorage.getItem("visiting_clique"),
       } )
       .then( res => {
-
+        this.check_subscription();
       } )
       .catch( error => {
         console.log( error );
