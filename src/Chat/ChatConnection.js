@@ -28,21 +28,19 @@ class ChatConnection extends Component {
     };
 
     this.inbox.onclose = () =>{
-      this.inbox.reconnect();
-      console.log('inbox closed');
+      this.inbox._connect();
     };
 
     this.inbox.onopen = () =>{
-      console.log('inbox opened');
+
     };
 
     this.outbox.onclose = () =>{
-      this.outbox.reconnect();
-      console.log('outbox closed');
+      this.outbox._connect();
     };
 
     this.outbox.onopen = () => {
-      console.log("outbox opened");
+
     };
   }
 

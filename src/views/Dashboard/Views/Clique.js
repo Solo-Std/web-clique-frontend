@@ -66,7 +66,7 @@ class Feeds extends Component {
   }
 
   check_subscription(){
-    API.get( `subscribed_clique_relation/checksubscription` + "/" + localStorage.getItem("username") + "/" + localStorage.getItem("visiting_clique"))
+    API.get( `subscribed_clique_relation/checksubscription/` + localStorage.getItem("username") + "/" + localStorage.getItem("visiting_clique"))
       .then(response=>{
         this.setState({subbed:response.data});
       });
