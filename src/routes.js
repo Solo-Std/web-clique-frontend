@@ -7,11 +7,6 @@ function Loading() {
   return <div>Loading...</div>;
 }
 
-const Dashboard = Loadable({
-  loader: () => import('./views/Dashboard'),
-  loading: Loading,
-});
-
 const Feeds = Loadable({
   loader: () => import('./views/Dashboard/Views/Feeds'),
   loading: Loading,
@@ -34,7 +29,6 @@ const Profile = Loadable({
 
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
-  // { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/feeds', name: 'Feeds', component: Feeds },
   { path: '/post/:id', name: 'Post', component: Post },
   { path: '/clique/:id', name: 'Clique', component: Clique },
