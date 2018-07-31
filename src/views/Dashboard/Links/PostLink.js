@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {NavLink} from 'react-router-dom'
 
-class PostLink extends Component {
-  render() {
-    return (
-      <span className="font-lg">
-        <a onClick={ () => this.props.onClick( this.props.value[ 'post_id' ] ) }>
-          { this.props.value[ 'post_title' ] }
-        </a>
-        <br/>
-      </span>
-    );
-  }
-}
+const PostLink = (props) => (
+  <span className="font-lg">
+    <a>
+      <NavLink to={"/post/" + props.value['post_id']}>
+        {props.value['post_title']}
+      </NavLink>
+    </a><br/>
+  </span>
+)
 
 export default PostLink;

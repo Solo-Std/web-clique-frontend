@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./Sidebar.css";
 import PropTypes from 'prop-types';
 import API from "../../../api";
+import {NavLink} from "react-router-dom";
 
 const defaultProps = {};
 
@@ -36,9 +37,11 @@ class Sidebar extends Component{
   render(){
     return(
       <ul className="mdc-list sidebar-scroll">
-        <li className={"mdc-list-item sidebar-containerALL sidebar-text "}
-          onClick={ ()=>{this.props.onSidebarAllClick();} }
-        >All </li>
+          <NavLink to={"/feeds"}>
+            <li className={"mdc-list-item sidebar-containerALL sidebar-text "}>
+              All
+            </li>
+          </NavLink>
         { this.renderClique() }
       </ul>
     );
@@ -48,12 +51,15 @@ class Sidebar extends Component{
     let data = [];
     this.state.items.forEach((item, idx)=> {
         data.push(
-          <li key={idx} className="mdc-list-item sidebar-container sidebar-text glyphicon glyphicon-star"
-              onClick={ () => {
-                this.props.onSidebarCliqueClick( item[ 'title' ] );
-                localStorage.setItem( "visiting_clique", item[ 'title' ] );
-              } }
-          >{ item[ 'title' ] }</li>
+          <NavLink to={"/clique/"+item['title']}>
+            <li key={idx} className="mdc-list-item sidebar-container sidebar-text glyphicon glyphicon-star"
+                onClick={ () => {
+                  localStorage.setItem( "visiting_clique", item[ 'title' ] );
+                } }
+            >
+              { item[ 'title' ] }
+              </li>
+          </NavLink>
         )
     });
     return data;

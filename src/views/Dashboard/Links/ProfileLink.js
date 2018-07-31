@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TimeAgo from 'react-timeago';
+import {NavLink} from 'react-router-dom'
 
-class ProfileLink extends Component {
-  render() {
-    return (
-      <span className="font-xs">Posted by&nbsp;
-        <a className="text-info" onClick={ () => {
-          this.props.onClick( this.props.value[ 'username' ] );
-          localStorage.setItem( "visiting_profile", this.props.value[ 'username' ] );
-        } }>
-          @{ this.props.value[ 'username' ] }
-        </a>
-        &nbsp;
-        <span className="font-xs">
-          <TimeAgo date={ this.props.value[ 'date_created' ] }/>
-        </span>
+const ProfileLink = (props) => (
+  <span className="font-xs">Posted by&nbsp;
+    <a className="text-info" onClick={() => {
+      localStorage.setItem("visiting_profile", props.value['username']);
+    }}>
+      <NavLink to={"/user/" + props.value['username']}>
+        @{props.value['username']}
+      </NavLink>
+    </a>
+    &nbsp;
+    <span className="font-xs">
+        <TimeAgo date={props.value['date_created']}/>
       </span>
-    );
-  }
-}
+  </span>
+)
 
 export default ProfileLink;

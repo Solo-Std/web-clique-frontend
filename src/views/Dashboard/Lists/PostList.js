@@ -12,11 +12,9 @@ class PostList extends Component {
     this.state = {
       items: []
     };
-
-    this.load = this.load.bind( this );
   }
 
-  async load() {
+  load = async () => {
     let response;
     if ( this.props.data === "all" )
       response = await API.get( `post_master/` );
@@ -50,12 +48,9 @@ class PostList extends Component {
               <Row>
                 <img src="https://picsum.photos/200" width="80" height="60" alt={ "cannot load" }/>
                 <Col sm="10">
-                  <PostLink onClick={ this.props.onPostClick }
-                            value={ item }/>
-                  <CliqueLink onClick={ this.props.onCliqueClick }
-                              value={ item }/>
-                  <ProfileLink onClick={ this.props.onProfileClick }
-                               value={ item }/>
+                  <PostLink value={ item }/>
+                  <CliqueLink value={ item }/>
+                  <ProfileLink value={ item }/>
                 </Col>
               </Row>
             </Col>

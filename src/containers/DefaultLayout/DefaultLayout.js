@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar';
 
 import {
@@ -7,10 +7,11 @@ import {
   AppSidebar
 } from '@coreui/react';
 import DefaultHeader from './DefaultHeader';
-import Dashboard from "../../views/Dashboard";
 import './DefaultLayout.css';
 import ChatConnection from "../../Chat/ChatConnection";
 import API from '../../api';
+import {Container} from "reactstrap";
+import routes from "../../routes";
 
 
 
@@ -25,10 +26,6 @@ class DefaultLayout extends Component {
       visiting_clique: 'gaming',
       sidebarCtr:0
     };
-    this.onSidebarCliqueClick = this.onSidebarCliqueClick.bind( this );
-    this.onClick = this.onClick.bind( this );
-    this.logout = this.logout.bind( this );
-    this.mainMenuRedirect = this.mainMenuRedirect.bind(this);
   }
 
   componentWillMount() {
@@ -57,28 +54,14 @@ class DefaultLayout extends Component {
     localStorage.setItem( 'visiting_profile', localStorage.getItem( 'username' ) );
   }
 
-  onSidebarCliqueClick() {
-    this.setState( { sidebar: true } );
-    this.setState( { all: false } );
-    this.setState( { visiting_clique: localStorage.getItem( "visiting_clique" ) } );
-    console.log( 'Clicked Clique: ' + localStorage.getItem( "visiting_clique" ) );
-    this.setState({sidebarCtr:this.state.sidebarCtr+1});
-  }
-
-  onSidebarAllClick() {
-    this.setState( { sidebar: false } );
-    this.setState( { all: true } );
-  }
-
-  logout() {
+  logout = () => {
     localStorage.setItem( 'session_token', '' );
   }
 
-  mainMenuRedirect()
+  mainMenuRedirect = () =>
   {
     window.location.reload();
     console.log("main menu called!");
-  //  main menu stuff here
   }
 
   render() {
@@ -103,20 +86,22 @@ class DefaultLayout extends Component {
         </AppHeader>
         <div className="app-body">
           <AppSidebar float="true" display="lg">
-            <Sidebar
-              onSidebarAllClick={ () => {
-                this.onSidebarAllClick();
-              } }
-              onSidebarCliqueClick={ () => {
-                this.onSidebarCliqueClick();
-              } }/>
+            <Sidebar/>
           </AppSidebar>
-          <main className="main defaultlayout">
-            <Dashboard clique_name={ localStorage.getItem( "visiting_clique" ) }
-                       all={ this.state.all }
-                       profile={ this.state.profile }
-                       sidebar={ this.state.sidebar }
-                      sidebarCtr={this.state.sidebarCtr}/>
+          <main className="main">
+            {/* <AppBreadcrumb appRoutes={routes}/> */}
+            <Container fluid>
+              <Switch>
+                {routes.map((route, idx) => {
+                    return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
+                        <route.component {...props} />
+                      )} />)
+                      : (null);
+                  },
+                )}
+                <Redirect from="/" to="/feeds" />
+              </Switch>
+            </Container>
           </main>
         </div>
       </div>

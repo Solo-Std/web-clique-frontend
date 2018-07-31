@@ -26,8 +26,8 @@ class CreatePost extends Component {
   submitPost( content ){
     console.log("Clique: " + localStorage.getItem("visiting_clique"));
     console.log("User: " + localStorage.getItem("username"));
-    console.log("Post Title: " + this.title);
-    console.log("Post Content: " + content);
+    console.log("PostComponent Title: " + this.title);
+    console.log("PostComponent Content: " + content);
 
     API.post( `post_master/insert`,
       {

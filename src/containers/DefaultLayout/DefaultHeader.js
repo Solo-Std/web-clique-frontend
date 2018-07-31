@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from "../../assets/img/brand/logo.png";
 import imgPlaceholder from "../../assets/img/profile-placeholder.jpg";
-import { Redirect } from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import "./DefaultLayout.css";
 import API from "../../api";
 
@@ -90,14 +90,11 @@ class DefaultHeader extends Component {
               <DropdownItem><i className="fa fa-tasks"/> Tasks<Badge color="danger">42</Badge></DropdownItem>
               <DropdownItem><i className="fa fa-comments"/> Comments<Badge color="warning">42</Badge></DropdownItem>
               <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
-              <DropdownItem onClick={ () => {
-                this.props.onClick();
-              } }> <i className="fa fa-user"/> Profile</DropdownItem>
-              { /*<DropdownItem><i className="fa fa-wrench"/> Settings</DropdownItem>*/ }
-              { /*<DropdownItem><i className="fa fa-usd"/> Payments<Badge color="secondary">42</Badge></DropdownItem>*/ }
-              { /*<DropdownItem><i className="fa fa-file"/> Projects<Badge color="primary">42</Badge></DropdownItem>*/ }
-              { /*<DropdownItem divider />*/ }
-              { /*<DropdownItem><i className="fa fa-shield"/> Lock Account</DropdownItem>*/ }
+              <NavLink to={"/user/" + localStorage.getItem("username")}>
+                <DropdownItem >
+                    <i className="fa fa-user"/> Profile
+                </DropdownItem>
+              </NavLink>
               <DropdownItem onClick={ () => {
                 this.props.logout();
                 this.setState( { redirect: true } );

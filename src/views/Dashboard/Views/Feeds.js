@@ -4,16 +4,12 @@ import './Feeds.css';
 import PostList from "../Lists/PostList";
 
 class Feeds extends Component {
-  render() {
+  render = () => {
     return (
       <Col sm={ "12" }>
         <div className="animated fadeIn">
           <ListGroup>
-            <PostList data="all"
-                      onProfileClick={ this.props.onProfileClick }
-                      onCliqueClick={ this.props.onCliqueClick }
-                      onPostClick={ this.props.onPostClick }
-            />
+            <PostList data="all"/>
           </ListGroup>
         </div>
       </Col>

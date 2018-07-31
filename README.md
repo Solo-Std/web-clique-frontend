@@ -28,7 +28,7 @@ Deployed using [Heroku](https://heroku.com)
 
 ## Features
   -  User Relationship (Add Friend, Remove Friend)
-  -  Create Post, Read Post
+  -  Create PostComponent, Read PostComponent
   -  Comment, Reply
   -  Subscribe, Unsubscribe Clique (Thread)
   -  Global Live Chat
