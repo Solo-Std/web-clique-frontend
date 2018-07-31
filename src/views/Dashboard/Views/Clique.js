@@ -3,7 +3,7 @@ import React from "react";
 
 
 const Clique = ({match}) => {
-  return <CliqueComponent id={ match.params.id }/>
+  return <CliqueComponent clique_name={ match.params.id }/>
 }
 
 export default Clique

@@ -23,7 +23,7 @@ const Post = Loadable({
 });
 
 const Clique = Loadable({
-  loader: () => import('./views/Dashboard/Views/CliqueComponent'),
+  loader: () => import('./views/Dashboard/Views/Clique'),
   loading: Loading,
 });
 

@@ -7,7 +7,7 @@ import API from "../../../api";
 import { Button } from "rmwc/Button/index";
 import PostList from "../Lists/PostList";
 
-class Feeds extends Component {
+class CliqueComponent extends Component {
   constructor( props ) {
     super( props );
 
@@ -28,9 +28,7 @@ class Feeds extends Component {
           <Row>
             {this.renderSubButton()}
             <Col>
-              {/*<p onClick={ ()=>this.props.onCreatePostClick(this.props.clique_name) }>*/}
-                {/*<Button>Create Post</Button>*/}
-              {/*</p>*/}
+              <Button>Create Post</Button>
             </Col>
           </Row>
         </Container>
@@ -61,7 +59,7 @@ class Feeds extends Component {
   }
 
   check_subscription = () => {
-    API.get( `subscribed_clique_relation/checksubscription/` + localStorage.getItem("username") + "/" + localStorage.getItem("visiting_clique"))
+    API.get( `subscribed_clique_relation/checksubscription/` + localStorage.getItem("username") + "/" + this.props.clique_name)
       .then(response=>{
         this.setState({subbed:response.data});
       });
@@ -87,7 +85,7 @@ class Feeds extends Component {
     API.post( `subscribed_clique_relation/unsubscribe`,
       {
         username: localStorage.getItem("username"),
-        clique_name: localStorage.getItem("visiting_clique"),
+        clique_name: this.props.clique_name,
       } )
       .then( res => {
         this.check_subscription();
@@ -113,4 +111,4 @@ class Feeds extends Component {
   }
 }
 
-export default Feeds;
+export default CliqueComponent;
