@@ -10,6 +10,7 @@ import Callout from "./Callout";
 import PostList from "../../Lists/PostList";
 import imgPlaceholder from '../../../../assets/img/profile-placeholder.jpg';
 import isLoggedIn from "../../../../HOC/isLoggedIn";
+import Context from "../../../../contexts";
 
 const userState = {
   LOADING: 1,
@@ -34,7 +35,7 @@ class UnwrappedProfileComponent extends Component {
       this.setState({userState: userState.LOADING});
       await API.post('user_friends_relation/unfriend', {
         visitor: localStorage.getItem("username"),
-        visited: this.props.id
+        visited: this.props.username
       });
       this.is_friend();
     }
@@ -48,7 +49,7 @@ class UnwrappedProfileComponent extends Component {
       this.setState({userState: userState.LOADING});
       await API.post('user_friends_relation/add_friend', {
         visitor: localStorage.getItem("username"),
-        visited: this.props.id
+        visited: this.props.username
       });
       this.is_friend();
     } catch (e) {
@@ -60,7 +61,7 @@ class UnwrappedProfileComponent extends Component {
     try {
       const response = await API.post('user_friends_relation/is_friend', {
         visitor: localStorage.getItem("username"),
-        visited: this.props.id
+        visited: this.props.username
       });
       if (response.data === "SUCCESS")
         this.setState({userState: userState.FRIEND});
@@ -74,7 +75,7 @@ class UnwrappedProfileComponent extends Component {
 
   componentWillMount() {
     this.loadImage();
-    if (localStorage.getItem('username') === this.props.id)
+    if (localStorage.getItem('username') === this.props.username)
       this.setState({userState: userState.CURRENT});
     else {
       this.is_friend();
@@ -82,12 +83,12 @@ class UnwrappedProfileComponent extends Component {
   }
 
   renderName = () => {
-    if (localStorage.getItem('username') === this.props.id)
+    if (localStorage.getItem('username') === this.props.username)
       return (<div className="container"><h1
         className="display-5">Welcome, {this.props.id}!</h1>
         <p className="lead">View and edit your personal info.</p></div>);
     else
-      return (<div className="container"><h1 className="display-5">{this.props.id}'s
+      return (<div className="container"><h1 className="display-5">{this.props.username}'s
         Profile</h1></div>);
   }
 
@@ -119,7 +120,7 @@ class UnwrappedProfileComponent extends Component {
     }).then(res => {
       if (res.data !== "FAILED") {
         this.setState({image: res.data['image_ext'] + ',' + res.data['image']});
-        if (localStorage.getItem("username") === this.props.id) {
+        if (localStorage.getItem("username") === this.props.username) {
           this.setState({userState: userState.CURRENT})
         }
         else {
@@ -182,11 +183,13 @@ class UnwrappedProfileComponent extends Component {
           <h1 className="display-5">Recent Posts</h1>
           <Col sm={"12"}>
             <div className="animated fadeIn">
-              <ListGroup>
-                <PostList data="profile"
-                          param={this.props.id}
-                />
-              </ListGroup>
+              <Context.Consumer>
+                {({data}) => (
+                  <ListGroup>
+                    <PostList type="profile" items={data} params={this.props.username}/>
+                  </ListGroup>
+                )}
+              </Context.Consumer>
             </div>
           </Col>
         </div>

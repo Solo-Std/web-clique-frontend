@@ -1,47 +1,24 @@
-import React, { Component } from 'react';
-import { Col, ListGroupItem, Row } from "reactstrap";
-import CliqueLink from "../Links/CliqueLink";
-import PostLink from "../Links/PostLink";
-import ProfileLink from "../Links/ProfileLink";
-import API from "../../../api";
+import React, { Component } from 'react'
+import { Col, ListGroupItem, Row } from "reactstrap"
+import CliqueLink from "../Links/CliqueLink"
+import PostLink from "../Links/PostLink"
+import ProfileLink from "../Links/ProfileLink"
 
 class PostList extends Component {
-  constructor( props ) {
-    super( props );
-
-    this.state = {
-      items: []
-    };
-  }
-
-  load = async () => {
-    let response;
-    if ( this.props.data === "all" )
-      response = await API.get( `post_master/` );
-    else if ( this.props.data === "profile" )
-      response = await API.get( `post_master/fetch_user_posts/` + this.props.param );
-    else if ( this.props.data === "clique" )
-      response = await API.get( `post_master/get_clique_post/` + localStorage.getItem( 'visiting_clique' ) );
-
-    let data = [];
-    response.data.map( ( content, index ) => data[ index ] = content );
-    this.setState( { items: data } );
-  }
-
-  componentWillMount() {
-    this.load();
-  }
-
-  componentDidUpdate() {
-    if ( this.props.data === "clique" && this.props.param !== localStorage.getItem( 'visiting_clique' ) ) {
-      this.load();
-    }
-  }
-
   render() {
     let data = [];
-    if ( this.state.items.length > 0 ) {
-      this.state.items.forEach( ( item, idx ) => {
+    let items = [];
+
+    if(this.props.type==="all")
+      items = this.props.items
+    else if(this.props.type==="clique")
+      items = this.props.items.filter(d=>d['clique_name']===this.props.params)
+    else if(this.props.type==="profile")
+      items = this.props.items.filter(d=>d['username']===this.props.params)
+
+    console.log(this.props.items)
+    if ( items.length > 0 ) {
+      items.forEach( ( item, idx ) => {
         data.push(
           <ListGroupItem key={ idx }>
             <Col xs={ "12" }>
@@ -59,8 +36,7 @@ class PostList extends Component {
       } );
       return data;
     }
-
-    else if ( this.state.items.length === 0 ) {
+    else if ( items.length === 0 ) {
       data.push(
         <ListGroupItem key={ 0 }>
           <Col xs={ "12" }>

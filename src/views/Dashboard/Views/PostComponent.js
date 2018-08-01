@@ -166,10 +166,7 @@ class UnwrappedPostComponent extends Component {
                   </span>
               </Ripple>
               &nbsp;
-              <a className="text-info" onClick={ () => {
-                // this.props.onProfileClick(reply[ 'username' ]);
-                localStorage.setItem("visiting_profile",reply[ 'username' ])}
-              }>@{ reply[ 'username' ] }</a>
+              <a className="text-info">@{ reply[ 'username' ] }</a>
               &nbsp;
               <TimeAgo date={ reply[ 'date_created' ] }/>
             </small>
@@ -201,13 +198,11 @@ class UnwrappedPostComponent extends Component {
       <div>
         <ListGroupItem>
           <Col xs={ "12" }>
-            {/*<Row>*/}
-              {/*<CliqueLink onClick={ this.props.onCliqueClick }*/}
-                           {/*value={ this.state.posts }/>*/}
-              {/*&nbsp;*/}
-              {/*<ProfileLink onClick={ this.props.onProfileClick }*/}
-                           {/*value={ this.state.posts }/>*/}
-            {/*</Row>*/}
+            <Row>
+              <CliqueLink value={ this.state.posts }/>
+              &nbsp;
+              <ProfileLink value={ this.state.posts }/>
+            </Row>
             <Row>
               <span className="font-lg">{ this.state.posts[ 'post_title' ] }<br/></span>
             </Row>

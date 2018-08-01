@@ -7,6 +7,7 @@ import API from "../../../api";
 import { Button } from "rmwc/Button/index";
 import PostList from "../Lists/PostList";
 import isLoggedIn from "../../../HOC/isLoggedIn";
+import Context from "../../../contexts";
 
 class UnwrappedCliqueComponent extends Component {
   constructor( props ) {
@@ -101,17 +102,18 @@ class UnwrappedCliqueComponent extends Component {
       <Col sm={ "12" }>
         <div className="animated fadeIn">
           { this.renderTitle() }
-          <ListGroup>
-            <PostList data="clique"
-                      param={ this.props.clique_name }
-            />
-          </ListGroup>
+          <Context.Consumer>
+            {({data}) => (
+              <ListGroup>
+                <PostList type="clique" items={data} params={this.props.clique_name}/>
+              </ListGroup>
+            )}
+          </Context.Consumer>
         </div>
       </Col>
     );
   }
 }
-
 
 const CliqueComponent = isLoggedIn(UnwrappedCliqueComponent)
 
