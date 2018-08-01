@@ -9,6 +9,7 @@ import {Image} from "react-bootstrap";
 import Callout from "./Callout";
 import PostList from "../../Lists/PostList";
 import imgPlaceholder from '../../../../assets/img/profile-placeholder.jpg';
+import isLoggedIn from "../../../../HOC/isLoggedIn";
 
 const userState = {
   LOADING: 1,
@@ -17,7 +18,7 @@ const userState = {
   NON_FRIEND: 4
 };
 
-class ProfileComponent extends Component {
+class UnwrappedProfileComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -193,5 +194,6 @@ class ProfileComponent extends Component {
     );
   }
 }
+const ProfileComponent = isLoggedIn(UnwrappedProfileComponent)
 
 export default ProfileComponent;

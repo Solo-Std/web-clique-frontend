@@ -15,8 +15,10 @@ import API from "../../../api";
 // import FacebookLoginButton from "../Register/ThirdPartyLogin/FacebookLoginButton";
 // import GoogleLoginButton from "../Register/ThirdPartyLogin/GoogleLoginButton";
 import { Redirect } from "react-router-dom";
+import isLoggedIn from "../../../HOC/isLoggedIn";
+import isLoggedOut from "../../../HOC/isLoggedOut";
 
-class Login extends React.Component {
+class UnwrappedLogin extends React.Component {
   constructor( props ) {
     super( props );
     this.state = {
@@ -179,5 +181,7 @@ class Login extends React.Component {
     );
   }
 }
+
+const Login = isLoggedOut(UnwrappedLogin)
 
 export default Login;

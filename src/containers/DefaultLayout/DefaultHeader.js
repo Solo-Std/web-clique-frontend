@@ -8,6 +8,7 @@ import imgPlaceholder from "../../assets/img/profile-placeholder.jpg";
 import {NavLink, Redirect} from "react-router-dom";
 import "./DefaultLayout.css";
 import API from "../../api";
+import isLoggedIn from "../../HOC/isLoggedIn";
 
 const propTypes = {
   children: PropTypes.node,
@@ -15,7 +16,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-class DefaultHeader extends Component {
+class UnwrappedDefaultHeader extends Component {
 
   constructor( props ) {
     super( props );
@@ -24,11 +25,9 @@ class DefaultHeader extends Component {
       redirectToMainMenu: false,
       image:imgPlaceholder
     };
-
-    this.loadImage = this.loadImage.bind(this);
   }
 
-  loadImage(){
+  loadImage = () => {
     API.post('user_master/get_image',{
       username: localStorage.getItem("username")
     }).then(res=>{
@@ -47,22 +46,11 @@ class DefaultHeader extends Component {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
 
-    const { redirect } = this.state;
-    if ( redirect )
-      return <Redirect to='/login'></Redirect>;
-
-    const { redirectToMainmenu } = this.state;
-    if ( redirectToMainmenu ) return <Redirect to='/#'/>;
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile/>
         <AppNavbarBrand
           full={ { src: logo, width: 175, height: 175, alt: 'CoreUI Logo' } }
-          onClick={ () => {
-            // this.setState({redirectToMainMenu:true})
-            this.props.mainMenuRedirect();
-          } }
           href="#"
         >
 
@@ -96,8 +84,8 @@ class DefaultHeader extends Component {
                 </DropdownItem>
               </NavLink>
               <DropdownItem onClick={ () => {
+                console.log("clicked")
                 this.props.logout();
-                this.setState( { redirect: true } );
               } }><i className="fa fa-lock"/> Logout</DropdownItem>
 
             </DropdownMenu>
@@ -108,7 +96,10 @@ class DefaultHeader extends Component {
   }
 }
 
-DefaultHeader.propTypes = propTypes;
-DefaultHeader.defaultProps = defaultProps;
+UnwrappedDefaultHeader.propTypes = propTypes
+UnwrappedDefaultHeader.defaultProps = defaultProps
 
-export default DefaultHeader;
+const DefaultHeader = isLoggedIn(UnwrappedDefaultHeader)
+
+
+export default DefaultHeader

@@ -8,8 +8,9 @@ import TextEditor from "./Components/TextEditor";
 import { Ripple } from "rmwc/Ripple";
 import ProfileLink from "../Links/ProfileLink";
 import CliqueLink from "../Links/CliqueLink";
+import isLoggedIn from "../../../HOC/isLoggedIn";
 
-class PostComponent extends Component {
+class UnwrappedPostComponent extends Component {
   constructor( props ) {
     super( props );
 
@@ -235,5 +236,7 @@ class PostComponent extends Component {
     );
   }
 }
+
+const PostComponent = isLoggedIn(UnwrappedPostComponent)
 
 export default PostComponent;

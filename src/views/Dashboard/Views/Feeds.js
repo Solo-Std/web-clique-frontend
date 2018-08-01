@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Col, ListGroup } from 'reactstrap';
 import './Feeds.css';
 import PostList from "../Lists/PostList";
+import isLoggedIn from "../../../HOC/isLoggedIn";
 
-class Feeds extends Component {
+class UnwrappedFeeds extends Component {
   render = () => {
     return (
       <Col sm={ "12" }>
@@ -16,5 +17,7 @@ class Feeds extends Component {
     );
   }
 }
+
+const Feeds = isLoggedIn(UnwrappedFeeds)
 
 export default Feeds;

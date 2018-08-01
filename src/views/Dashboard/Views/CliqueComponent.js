@@ -6,8 +6,9 @@ import {
 import API from "../../../api";
 import { Button } from "rmwc/Button/index";
 import PostList from "../Lists/PostList";
+import isLoggedIn from "../../../HOC/isLoggedIn";
 
-class CliqueComponent extends Component {
+class UnwrappedCliqueComponent extends Component {
   constructor( props ) {
     super( props );
 
@@ -110,5 +111,8 @@ class CliqueComponent extends Component {
     );
   }
 }
+
+
+const CliqueComponent = isLoggedIn(UnwrappedCliqueComponent)
 
 export default CliqueComponent;

@@ -12,6 +12,8 @@ import React from 'react';
 // import GoogleLoginButton from "./ThirdPartyLogin/GoogleLoginButton";
 import TextField from "./TextField";
 import { Redirect } from "react-router-dom";
+import isLoggedIn from "../../../HOC/isLoggedIn";
+import isLoggedOut from "../../../HOC/isLoggedOut";
 
 export const validState = {
   NONE: 1,
@@ -25,7 +27,7 @@ export const validState = {
   DIFFERENT_PASSWORD: 9
 };
 
-class Register extends React.Component {
+class UnwrappedRegister extends React.Component {
   constructor( props ) {
     super( props );
     this.state = {
@@ -278,5 +280,7 @@ class Register extends React.Component {
     );
   }
 }
+
+const Register = isLoggedOut(UnwrappedRegister)
 
 export default Register;
