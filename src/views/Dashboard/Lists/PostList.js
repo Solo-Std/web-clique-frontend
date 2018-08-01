@@ -16,7 +16,6 @@ class PostList extends Component {
     else if(this.props.type==="profile")
       items = this.props.items.filter(d=>d['username']===this.props.params)
 
-    console.log(this.props.items)
     if ( items.length > 0 ) {
       items.forEach( ( item, idx ) => {
         data.push(
