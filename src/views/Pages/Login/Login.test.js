@@ -1,9 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Login from './Login';
+import React from 'react'
+import API from "../../../api";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Login />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+
+test('fails if user is not registered',async ()=>{
+  let res = await API.post( 'user_master/login',
+    {
+      username: 'Takiiz',
+      password: 'pwd',
+      user_id: 1
+    } )
+  expect(res.data['username']).toBe('Takiiz');
+  console.log(res)
+},20000);

@@ -10,7 +10,7 @@ import Callout from "./Callout";
 import PostList from "../../Lists/PostList";
 import imgPlaceholder from '../../../../assets/img/profile-placeholder.jpg';
 import isLoggedIn from "../../../../HOC/isLoggedIn";
-import Context from "../../../../contexts";
+import PostContext from "../../../../contexts";
 
 const userState = {
   LOADING: 1,
@@ -183,13 +183,13 @@ class UnwrappedProfileComponent extends Component {
           <h1 className="display-5">Recent Posts</h1>
           <Col sm={"12"}>
             <div className="animated fadeIn">
-              <Context.Consumer>
+              <PostContext.Consumer>
                 {({data}) => (
                   <ListGroup>
                     <PostList type="profile" items={data} params={this.props.username}/>
                   </ListGroup>
                 )}
-              </Context.Consumer>
+              </PostContext.Consumer>
             </div>
           </Col>
         </div>
